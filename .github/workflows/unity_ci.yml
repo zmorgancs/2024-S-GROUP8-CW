@@ -13,10 +13,10 @@ jobs:
       
       # Setup Unity environment
       - name: Setup Unity Environment
-        uses: game-ci/unity-action@v2
+        uses: game-ci/unity-builder@v2
         with:
           unityVersion: 2022.3.20f1
-      
+
       # Cache Library folder to speed up the job
       - uses: actions/cache@v2
         with:
