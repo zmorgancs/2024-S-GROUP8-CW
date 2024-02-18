@@ -1,0 +1,40 @@
+name: Unity CI
+
+on: [push, pull_request] # Triggered on both push and pull requests
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout the repository code
+      - uses: actions/checkout@v2
+      
+      # Setup Unity environment
+      - name: Setup Unity Environment
+        uses: game-ci/unity-action@v2
+        with:
+          unityVersion: 2022.3.20f1
+      
+      # Cache Library folder to speed up the job
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: ${{ runner.os }}-library-${{ hashFiles('**/ProjectSettings/AssetVersionHashes.asset') }}
+          restore-keys: |
+            ${{ runner.os }}-library-
+            
+      # Build steps / additional commands 
+      - name: Run Unity Tests
+        uses: game-ci/unity-test-runner@v2
+        with:
+          testMode: all # Run both editmode and playmode tests
+      
+      # Upload test results as an artifact 
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Unity Test Results
+          path: test-results
+
