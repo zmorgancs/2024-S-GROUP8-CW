@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isDone = null;
+        isDone = false;
         playerName = "Player 1";
         playerColor = "Blue";
         percentControlled = 0;
