@@ -8,7 +8,7 @@ public class Player
     private string playerName;
     private Color playerColor;
     private double percentControlled;
-    private int tilesControlled
+    private int tilesControlled;
 
     // Constructs the player, used a reference when hotswapping 
     public Player(string name, Color color) { 
@@ -26,13 +26,13 @@ public class Player
 
     // Sets the player's turn to finished
     // Not finalized, may have further functionality 
-    public bool PlayerFinishTurn() {
+    public void PlayerFinishTurn() {
         isDone = true;
     }
 
     // Sets the player's turn to a new turn
     // Not finalized, may have further functionality 
-    public bool PlayerStartTurn(){
+    public void PlayerStartTurn(){
         isDone = false;
     }
 
@@ -40,7 +40,7 @@ public class Player
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For adding references to the actual tiles
-    public int AddTiles() {
+    public void AddTiles() {
         tilesControlled += 1;
     }
 
@@ -48,7 +48,7 @@ public class Player
     // Simple reference for calculating victory
     // Not finalized, may have further functionality 
     // For adding references to the actual tiles
-    public int AddTiles(int amount)
+    public void AddTiles(int amount)
     {
         tilesControlled += amount;
     }
@@ -57,7 +57,7 @@ public class Player
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For removing references to the actual tiles
-    public int RemoveTiles()
+    public void RemoveTiles()
     {
         tilesControlled -= 1;
     }
@@ -66,7 +66,7 @@ public class Player
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For removing references to the actual tiles
-    public int RemoveTiles(int amount)
+    public void RemoveTiles(int amount)
     {
         tilesControlled -= amount;
     }
@@ -82,12 +82,12 @@ public class Player
         return playerName;
     }
 
-    public Color SetColor(Color color)
+    public void SetColor(Color color)
     {
         playerColor = color;
     }
 
-    public string SetName(string name)
+    public void SetName(string name)
     {
         playerName = name;
     }
@@ -95,6 +95,6 @@ public class Player
     // This will be called after tiles are added or removed from player's control
     // And if a turn has elapsed, to make all win conditions checked after the turn is over
     public double CalculatePercentage() { 
-    
+        return 0.0;
     }
 }
