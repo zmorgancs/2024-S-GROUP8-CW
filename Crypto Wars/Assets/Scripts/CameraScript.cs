@@ -20,19 +20,19 @@ public class CameraScript : MonoBehaviour
             // access keyboard to move across x and y (up down left right)
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += new Vector3(0, cameraSpeed * Time.deltaTime, 0);
+            transform.position += new Vector3(-cameraSpeed * Time.deltaTime, 0, 0);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += new Vector3(0, -cameraSpeed * Time.deltaTime, 0);
+            transform.position += new Vector3(cameraSpeed * Time.deltaTime, 0, 0);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += new Vector3(-cameraSpeed * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(0, 0, -cameraSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += new Vector3(cameraSpeed * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(0, 0, cameraSpeed * Time.deltaTime);
         }
     }
 }
