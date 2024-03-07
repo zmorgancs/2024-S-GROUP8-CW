@@ -23,7 +23,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }} # License added to GitHub Secrets
         with:
-          unityVersion: '2022.3.20f1'
+          unityVersion: 'windows-2022.3.20f1-android-3.0.1' # Issue Pipeline docker #7
 
       # Cache Library folder to speed up the job
       - uses: actions/cache@v2
