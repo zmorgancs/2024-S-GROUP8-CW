@@ -6,12 +6,12 @@ public class Player
 {
     private bool isDone;
     private string playerName;
-    private Color playerColor;
+    private Material playerColor;
     private double percentControlled;
     private int tilesControlled;
 
     // Constructs the player, used a reference when hotswapping 
-    public Player(string name, Color color) { 
+    public Player(string name, Material color) { 
         isDone = false;
         playerName = name;
         playerColor = color;
@@ -72,7 +72,7 @@ public class Player
     }
 
     // Simple Getters and Setters
-    public Color GetColor() 
+    public Material GetColor() 
     { 
         return playerColor;
     }
@@ -82,7 +82,7 @@ public class Player
         return playerName;
     }
 
-    public void SetColor(Color color)
+    public void SetColor(Material color)
     {
         playerColor = color;
     }
