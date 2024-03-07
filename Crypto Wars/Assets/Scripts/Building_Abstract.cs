@@ -47,11 +47,14 @@ abstract public class Building_Abstract : MonoBehaviour
         amount = inAmount;
     }
 
-    private void addCardToInventory()
+    private void addCardsToInventory()
     {
         if(turnsSinceLastProdction >= turnsToProduce)
         {
-            inv.addCard(producedCard);
+            for (int i = 0; i < amount; i++)
+            {
+                inv.addCard(producedCard);
+            }
             turnsSinceLastProdction = 0;
         }
     }
