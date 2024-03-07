@@ -95,10 +95,6 @@ public class Player
     // This will be called after tiles are added or removed from player's control
     // And if a turn has elapsed, to make all win conditions checked after the turn is over
     public double CalculatePercentage() { 
-<<<<<<< HEAD
         return 0;
-=======
-        return 0.0;
->>>>>>> bfc8841340526e33eb04a7491f8f915e525b0411
     }
 }
