@@ -18,7 +18,8 @@ public class TurnMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(allAreDone(Players) || turnTimer == maxTurnTime)
+        // Every frame, check if every player's turn is done or if the max Timer is finished 
+        if(allAreDone(Players) || turnTimer >= maxTurnTime)
         {
             currTurn += 1;
             newTurn(Players);
@@ -27,6 +28,9 @@ public class TurnMaster : MonoBehaviour
         turnTimer += Time.deltaTime;
     }
 
+    // Simply iterates through the Players array.
+    // If it every runs into a player's turn that is not finished, it returns false
+    // If it gets through every index and does not return, exits the for loop and returns true
     bool allAreDone(Player[] Players)
     {
         for (int i = 0; i < Players.Length; i++)
@@ -39,6 +43,7 @@ public class TurnMaster : MonoBehaviour
         return true;
     }
 
+    // Iterats through the Players array and sets all of the isDone booleans to false.
     void newTurn(Player[] Players)
     {
         for (int i = 0; i < Players.Length; i++)
