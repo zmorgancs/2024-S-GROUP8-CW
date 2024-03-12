@@ -6,7 +6,7 @@ on: [push, pull_request]
 jobs:
   # The 'test' job is responsible for running tests on the Unity project
   test:
-    name: Test my project
+    name: Test 
     runs-on: ubuntu-latest  # Specifies the runner environment as the latest Ubuntu
     steps:
       # Step to check out the repository code
@@ -32,7 +32,7 @@ jobs:
 
   # The 'build' job is dependent on the 'test' job's completion
   build:
-    name: Build my project
+    name: Build 
     runs-on: ubuntu-latest
     needs: test  # This ensures that the build job runs only after the test job has completed successfully
     steps:
