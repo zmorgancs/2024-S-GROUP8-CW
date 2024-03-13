@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 
 /*
- * ABSTRACT CLASS CardClass - holds values/details for individual cards
+ * CLASS CardClass - holds values/details for individual cards
  *
  *      contains:
  *          GameObject card 
@@ -13,7 +13,7 @@ using UnityEngine;
  *          getters/setters for changing stats
  * 
  */
-abstract public class CardClass
+public class CardClass
 {
     private GameObject card;    // for displaying card
     private cardStats stats;    // contains stats for card (offense,defense,stamina) 
