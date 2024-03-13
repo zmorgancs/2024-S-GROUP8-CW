@@ -8,7 +8,7 @@ public class Building
     private int amount;
     private int turnsToProduce;
     private int turnsSinceLastProdction;
-    private CardClass producedCard;
+    private Card producedCard;
     private Player owner;
     private Tile currentTile;
 
