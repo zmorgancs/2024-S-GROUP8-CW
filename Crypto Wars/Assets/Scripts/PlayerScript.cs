@@ -9,6 +9,7 @@ public class Player
     private Material playerColor;
     private double percentControlled;
     private int tilesControlled;
+    private List<TileScript.TileReference> tilesOwned = new List<TileScript.TileReference>();
 
     // Constructs the player, used a reference when hotswapping 
     public Player(string name, Material color) { 
@@ -40,35 +41,57 @@ public class Player
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For adding references to the actual tiles
-    public void AddTiles() {
+    public void AddTiles(TileScript.TileReference tile) {
         tilesControlled += 1;
+        if(!tilesOwned.Contains(tile))
+        {
+            tilesOwned.Add(tile);
+            Debug.Log("Tile added to player's ownership");
+        }
     }
 
     // Overloaded adding tiles for if amount is more than 1
     // Simple reference for calculating victory
     // Not finalized, may have further functionality 
     // For adding references to the actual tiles
-    public void AddTiles(int amount)
+    public void AddTiles(List<TileScript.TileReference> tiles, int amount)
     {
         tilesControlled += amount;
+        foreach (TileScript.TileReference tile in tiles)
+        {
+            if (!tilesOwned.Contains(tile))
+            {
+                tilesOwned.Add(tile);
+                Debug.Log("Tile added to player's ownership");
+            }         
+        }
     }
 
     // Remove one tile to a player's ownership
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For removing references to the actual tiles
-    public void RemoveTiles()
+    public void RemoveTiles(TileScript.TileReference tile)
     {
         tilesControlled -= 1;
+        bool isRemoved = tilesOwned.Remove(tile);
+        if(!isRemoved)
+            Debug.Log("A tile cannot be removed without prior ownership");
     }
 
     // Overloaded removing tiles for if amount is more than 1
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For removing references to the actual tiles
-    public void RemoveTiles(int amount)
+    public void RemoveTiles(List<TileScript.TileReference> tiles, int amount)
     {
         tilesControlled -= amount;
+        foreach (TileScript.TileReference tile in tiles)
+        {
+            bool isRemoved = tilesOwned.Remove(tile);
+            if (!isRemoved)
+                Debug.Log("A tile cannot be removed without prior ownership");
+        }
     }
 
     // Simple Getters and Setters
