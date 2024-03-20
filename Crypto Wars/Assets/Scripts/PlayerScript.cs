@@ -9,7 +9,7 @@ public class Player
     private Material playerColor;
     private double percentControlled;
     private int tilesControlled;
-    private List<TileScript.TileReference> tilesOwned = new List<TileScript.TileReference>();
+    private List<Tile.TileReference> tilesOwned = new List<Tile.TileReference>();
 
     // Constructs the player, used a reference when hotswapping 
     public Player(string name, Material color) { 
@@ -41,7 +41,7 @@ public class Player
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For adding references to the actual tiles
-    public void AddTiles(TileScript.TileReference tile) {
+    public void AddTiles(Tile.TileReference tile) {
         tilesControlled += 1;
         if(!tilesOwned.Contains(tile))
         {
@@ -54,10 +54,10 @@ public class Player
     // Simple reference for calculating victory
     // Not finalized, may have further functionality 
     // For adding references to the actual tiles
-    public void AddTiles(List<TileScript.TileReference> tiles, int amount)
+    public void AddTiles(List<Tile.TileReference> tiles, int amount)
     {
         tilesControlled += amount;
-        foreach (TileScript.TileReference tile in tiles)
+        foreach (Tile.TileReference tile in tiles)
         {
             if (!tilesOwned.Contains(tile))
             {
@@ -71,7 +71,7 @@ public class Player
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For removing references to the actual tiles
-    public void RemoveTiles(TileScript.TileReference tile)
+    public void RemoveTiles(Tile.TileReference tile)
     {
         tilesControlled -= 1;
         bool isRemoved = tilesOwned.Remove(tile);
@@ -83,10 +83,10 @@ public class Player
     // Simple reference for calculating victory, etc
     // Not finalized, may have further functionality 
     // For removing references to the actual tiles
-    public void RemoveTiles(List<TileScript.TileReference> tiles, int amount)
+    public void RemoveTiles(List<Tile.TileReference> tiles, int amount)
     {
         tilesControlled -= amount;
-        foreach (TileScript.TileReference tile in tiles)
+        foreach (Tile.TileReference tile in tiles)
         {
             bool isRemoved = tilesOwned.Remove(tile);
             if (!isRemoved)
