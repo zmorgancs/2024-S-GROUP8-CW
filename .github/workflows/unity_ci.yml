@@ -21,6 +21,12 @@ jobs:
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: Library-
 
+      # Step to debug Docker 
+      - name: Debug Docker environment
+        run: |
+          docker info
+          docker version
+
       # Step to run the Unity tests
       - name: Run Unity Tests
         uses: game-ci/unity-test-runner@v4
