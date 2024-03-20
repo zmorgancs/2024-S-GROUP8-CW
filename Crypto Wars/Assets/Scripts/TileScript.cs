@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileScript : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     // Backing fields
     private int playerIndex;
@@ -10,6 +10,11 @@ public class TileScript : MonoBehaviour
     // Public properties
     public int BoardXPos { get; private set; }
     public int BoardYPos { get; private set; }
+    public struct TileReference
+    {
+        public Vector2 tilePosition;
+        public string tileName;
+    }
 
     // References to the renderer and materials for the tile
     private MeshRenderer rendererReference;
@@ -39,5 +44,9 @@ public class TileScript : MonoBehaviour
     }
     public void SetMaterial(Material material) {
         rendererReference.material = material;
+    }
+    public Vector2 GetTilePosition()
+    {
+        return new Vector2(BoardXPos, BoardYPos);
     }
 }
