@@ -6,11 +6,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Temp players
-    private List<Player> players;
+    public static List<Player> players { get; set; }
     private int CurrentPlayerIndex;
 
     // Tracks the player who is currently playing
-    private Player CurrentPlayer;
+    public Player CurrentPlayer { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100f)) {
                 if (hit.transform != null) {
-                    TileScript tile = hit.transform.GetComponent<TileScript>();
+                    Tile tile = hit.transform.GetComponent<Tile>();
 
                     if (tile != null) {
                         tile.SetPlayer(CurrentPlayerIndex);

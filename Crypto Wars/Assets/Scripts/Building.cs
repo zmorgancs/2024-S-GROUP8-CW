@@ -2,32 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Building_Abstract : MonoBehaviour
+public class Building
 {
     private GameObject inv;
     private int amount;
     private int turnsToProduce;
     private int turnsSinceLastProdction;
-    private CardClass producedCard;
-    private PlayerScript owner;
-    private TileScript currentTile;
+    private Card producedCard;
+    private Player owner;
+    private Tile currentTile;
 
-    public PlayerScript getOwner()
+    public Player getOwner()
     {
         return owner;
     }
 
-    public void setOwner(PlayerScript newOwner)
+    public void setOwner(Player newOwner)
     {
         owner = newOwner;
     }
 
-    public TileScript getTile()
+    public Tile getTile()
     {
         return currentTile;
     }
 
-    public void setTile(TileScript newTile)
+    public void setTile(Tile newTile)
     {
         currentTile = newTile;
     }
@@ -53,7 +53,7 @@ abstract public class Building_Abstract : MonoBehaviour
         {
             for (int i = 0; i < amount; i++)
             {
-                inv.addCard(producedCard);
+                //inv.addCard(producedCard);
             }
             turnsSinceLastProdction = 0;
         }
