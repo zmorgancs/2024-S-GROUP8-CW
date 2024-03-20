@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 
 /*
- * ABSTRACT CLASS CardClass - holds values/details for individual cards
+ * CLASS CardClass - holds values/details for individual cards
  *
  *      contains:
  *          GameObject card 
@@ -13,18 +13,29 @@ using UnityEngine;
  *          getters/setters for changing stats
  * 
  */
-abstract public class CardClass
+public class Card
 {
-    private GameObject card;    // for displaying card
+    private Sprite card;        // for displaying card
     private cardStats stats;    // contains stats for card (offense,defense,stamina) 
+    private string name;         // name of the card
 
-    // displays the card in Unity
+    public Card(Sprite card, string name) { 
+        this.name = name;
+        this.card = card;   
+    }
+
+    public string getName() { 
+        return name;
+    }
+    /*
+     * // displays the card in Unity
     void displayCard() {
         // check if card was initialized
         if (card != null) {
             card.SetActive(true);
         }
     }
+    */
 
     //////////////////////////
     //////////////////////////
@@ -77,7 +88,7 @@ abstract public class CardClass
     //////////////////////////
     // Struct contains the stats of the card
     //////////////////////////
-    private struct cardStats {
+    public struct cardStats {
         public short defense;
         public short offense;
         public short staminaCost; // can be renamed at a later date

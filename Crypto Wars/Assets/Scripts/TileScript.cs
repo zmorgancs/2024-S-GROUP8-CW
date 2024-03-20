@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileScript : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     // Backing fields
     private int playerIndex;

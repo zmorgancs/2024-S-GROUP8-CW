@@ -6,8 +6,8 @@ public class Battles : MonoBehaviour
 {
     
     bool promptForDefCards;
-   // PlayerScript player1, player2;
-    PlayerScript[] players;  //players array for testing
+    // PlayerScript player1, player2;
+    public static List<Player> players;  //players array for testing
 
     // private class playerAction {
     //     Cards[] playerCards = new Cards[]{};
@@ -21,64 +21,65 @@ public class Battles : MonoBehaviour
     void Start()
     {
         promptForDefCards = false;
-        players = new PlayerScript[2];
+        players = PlayerController.players;
         // intialize two new players (placeholder)
-        players[0] = new PlayerScript();
-        players[1] = new PlayerScript();
-
-        players[0].playerName = "Player 1";
-        players[1].playerName = "Player 2";
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         // get players tiles
-        TileScript t1 = getTile(player[0]);
-        TileScript t2 = getTile(player[1]);
+        TileScript t1 = getTile(players[0]);
+        TileScript t2 = getTile(players[1]);
         //check if player tiles are adjacent for special case
         if (t1.isAdjacent(t2)){
             //specialBattle();
         }
         //if not adjacent
         else {
-            for (int i = 0; i < players.length; i++){
+            for (int i = 0; i < players.Count; i++){
                 //prompt player for defense cards if not prompted already
-                if (!player[i].promptForDefCards){
-                    Debug.Log("Hello" + player1.playerName + ", please select cards for defense!");
-                    player[i].promptForDefCards = true;
+                if (!players[i].promptForDefCards){
+                    Debug.Log("Hello" + players[0].GetName() + ", please select cards for defense!");
+                    players[i].promptForDefCards = true;
 
                     //get defensive cards
                     }
-             //reset if player was prompted for next battle
-             player[i].promptForDefCards = false;
+                //reset if player was prompted for next battle
+                players[i].promptForDefCards = false;
             }
             //call battle and perform calculations
              //Battle();
         }
-
+        */
 
 
     }
 
     
-    bool isAdjacent(TileScript desiredTile){
+    bool isAdjacent(Tile TileFrom, Tile TileTo)
+    {
         bool adjacent;
 
-        int currX = this.tileX;
-        int currY = this.tileY;
+        int currX = TileFrom.BoardXPos;
+        int currY = TileFrom.BoardYPos;
 
-        int desiredX = desiredTile.tileX;
-        int desiredY = desiredTile.tileY;
+        int desiredX = TileTo.BoardXPos;
+        int desiredY = TileTo.BoardYPos;
 
-        adjacent = Mathf.Abs(currentX - desiredX) <= 1 && Mathf.Abs(currentY - desiredY) <= 1;
+        adjacent = Mathf.Abs(currX - desiredX) <= 1 && Mathf.Abs(currY - desiredY) <= 1;
         return adjacent;
     }
 
 
-    TileScript getTile(PlayerScript player){
+    /*
+
+    TileScript getTile(Player player){
         return player.tile;
     }
+
+    */
 
 
     //functions for battle not yet implemented wip or might be implemented else where
