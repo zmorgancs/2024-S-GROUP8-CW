@@ -29,6 +29,8 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}  # GitHub Token to authenticate actions
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # Unity license secret
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}  # Unity Email Secret
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}  # Unity Pass Secret
 
   # The 'build' job is dependent on the 'test' job's completion
   build:
@@ -62,6 +64,8 @@ jobs:
           targetPlatform: StandaloneWindows64  # Specifies the build target platform
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # Unity license secret
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}  # Unity Email Secret
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}  # Unity Pass Secret
 
       # Step to upload the build as an artifact
       - uses: actions/upload-artifact@v3
