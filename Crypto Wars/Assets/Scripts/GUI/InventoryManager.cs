@@ -34,7 +34,7 @@ public class InventoryManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) {
-            AddToStacks(Temp);
+            AddToStackinGUI(Temp);
             for (int i = 0; i < CardStacks.Count; i++){
                 Slots[i].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = CardStacks[i].GetCardinStack().getName() +
                     CardStacks[i].GetSize();
@@ -42,7 +42,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddToStacks(Card card) {
+    public void AddToStackinGUI(Card card) {
         if (CardStacks.Count < 1){
             CardStacks.Add(new CardStack(card, maxCardStack));
         }
@@ -50,8 +50,7 @@ public class InventoryManager : MonoBehaviour
             bool hasBeenAdded = false;
             foreach (CardStack cardStack in CardStacks) {
                 if (!cardStack.IsFull()) { 
-                    if (cardStack.CanAddtoStack(card)) { 
-                        cardStack.AddCardtoStack(card);
+                    if (cardStack.AddCardtoStack(card)) { 
                         hasBeenAdded = true;
                     }
                 }
@@ -67,14 +66,42 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void RemoveCardFromStack(Card card, int index)
+    private CardStack selectedStack = CardStacks[0]; // Stored stack for easy recall
+    // Method for quick removable if player doesn't want to select which stack
+    // the player wants to draw from
+    public void RemoveCardFromGUI(Card card)
+    {
+        int index = 0;
+        if(!selectedStack.GetCardinStack().getName().Equals(card.getName())){
+            foreach(CardStack existing in CardStacks){
+                if(existing.GetCardinStack().getName().Equals(card.getName())){
+                    selectedStack = CardStacks[index];
+                }
+                index++;
+            }
+        }
+        if (selectedStack.GetSize() < 2)
+        {
+            CardStacks.RemoveAt(index);
+        }
+        else {
+            if(!selectedStack.RemoveCardFromStack(card))
+                // Should not be possible, so if this fires something is very wrong
+                return Debug.Log("Card to be removed does not exist in CardStack")
+        }
+    }
+
+    // Method for if the player chooses the specific stack to remove from
+    public void RemoveCardFromGUI(Card card, int index)
     {
         if (CardStacks[index].GetSize() < 2)
         {
             CardStacks.RemoveAt(index);
         }
         else {
-            CardStacks[index].RemoveCardFromStack(card);
+            if(!CardStacks[index].RemoveCardFromStack(card))
+                // Should not be possible, so if this fires something is very wrong
+                return Debug.Log("Card to be removed does not exist in CardStack")
         }
     }
 }
