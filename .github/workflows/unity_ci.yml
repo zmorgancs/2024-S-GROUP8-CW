@@ -32,11 +32,11 @@ jobs:
         uses: game-ci/unity-test-runner@v4
         with:
           projectPath: 'Crypto Wars' # Specifies project path
-          githubToken: ${{ secrets.ACCESS_TOKEN }}  # GitHub Token to authenticate actions
+          githubToken: ${{ secrets.GITHUB_TOKEN }} # Built-in GitHub Token to authenticate actions
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # Unity license secret
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}  # Unity Email Secret
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}  # Unity Pass Secret
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }} # Unity license secret
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }} # Unity Email Secret
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }} # Unity Pass Secret
 
   # The 'build' job is dependent on the 'test' job's completion
   build:
