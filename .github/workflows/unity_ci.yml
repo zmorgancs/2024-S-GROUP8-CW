@@ -32,7 +32,7 @@ jobs:
         uses: game-ci/unity-test-runner@v4
         with:
           projectPath: 'Crypto Wars' # Specifies project path
-          githubToken: ${{ secrets.GITHUB_TOKEN }}  # GitHub Token to authenticate actions
+          githubToken: ${{ secrets.ACCESS_TOKEN }}  # GitHub Token to authenticate actions
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # Unity license secret
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}  # Unity Email Secret
