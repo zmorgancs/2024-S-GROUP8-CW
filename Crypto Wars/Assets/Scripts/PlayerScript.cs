@@ -42,8 +42,6 @@ public class Player
 
     // Add one tile to a player's ownership
     // Simple reference for calculating victory, etc
-    // Not finalized, may have further functionality 
-    // For adding references to the actual tiles
     public void AddTiles(Tile.TileReference tile) {
         tilesControlled += 1;
         if(!tilesOwned.Contains(tile))
@@ -55,8 +53,6 @@ public class Player
 
     // Overloaded adding tiles for if amount is more than 1
     // Simple reference for calculating victory
-    // Not finalized, may have further functionality 
-    // For adding references to the actual tiles
     public void AddTiles(List<Tile.TileReference> tiles, int amount)
     {
         tilesControlled += amount;
@@ -72,8 +68,6 @@ public class Player
 
     // Remove one tile to a player's ownership
     // Simple reference for calculating victory, etc
-    // Not finalized, may have further functionality 
-    // For removing references to the actual tiles
     public void RemoveTiles(Tile.TileReference tile)
     {
         tilesControlled -= 1;
@@ -84,8 +78,6 @@ public class Player
 
     // Overloaded removing tiles for if amount is more than 1
     // Simple reference for calculating victory, etc
-    // Not finalized, may have further functionality 
-    // For removing references to the actual tiles
     public void RemoveTiles(List<Tile.TileReference> tiles, int amount)
     {
         tilesControlled -= amount;
