@@ -16,6 +16,8 @@ public class InventoryManager : MonoBehaviour
     private const int maxSize = 5;
     private const int maxCardStack = 16;
 
+    private CardStack selectedStack; // Stored stack for easy recall
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,28 +68,37 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private CardStack selectedStack = CardStacks[0]; // Stored stack for easy recall
+    
     // Method for quick removable if player doesn't want to select which stack
     // the player wants to draw from
     public void RemoveCardFromGUI(Card card)
     {
-        int index = 0;
-        if(!selectedStack.GetCardinStack().getName().Equals(card.getName())){
-            foreach(CardStack existing in CardStacks){
-                if(existing.GetCardinStack().getName().Equals(card.getName())){
-                    selectedStack = CardStacks[index];
-                }
-                index++;
+        if (selectedStack == null)
+        {
+            if (CardStacks.Count > 0)
+            {
+                selectedStack = CardStacks[0];
             }
         }
-        if (selectedStack.GetSize() < 2)
-        {
-            CardStacks.RemoveAt(index);
-        }
-        else {
-            if(!selectedStack.RemoveCardFromStack(card))
-                // Should not be possible, so if this fires something is very wrong
-                return Debug.Log("Card to be removed does not exist in CardStack")
+        else { 
+            int index = 0;
+            if(!selectedStack.GetCardinStack().getName().Equals(card.getName())){
+                foreach(CardStack existing in CardStacks){
+                    if(existing.GetCardinStack().getName().Equals(card.getName())){
+                        selectedStack = CardStacks[index];
+                    }
+                    index++;
+                }
+            }
+            if (selectedStack.GetSize() < 2)
+            {
+                CardStacks.RemoveAt(index);
+            }
+            else {
+                if (!selectedStack.RemoveCardFromStack(card))
+                    // Should not be possible, so if this fires something is very wrong
+                    Debug.Log("Card to be removed does not exist in CardStack");
+            }
         }
     }
 
@@ -99,9 +110,9 @@ public class InventoryManager : MonoBehaviour
             CardStacks.RemoveAt(index);
         }
         else {
-            if(!CardStacks[index].RemoveCardFromStack(card))
+            if (!CardStacks[index].RemoveCardFromStack(card))
                 // Should not be possible, so if this fires something is very wrong
-                return Debug.Log("Card to be removed does not exist in CardStack")
+                Debug.Log("Card to be removed does not exist in CardStack");
         }
     }
 }

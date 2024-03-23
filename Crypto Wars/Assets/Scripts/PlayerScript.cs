@@ -11,12 +11,15 @@ public class Player
     private int tilesControlled;
     private List<Tile.TileReference> tilesOwned = new List<Tile.TileReference>();
 
+    private Inventory inventory;
+
     // Constructs the player, used a reference when hotswapping 
     public Player(string name, Material color) { 
         isDone = false;
         playerName = name;
         playerColor = color;
         percentControlled = 0;
+        inventory = new Inventory();
     }
 
     // Returns whether the player is done with there turn
