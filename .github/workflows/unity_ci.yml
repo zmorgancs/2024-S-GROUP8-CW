@@ -3,8 +3,7 @@ name: Unity CI
 
 on: 
   pull_request_target:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
   # The 'test' job is responsible for running tests on the Unity project
@@ -13,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest  # Specifies the runner environment as the latest Ubuntu
     steps:
       # Step to check out the repository code
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
