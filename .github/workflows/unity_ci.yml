@@ -3,7 +3,7 @@ name: Unity CI
 
 on: 
   push:
-  pull_request_target:
+  pull_request:
 
 jobs:
   # The 'test' job is responsible for running tests on the Unity project
