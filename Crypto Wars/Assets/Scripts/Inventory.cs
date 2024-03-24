@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
 
     void AddCardToInventory(Card cardType)
     {
+        // Needs check for full GUI inventory
         if(cardInventory.Count < 5)
         {   
             cardInventory.Add(cardType);
@@ -81,3 +82,4 @@ public class Inventory : MonoBehaviour
         }
     }
 }
+

@@ -115,4 +115,6 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log("Card to be removed does not exist in CardStack");
         }
     }
+
+    
 }
