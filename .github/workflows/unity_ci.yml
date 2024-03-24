@@ -2,8 +2,9 @@
 name: Unity CI
 
 on: 
-  push:
   pull_request_target:
+  branches:
+    - master
 
 jobs:
   # The 'test' job is responsible for running tests on the Unity project
@@ -14,6 +15,8 @@ jobs:
       # Step to check out the repository code
       - uses: actions/checkout@v4
         with:
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
           lfs: true  # This will pull LFS files too
 
       # Step to cache the Library folder to speed up the job
