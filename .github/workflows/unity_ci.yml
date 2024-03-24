@@ -2,6 +2,7 @@
 name: Unity CI
 
 on:
+  push:
   pull_request_target:
     types:
       - opened
