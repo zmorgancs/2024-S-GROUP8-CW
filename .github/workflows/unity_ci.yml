@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest  # Specifies the runner environment as the latest Ubuntu
     steps:
       # Step to check out the repository code
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
