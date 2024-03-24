@@ -3,8 +3,8 @@ name: Unity CI
 
 on: 
   pull_request_target:
-  branches:
-    - master
+    branches:
+      - master
 
 jobs:
   # The 'test' job is responsible for running tests on the Unity project
