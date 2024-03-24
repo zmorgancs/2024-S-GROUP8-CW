@@ -1,7 +1,9 @@
 # This workflow is triggered on push or pull request events
 name: Unity CI
 
-on: [push, pull_request_target]
+on: 
+  push:
+  pull_request_target:
 
 jobs:
   # The 'test' job is responsible for running tests on the Unity project
