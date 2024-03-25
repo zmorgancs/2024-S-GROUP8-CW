@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
     public int BoardYPos { get; private set; }
     public struct TileReference
     {
-        public Vector2 tilePosition;
+        public Vector3 tilePosition;
         public string tileName;
     }
 
@@ -45,8 +45,9 @@ public class Tile : MonoBehaviour
     public void SetMaterial(Material material) {
         rendererReference.material = material;
     }
-    public Vector2 GetTilePosition()
+    public Vector3 GetTilePosition()
     {
-        return new Vector2(BoardXPos, BoardYPos);
+        return new Vector3(BoardXPos, BoardYPos);
     }
+
 }
