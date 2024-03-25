@@ -40,8 +40,15 @@ public class PlayerController : MonoBehaviour
                     Tile tile = hit.transform.GetComponent<Tile>();
 
                     if (tile != null) {
-                        tile.SetPlayer(CurrentPlayerIndex);
-                        tile.SetMaterial(players[CurrentPlayerIndex].GetColor());
+                        if(tile.GetPlayer() > -1)
+                        {
+                        } 
+                        else
+                        {
+                            tile.SetPlayer(CurrentPlayerIndex);
+                            tile.SetMaterial(players[CurrentPlayerIndex].GetColor());
+                        }
+                      //  Debug.Log("Tile's Player Index is: " + tile.GetPlayer());
                     }
                 }
             }
@@ -49,7 +56,24 @@ public class PlayerController : MonoBehaviour
         // Temp player switching until TurnMaster additions can be made
         if (Input.GetKeyDown(KeyCode.T)) {
             NextPlayer();
-            Debug.Log("Next");
+            Debug.Log("Next: Player Index is now: " + CurrentPlayerIndex);
+        }
+
+        // DEBUG: allows current player to take tile regardless of who owns it
+        if (Input.GetMouseButton(1))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100f)) {
+                if (hit.transform != null) {
+                    Tile tile = hit.transform.GetComponent<Tile>();
+
+                    if (tile != null) {
+                        tile.SetPlayer(CurrentPlayerIndex);
+                        tile.SetMaterial(players[CurrentPlayerIndex].GetColor());
+                    }
+                }
+            }
         }
            
     }
