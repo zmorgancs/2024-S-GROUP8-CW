@@ -40,6 +40,11 @@ public class PlayerController : MonoBehaviour
                     Tile tile = hit.transform.GetComponent<Tile>();
 
                     if (tile != null) {
+                        if(tile.GetPlayer() != CurrentPlayerIndex){
+                            GameObject attackButton = GameObject.Find("Attack Button");
+                            attackButton.transform.position = new Vector3(50,35,0);
+                            Debug.Log("Creating an Attack Button");
+                        }
                         tile.SetPlayer(CurrentPlayerIndex);
                         tile.SetMaterial(players[CurrentPlayerIndex].GetColor());
                     }

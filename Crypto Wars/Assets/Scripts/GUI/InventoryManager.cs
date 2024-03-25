@@ -28,6 +28,7 @@ public class InventoryManager : MonoBehaviour
 
         Debug.Log("" + Slots.Count);
         Debug.Log("" + Temp.getName());
+        this.transform.position = new Vector3(0,-375,0);
     }
 
     // Update is called once per frame
@@ -76,5 +77,10 @@ public class InventoryManager : MonoBehaviour
         else {
             CardStacks[index].RemoveCardFromStack(card);
         }
+    }
+
+    public void comeIntoFrame()
+    {
+        this.transform.position = new Vector3(200,35,0);
     }
 }
