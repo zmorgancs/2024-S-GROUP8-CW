@@ -42,7 +42,7 @@ public class CardStack
             return false;
         }
         if (currentSize < maxSize)
-            currentSize++;
+            currentSize--;
         CheckFullness();
         return true;
     }
