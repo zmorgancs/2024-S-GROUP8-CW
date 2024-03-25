@@ -115,11 +115,6 @@ public class Player
         playerName = name;
     }
 
-    public List<Tile.TileReference> getTiles()
-    {
-        return tilesOwned;
-    }
-
     // This will be called after tiles are added or removed from player's control
     // And if a turn has elapsed, to make all win conditions checked after the turn is over
     public double CalculatePercentage() { 
