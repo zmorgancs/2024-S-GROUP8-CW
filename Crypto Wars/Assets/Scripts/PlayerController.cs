@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -42,13 +44,29 @@ public class PlayerController : MonoBehaviour
                     if (tile != null) {
                         if(tile.GetPlayer() > -1)
                         {
+                            if(tile.GetPlayer() == CurrentPlayerIndex)
+                            { 
+                                GameObject buildButton = GameObject.Find("BuildButton");
+                                GameObject destroyButton = GameObject.Find("DestroyButton");
+                                GameObject cancelButton = GameObject.Find("CancelButton");
+                                if(!buildButton.GetComponent<Image>().enabled)
+                                {
+                                    buildButton.GetComponent<Image>().enabled = true;
+                                    buildButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+                                    
+                                    destroyButton.GetComponent<Image>().enabled = true;
+                                    destroyButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+                                    
+                                    cancelButton.GetComponent<Image>().enabled = true;
+                                    cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+                                }
+                            }
                         } 
                         else
                         {
                             tile.SetPlayer(CurrentPlayerIndex);
                             tile.SetMaterial(players[CurrentPlayerIndex].GetColor());
                         }
-                      //  Debug.Log("Tile's Player Index is: " + tile.GetPlayer());
                     }
                 }
             }
