@@ -31,6 +31,7 @@ public class Tile : MonoBehaviour
         // Materials are loaded with the generic typecast
         BlueMaterial = Resources.Load<Material>("Materials/PlayerTileColor");
         RedMaterial = Resources.Load<Material>("Materials/EnemyTileColor");
+        this.playerIndex = -1;
     }
 
     public int GetPlayer() 
