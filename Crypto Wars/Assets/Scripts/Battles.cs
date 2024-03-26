@@ -4,6 +4,40 @@ using UnityEngine;
 
 public class Battles : MonoBehaviour
 {
+
+    private List<AttackObject> atackArray = new List<AttackObject>();
+    private List<DefendObject> defenseArray = new List<DefendObject>();
+
+    public class AttackObject {
+        public List<Card> cardList;
+        public Vector2 originTilePos;
+        public Vector2 destinationTilePos;
+
+        public AttackObject(List<Card> cards, Vector2 origin, Vector2 desination){
+            cardList = cards;
+            originTilePos = origin;
+            destinationTilePos = desination;
+        }
+    }
+
+
+    public class DefendObject {
+        public List<Card> cardList;
+        public Vector2 originTilePos;
+
+
+        public DefendObject(List<card> cards, Vector2 origin){
+            cardList = cards;
+            originTilePos = origin
+        }
+    }
+
+
+
+
+
+
+
     
     bool promptForDefCards;
     // PlayerScript player1, player2;
@@ -52,44 +86,131 @@ public class Battles : MonoBehaviour
             //call battle and perform calculations
              //Battle();
         }
-        */
+        //*/
 
 
     }
 
     
-    bool isAdjacent(Tile TileFrom, Tile TileTo)
-    {
-        bool adjacent;
+    // bool isAdjacent(Tile TileFrom, Tile TileTo)
+    // {
+    //     bool adjacent;
 
-        int currX = TileFrom.BoardXPos;
-        int currY = TileFrom.BoardYPos;
+    //     int currX = TileFrom.BoardXPos;
+    //     int currY = TileFrom.BoardYPos;
 
-        int desiredX = TileTo.BoardXPos;
-        int desiredY = TileTo.BoardYPos;
+    //     int desiredX = TileTo.BoardXPos;
+    //     int desiredY = TileTo.BoardYPos;
 
-        adjacent = Mathf.Abs(currX - desiredX) <= 1 && Mathf.Abs(currY - desiredY) <= 1;
-        return adjacent;
-    }
-
-
-    /*
-
-    TileScript getTile(Player player){
-        return player.tile;
-    }
-
-    */
-
-
-    //functions for battle not yet implemented wip or might be implemented else where
-    // void Battle(){
-
+    //     adjacent = Mathf.Abs(currX - desiredX) <= 1 && Mathf.Abs(currY - desiredY) <= 1;
+    //     return adjacent;
     // }
 
 
-    // void specialBattle(){
+    Player CalculateWinner(List<Card> Attacker, List<Card> Defender, Player playerAttacking, Player playerDefending){
+  
+       if (isSpecialBattle()){
+            List<Card> Attacker1 = new List<Card>();
+            List<Card> Attacker2 = new List<Card>();
+            SpecialAttack(Attacker1, Attacker2);            // need to still implement way to get two attackers cards to pass into function
 
-    // }
+
+       }
+       
+       //determine who attacks first
+        if (Attacker.Count > Defender.Count){
+            Attack(Attacker, Defender);
+        }
+        else if (Attacker.Count < Defender.Count){
+              Attack(Defender, Attacker);
+        }
+        else if (Attacker.Count == Defender.Count){
+            Attack(Attacker, Defender)
+        }
+        //if defender never selected cards for defense then attacker automatically wins
+        else if (Defender.Count == 0){        
+            return playerAttacking;
+        }
+
+
+        // swap who is attacker and defender until someone runs out of cards
+        while (Attacker.Count != 0 && Defender.Count != 0){
+            Swap(ref Attacker, ref Defender);
+            Attack(Attacker, Defender);
+        }
+
+        
+        if (Defender.Count == 0){
+            return playerAttacking;
+        }
+        else if (Attacker.Count == 0) {
+            return playerDefending;
+        }  
+
+        return null;
+    }
+
+
+
+    void Attack(List<Card> Attacker, List<Card> Defender){
+         int minCount = Math.Min(Attacker.Count, Defender.Count);
+
+
+         for (int i = 0; i < minCount; i++){
+            Card attackerCard = Attack[i];
+            Card defenderCard = Defender[i];
+
+            if (attackerCard.Attack >= defenderCard.Defense){
+                Defender.RemoveAt(i);
+            }
+            else if (attackerCard.Attack < defenderCard.Defense){
+                defenderCard.Defense -= attackerCard.Attack;
+            }
+        }
+
+    }   
+
+
+    // Fuction that swaps roles of attacker and defender in a battle 
+    void swap(ref List<Card> list1, ref List<Card> list2){
+        List<Card> temp = list1;
+        list1 = list2;
+        list2 = temp;
+    }
+
+
+
+    bool isSpecialBattle(){
+        HashSet<Vector2> uniqueDestinations = new HashSet<Vector2>();
+
+        // check if attackers destination is already the desitnation of another attacker
+        foreach (AttackObject attack in atackArray){
+            if (!uniqueDestinations.Add(attack.destinationTilePos)){
+                return true; 
+            }
+        }
+        return false; 
+    }
+
+
+
+    void SpecialAttack(List<Card> Attacker1, List<Card> Attacker2){
+        if (Attacker1.Count > Attacker2.Count){
+            Attack(Attacker1, Attacker2);
+        }
+        else if (Attacker1.Count < Attacker2.Count){
+             Attack(Attacker2, Attacker1);
+        }
+        else {
+            int rand = UnityEngine.Random.Range(0,1);
+            if (rand = 0){
+                Attack(Attacker1, Attacker2);
+            }
+            else {
+                Attack(Attacker2, Attacker1);
+            }
+        }
+    }
+
 
 }
