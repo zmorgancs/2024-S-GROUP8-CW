@@ -14,16 +14,11 @@ public class PlayerList : MonoBehaviour
     void Start()
     {
         TMP_FontAsset font = Resources.Load<TMP_FontAsset>("LiberationSans.ttf");
-        // create a UI 'Canvas' via code
-        GameObject PlayerList = new GameObject("PlayerList");
-        Canvas canvas = PlayerList.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        PlayerList.AddComponent<CanvasScaler>();
-        PlayerList.AddComponent<GraphicRaycaster>();
+        GameObject Canvas = GameObject.Find("Canvas");
 
         // create the panel which displays all needed information
         GameObject panel = new GameObject("Panel");
-        panel.transform.parent = PlayerList.transform;
+        panel.transform.parent = Canvas.transform;
         panel.AddComponent<CanvasRenderer>();
         Image image = panel.AddComponent<Image>();
         image.color = new Color(0, 0, 0, 0.5f);
@@ -37,7 +32,7 @@ public class PlayerList : MonoBehaviour
         // add text to panel
         GameObject temp = new GameObject("Player1_Text");
         TextMeshProUGUI player1 = temp.AddComponent<TextMeshProUGUI>();
-        player1.transform.parent = PlayerList.transform;
+        player1.transform.parent = Canvas.transform;
             // align text within panel
         player1.GetComponent<RectTransform>().localPosition = Vector3.zero;
         player1.GetComponent<RectTransform>().anchorMin = new Vector2(1, 0.5f);
