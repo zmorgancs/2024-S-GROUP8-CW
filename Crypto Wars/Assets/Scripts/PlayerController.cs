@@ -44,6 +44,11 @@ public class PlayerController : MonoBehaviour
                     if (tile != null) {
                         if(tile.GetPlayer() > -1)
                         {
+                            if(tile.GetPlayer() != CurrentPlayerIndex){
+                              GameObject attackButton = GameObject.Find("Attack Button");
+                              attackButton.transform.position = new Vector3(50,35,0);
+                              Debug.Log("Creating an Attack Button");
+                            }
                             if(tile.GetPlayer() == CurrentPlayerIndex)
                             { 
                                 GameObject buildButton = GameObject.Find("BuildButton");

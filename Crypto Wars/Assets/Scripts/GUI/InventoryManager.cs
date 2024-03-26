@@ -33,6 +33,11 @@ public class InventoryManager : MonoBehaviour
         Temp = new Card(Resources.Load<Sprite>("Sprites/test_1"), "John");
         Temp1 = new Card(Resources.Load<Sprite>("Sprites/test_2"), "Steve");
 
+
+        Debug.Log("" + Slots.Count);
+        Debug.Log("" + Temp.getName());
+        this.transform.position = new Vector3(0,-375,0);
+
     }
 
     // Update is called once per frame
@@ -173,5 +178,10 @@ public class InventoryManager : MonoBehaviour
         SetText("CardName", CardStacks.Count(), "");
         SetText("Amount", CardStacks.Count(), "");
     }
- 
+
+    public void comeIntoFrame()
+    {
+        this.transform.position = new Vector3(200,35,0);
+    }
+
 }
