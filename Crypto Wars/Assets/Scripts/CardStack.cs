@@ -27,16 +27,24 @@ public class CardStack
         return false;
     }
 
-    public void AddCardtoStack(Card card) {
+    public bool AddCardtoStack(Card card) {
+        if(!CanAddtoStack(card)){
+            return false;
+        }
         if (currentSize < maxSize)
             currentSize++;
         CheckFullness();
+        return true;
     }
 
-    public void RemoveCardFromStack(Card card){
+    public bool RemoveCardFromStack(Card card){
+        if(!CanAddtoStack(card)){
+            return false;
+        }
         if (currentSize < maxSize)
-            currentSize++;
+            currentSize--;
         CheckFullness();
+        return true;
     }
 
     public void CheckFullness() {

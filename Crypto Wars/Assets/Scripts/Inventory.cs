@@ -6,10 +6,13 @@ public class Inventory : MonoBehaviour
 {
     public List<Card> cardInventory;
     private Card Temp; // for testing only
+    private InventoryManager manager;
+
     // Start is called before the first frame update
     void Start()
     {
-        cardInventory = new List<Card>(5);
+        cardInventory = new List<Card>();
+        manager = new InventoryManager();
         Debug.Log("Creating an inventory of capacity " + cardInventory.Capacity);
         Temp = new Card(Resources.Load<Sprite>("Sprites/test_1"), "John");  // for testing only
     }
@@ -38,9 +41,11 @@ public class Inventory : MonoBehaviour
 
     void AddCardToInventory(Card cardType)
     {
+        // Needs check for full GUI inventory
         if(cardInventory.Count < 5)
         {   
             cardInventory.Add(cardType);
+            manager.AddToStackinGUI(cardType);
             Debug.Log("Adding "+cardType.getName()+" to inventory, Count is "+cardInventory.Count);
         }
         else
@@ -54,6 +59,7 @@ public class Inventory : MonoBehaviour
         if(IsCardInInventory(cardType))
         {
             cardInventory.Remove(cardType);
+            manager.RemoveCardFromGUI(cardType);
             Debug.Log("Removing "+cardType.getName()+" from inventory, Count is "+cardInventory.Count);
         }
         else
@@ -61,4 +67,19 @@ public class Inventory : MonoBehaviour
             Debug.Log("Trying to remove a card from the inventory, but that card is not there.");
         }
     }
+
+    void RemoveCardFromInventory(Card cardType, int index)
+    {
+        if (IsCardInInventory(cardType))
+        {
+            cardInventory.Remove(cardType);
+            manager.RemoveCardFromGUI(cardType, index);
+            Debug.Log("Removing " + cardType.getName() + " from inventory, Count is " + cardInventory.Count);
+        }
+        else
+        {
+            Debug.Log("Trying to remove a card from the inventory, but that card is not there.");
+        }
+    }
 }
+

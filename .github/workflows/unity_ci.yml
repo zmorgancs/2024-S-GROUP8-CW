@@ -69,6 +69,7 @@ jobs:
       - name: Build project
         uses: game-ci/unity-builder@v4
         with:
+          projectPath: 'Crypto Wars' # Specifies project path
           unityVersion: '2022.3.20f1'  # Specifies the Unity version to use for the build
           targetPlatform: StandaloneWindows64  # Specifies the build target platform
         env:
