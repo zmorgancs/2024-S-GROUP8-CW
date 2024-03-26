@@ -51,4 +51,9 @@ public class TurnMaster : MonoBehaviour
             Players[i].PlayerStartTurn();
         }
     }
+
+    public int getCurrTurn()
+    {
+        return currTurn;
+    }
 }

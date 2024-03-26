@@ -11,6 +11,15 @@ public class Building
     private Card producedCard;
     private Player owner;
     private Tile currentTile;
+    private string name;
+
+    public Building(string nme, int amt, int ttProduce)
+    {
+        name = nme;
+        amount = amt;
+        turnsToProduce = ttProduce;
+        turnsSinceLastProdction = 0;
+    }
 
     public Player getOwner()
     {
@@ -45,6 +54,16 @@ public class Building
     public void setAmount(int inAmount)
     {
         amount = inAmount;
+    }
+
+    public void setCard(Card cardProd)
+    {
+        producedCard = cardProd;
+    }
+
+    public string getName()
+    {
+        return name;
     }
 
     private void addCardsToInventory()

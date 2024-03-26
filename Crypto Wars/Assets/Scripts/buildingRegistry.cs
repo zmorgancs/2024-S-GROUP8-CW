@@ -1,30 +1,35 @@
-// // Represents a building capable of producing units.
-// public class BuildingRegistry
-// {
-//     // The name of the building.
-//     public string Name { get; private set; }
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//     // Constructor to create a new building with a specified name.
-//     public Building(string name)
-//     {
-//         Name = name;
-//     }
+public class BuildingRegistry : MonoBehaviour
+{
+    // List of building types and grabs the card they produce from the card registry
+    private List<Building> buildingList;
+    private CardRegistry cList;
 
-//     // Produces a unit card based on the specified unit type.
-//     public Card ProduceUnit(UnitType unitType)
-//     {
-//         // Determines the unit to produce based on the unit type.
-//         switch (unitType)
-//         {
-//             case UnitType.Light:
-//                 return new Card(UnitType.Light, "Light Unit", 100);
-//             case UnitType.Medium:
-//                 return new Card(UnitType.Medium, "Medium Unit", 200);
-//             case UnitType.Heavy:
-//                 return new Card(UnitType.Heavy, "Heavy Unit", 300);
-//             default:
-//                 // Throws an exception if the unit type is not recognized.
-//                 throw new ArgumentOutOfRangeException(nameof(unitType), $"Not expected unit type value: {unitType}");
-//         }
-//     }
-// }
+    // Initialized after cardRegistry since CreateBuilding relies on it
+    void Start() 
+    {
+        // Create buildings that produces the cards
+        CreateBuilding("Python Factory", "Python", 1, 3);
+        CreateBuilding("Java Junction", "Java", 2, 5);
+        CreateBuilding("C Workshop", "C", 1, 3);
+    }
+
+    // Creates the bulding types and adds them to buildingList
+    void CreateBuilding(string name, string cardName, int numProduced, int turnsToProduce)
+    {
+        Building newBuild = new Building(name, numProduced, turnsToProduce);
+        Card cardProduct = cList.GetCardByName(cardName);  
+        newBuild.setCard(cardProduct);
+
+        buildingList.Add(newBuild);
+    }
+
+    // Grabs building from the list by name
+    public Building GetBuildingByName(string buildingName)
+    {
+        return buildingList.Find(build => build.getName() == buildingName);
+    }
+}
