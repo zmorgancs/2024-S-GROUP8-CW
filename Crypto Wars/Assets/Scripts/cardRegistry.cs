@@ -6,8 +6,8 @@ public class CardRegistry : MonoBehaviour
     // A list to hold all the cards
     private List<Card> cardList = new List<Card>();
 
-    // Start is called before the first frame update
-    void Start()
+    // Initialized before buildingRegistry
+    void Awake()
     {
         // Create the cards
         CreateCard("Python", 100, 150, 20);
