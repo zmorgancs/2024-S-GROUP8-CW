@@ -61,12 +61,17 @@ public class Building
         producedCard = cardProd;
     }
 
+    public Card getCard()
+    {
+        return producedCard;
+    }
+
     public string getName()
     {
         return name;
     }
 
-    private void addCardsToInventory()
+    public void addCardsToInventory()
     {
         if(turnsSinceLastProdction >= turnsToProduce)
         {
