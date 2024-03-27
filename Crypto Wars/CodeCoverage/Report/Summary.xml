@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>3/26/2024 - 8:54:21 PM</Generatedon>
+    <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
+    <Assemblies>1</Assemblies>
+    <Classes>21</Classes>
+    <Files>21</Files>
+    <Coveredlines>113</Coveredlines>
+    <Uncoveredlines>870</Uncoveredlines>
+    <Coverablelines>983</Coverablelines>
+    <Totallines>1890</Totallines>
+    <Linecoverage>11.4</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+    <Coveredmethods>24</Coveredmethods>
+    <Totalmethods>144</Totalmethods>
+    <Methodcoverage>16.6</Methodcoverage>
+  </Summary>
+  <Coverage>
+    <Assembly name="Tests" classes="21" coverage="11.4" coveredlines="113" coverablelines="983" totallines="1890" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="24" totalmethods="144" methodcoverage="16.6">
+      <Class name="AttackButtonScript" coverage="0" coveredlines="0" coverablelines="12" totallines="28" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="Battles" coverage="0" coveredlines="0" coverablelines="88" totallines="217" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0" />
+      <Class name="BuildButtonScript" coverage="0" coveredlines="0" coverablelines="105" totallines="167" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
+      <Class name="Building" coverage="0" coveredlines="0" coverablelines="46" totallines="85" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="12" methodcoverage="0" />
+      <Class name="BuildingRegistry" coverage="0" coveredlines="0" coverablelines="14" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="CameraScript" coverage="0" coveredlines="0" coverablelines="31" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="Card" coverage="100" coveredlines="31" coverablelines="31" totallines="99" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="CardRegistry" coverage="0" coveredlines="0" coverablelines="21" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="CardStack" coverage="100" coveredlines="45" coverablelines="45" totallines="68" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="EndTurn" coverage="0" coveredlines="0" coverablelines="9" totallines="42" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="EscapeMenu" coverage="0" coveredlines="0" coverablelines="79" totallines="127" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
+      <Class name="GameManager" coverage="0" coveredlines="0" coverablelines="23" totallines="53" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
+      <Class name="Inventory" coverage="0" coveredlines="0" coverablelines="56" totallines="85" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
+      <Class name="InventoryManager" coverage="0" coveredlines="0" coverablelines="114" totallines="187" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0" />
+      <Class name="MainMenu" coverage="0" coveredlines="0" coverablelines="56" totallines="125" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="13" methodcoverage="0" />
+      <Class name="Player" coverage="24.6" coveredlines="17" coverablelines="69" totallines="123" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="14" methodcoverage="28.5" />
+      <Class name="PlayerController" coverage="0" coveredlines="0" coverablelines="83" totallines="125" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="8" methodcoverage="0" />
+      <Class name="PlayerList" coverage="0" coveredlines="0" coverablelines="27" totallines="55" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="Tile" coverage="0" coveredlines="0" coverablelines="20" totallines="53" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="9" methodcoverage="0" />
+      <Class name="TurnMaster" coverage="60.6" coveredlines="20" coverablelines="33" totallines="59" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="6" methodcoverage="66.6" />
+      <Class name="WinConditions" coverage="0" coveredlines="0" coverablelines="21" totallines="65" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>

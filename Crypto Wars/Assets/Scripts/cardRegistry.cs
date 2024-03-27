@@ -4,7 +4,7 @@ using UnityEngine;
 public class CardRegistry : MonoBehaviour
 {
     // A list to hold all the cards
-    private List<Card> cardList = new List<Card>();
+    private static List<Card> cardList = new List<Card>();
 
     // Initialized before buildingRegistry
     void Awake()
@@ -37,7 +37,7 @@ public class CardRegistry : MonoBehaviour
 
     // Method to get a card by name
     // Might be helpful
-    public Card GetCardByName(string cardName)
+    public static Card GetCardByName(string cardName)
     {
         return cardList.Find(card => card.getName() == cardName);
     }

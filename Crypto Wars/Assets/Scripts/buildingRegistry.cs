@@ -6,7 +6,6 @@ public class BuildingRegistry : MonoBehaviour
 {
     // List of building types and grabs the card they produce from the card registry
     private List<Building> buildingList;
-    private CardRegistry cList;
 
     // Initialized after cardRegistry since CreateBuilding relies on it
     void Start() 
@@ -21,7 +20,7 @@ public class BuildingRegistry : MonoBehaviour
     void CreateBuilding(string name, string cardName, int numProduced, int turnsToProduce)
     {
         Building newBuild = new Building(name, numProduced, turnsToProduce);
-        Card cardProduct = cList.GetCardByName(cardName);  
+        Card cardProduct = CardRegistry.GetCardByName(cardName);  
         newBuild.setCard(cardProduct);
 
         buildingList.Add(newBuild);
