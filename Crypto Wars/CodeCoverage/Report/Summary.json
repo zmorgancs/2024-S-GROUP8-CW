@@ -1,28 +1,28 @@
 {
   "summary": {
-    "generatedon": "2024-03-27T04:50:02Z",
+    "generatedon": "2024-03-27T03:54:21Z",
     "parser": "MultiReportParser (2x OpenCoverParser)",
     "assemblies": 1,
     "classes": 21,
     "files": 21,
-    "coveredlines": 168,
-    "uncoveredlines": 818,
-    "coverablelines": 986,
-    "totallines": 1895,
-    "linecoverage": 17,
+    "coveredlines": 113,
+    "uncoveredlines": 870,
+    "coverablelines": 983,
+    "totallines": 1890,
+    "linecoverage": 11.4,
     "coveredbranches": 0,
     "totalbranches": 0,
-    "coveredmethods": 39,
-    "totalmethods": 145,
-    "methodcoverage": 26.8
+    "coveredmethods": 24,
+    "totalmethods": 144,
+    "methodcoverage": 16.6
  },
   "coverage": {
     "assemblies": [
-      { "name": "Tests", "classes": 21, "coverage": 17, "coveredlines": 168, "coverablelines": 986, "totallines": 1895, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 26.8, "coveredmethods": 39, "totalmethods": 145, "classesinassembly": [
+      { "name": "Tests", "classes": 21, "coverage": 11.4, "coveredlines": 113, "coverablelines": 983, "totallines": 1890, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 16.6, "coveredmethods": 24, "totalmethods": 144, "classesinassembly": [
         { "name": "AttackButtonScript", "coverage": 0, "coveredlines": 0, "coverablelines": 12, "totallines": 28, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
         { "name": "Battles", "coverage": 0, "coveredlines": 0, "coverablelines": 88, "totallines": 217, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 10 },
         { "name": "BuildButtonScript", "coverage": 0, "coveredlines": 0, "coverablelines": 105, "totallines": 167, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
-        { "name": "Building", "coverage": 100, "coveredlines": 49, "coverablelines": 49, "totallines": 90, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 13, "totalmethods": 13 },
+        { "name": "Building", "coverage": 0, "coveredlines": 0, "coverablelines": 46, "totallines": 85, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 12 },
         { "name": "BuildingRegistry", "coverage": 0, "coveredlines": 0, "coverablelines": 14, "totallines": 34, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
         { "name": "CameraScript", "coverage": 0, "coveredlines": 0, "coverablelines": 31, "totallines": 49, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
         { "name": "Card", "coverage": 100, "coveredlines": 31, "coverablelines": 31, "totallines": 99, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
@@ -34,7 +34,7 @@
         { "name": "Inventory", "coverage": 0, "coveredlines": 0, "coverablelines": 56, "totallines": 85, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
         { "name": "InventoryManager", "coverage": 0, "coveredlines": 0, "coverablelines": 114, "totallines": 187, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 10 },
         { "name": "MainMenu", "coverage": 0, "coveredlines": 0, "coverablelines": 56, "totallines": 125, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 13 },
-        { "name": "Player", "coverage": 33.3, "coveredlines": 23, "coverablelines": 69, "totallines": 123, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 42.8, "coveredmethods": 6, "totalmethods": 14 },
+        { "name": "Player", "coverage": 24.6, "coveredlines": 17, "coverablelines": 69, "totallines": 123, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 28.5, "coveredmethods": 4, "totalmethods": 14 },
         { "name": "PlayerController", "coverage": 0, "coveredlines": 0, "coverablelines": 83, "totallines": 125, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 8 },
         { "name": "PlayerList", "coverage": 0, "coveredlines": 0, "coverablelines": 27, "totallines": 55, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
         { "name": "Tile", "coverage": 0, "coveredlines": 0, "coverablelines": 20, "totallines": 53, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 9 },
