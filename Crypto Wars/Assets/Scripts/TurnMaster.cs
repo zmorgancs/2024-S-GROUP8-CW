@@ -31,7 +31,7 @@ public class TurnMaster : MonoBehaviour
     // Simply iterates through the Players array.
     // If it every runs into a player's turn that is not finished, it returns false
     // If it gets through every index and does not return, exits the for loop and returns true
-    bool allAreDone(Player[] Players)
+    public bool allAreDone(Player[] Players)
     {
         for (int i = 0; i < Players.Length; i++)
         {
@@ -44,7 +44,7 @@ public class TurnMaster : MonoBehaviour
     }
 
     // Iterats through the Players array and sets all of the isDone booleans to false.
-    void newTurn(Player[] Players)
+    public void newTurn(Player[] Players)
     {
         for (int i = 0; i < Players.Length; i++)
         {
