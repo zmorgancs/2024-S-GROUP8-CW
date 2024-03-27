@@ -7,7 +7,7 @@ public class CardTest
 {
     Card TestCard = new Card(null, "John");
 
-    // A Test behaves as an ordinary method
+    // Test get attack from card
     [Test]
     public void TestGetAttack()
     {
@@ -16,6 +16,7 @@ public class CardTest
 
     }
 
+    // Test get defense from card
     [Test]
     public void TestGetDefense()
     {
@@ -24,6 +25,7 @@ public class CardTest
 
     }
 
+    // Test get stamina from card
     [Test]
     public void TestGetStamina()
     {

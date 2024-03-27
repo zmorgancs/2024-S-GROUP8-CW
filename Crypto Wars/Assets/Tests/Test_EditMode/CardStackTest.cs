@@ -9,7 +9,7 @@ public class CardStackTest
     Card TestCard = new Card(null, "John");
     Card TestCard1 = new Card(null, "Steve");
 
-    // A Test behaves as an ordinary method
+    // Tests if a card is in the stack
     [Test]
     public void TestGetCardInStack()
     {
@@ -20,6 +20,7 @@ public class CardStackTest
 
     }
 
+    // Tests if a card matches the card in the stack
     [Test]
     public void TestCanAddtoStack_True()
     {   
@@ -28,6 +29,7 @@ public class CardStackTest
 
     }
 
+    // Tests if a incorrect card is ignored
     [Test]
     public void TestCanAddtoStack_False()
     {
@@ -36,6 +38,7 @@ public class CardStackTest
 
     }
 
+    // Tests if a card will be added to a stack
     [Test]
     public void TestAddCardtoStack_True()
     {
@@ -48,6 +51,7 @@ public class CardStackTest
 
     }
 
+    // Tests if a incorrect card is ignored when added to a stack
     [Test]
     public void TestAddCardtoStack_False()
     {
@@ -56,6 +60,7 @@ public class CardStackTest
 
     }
 
+    // Tests if a card can be removed from a stack
     [Test]
     public void TestRemoveCardtoStack_True()
     {
@@ -68,6 +73,7 @@ public class CardStackTest
 
     }
 
+    // Tests if an incorrect card is not remove from the stack
     [Test]
     public void TestRemoveCardtoStack_False()
     {
@@ -76,6 +82,7 @@ public class CardStackTest
 
     }
 
+    // Tests if a stack can become full
     [Test]
     public void TestIsFull()
     {
@@ -85,14 +92,4 @@ public class CardStackTest
 
     }
 
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator PlayerTest2()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }
 }

@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class TurnMasterTest
 {
+    // Tests if players are all finished with their turn
     [Test]
     public void TestAllAreDone_True()
     {
         TurnMaster master = new TurnMaster();
+        // One player list
         List<Player> players = new List<Player>
         {
             new Player("name", null)
@@ -19,10 +21,12 @@ public class TurnMasterTest
         Assert.IsTrue(b);
     }
 
+    // Tests if players aren't finished with their turns
     [Test]
     public void TestAllAreDone_False()
     {
         TurnMaster master = new TurnMaster();
+        // One player list
         List<Player> players = new List<Player>
         {
             new Player("name", null)
@@ -32,10 +36,12 @@ public class TurnMasterTest
         Assert.IsFalse(b);
     }
 
+    // Tests if a player can be moved into a new turn
     [Test]
     public void TestNewTurn()
     {
         TurnMaster master = new TurnMaster();
+        // One player list
         List<Player> players = new List<Player>
         {
             new Player("name", null)
@@ -45,12 +51,11 @@ public class TurnMasterTest
         Assert.IsTrue(!players[0].IsPlayerTurnFinished());
     }
 
+    // Tests if can get current turn
     [Test]
     public void TestGetCurrTurn()
     {
-        TurnMaster master = new TurnMaster();
-        
-
+        TurnMaster master = new TurnMaster(); 
         Assert.AreEqual(master.getCurrTurn(), 0);
     }
 }
