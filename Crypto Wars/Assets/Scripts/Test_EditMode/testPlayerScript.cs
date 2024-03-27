@@ -18,6 +18,7 @@ namespace Test
             Material color = null;
             Player p1 = new Player("ogre", color);
             p1.PlayerFinishTurn();
+  
 
             // Make sure class is created with correct parameters/variables
             Assert.AreEqual(p1.GetName(), "ogre");
