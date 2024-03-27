@@ -2,8 +2,6 @@ using NUnit.Framework;
 
 public class CardStackTest
 {
-    
-
     // Tests if a card is in the stack
     [Test]
     public void TestGetCardInStack()
