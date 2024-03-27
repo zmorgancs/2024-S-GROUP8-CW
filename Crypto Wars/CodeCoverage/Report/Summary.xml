@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>3/26/2024 - 8:54:21 PM</Generatedon>
+    <Generatedon>3/26/2024 - 10:04:53 PM</Generatedon>
     <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
     <Assemblies>1</Assemblies>
     <Classes>21</Classes>
     <Files>21</Files>
-    <Coveredlines>113</Coveredlines>
-    <Uncoveredlines>870</Uncoveredlines>
-    <Coverablelines>983</Coverablelines>
-    <Totallines>1890</Totallines>
-    <Linecoverage>11.4</Linecoverage>
+    <Coveredlines>168</Coveredlines>
+    <Uncoveredlines>818</Uncoveredlines>
+    <Coverablelines>986</Coverablelines>
+    <Totallines>1895</Totallines>
+    <Linecoverage>17</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
-    <Coveredmethods>24</Coveredmethods>
-    <Totalmethods>144</Totalmethods>
-    <Methodcoverage>16.6</Methodcoverage>
+    <Coveredmethods>39</Coveredmethods>
+    <Totalmethods>145</Totalmethods>
+    <Methodcoverage>26.8</Methodcoverage>
   </Summary>
   <Coverage>
-    <Assembly name="Tests" classes="21" coverage="11.4" coveredlines="113" coverablelines="983" totallines="1890" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="24" totalmethods="144" methodcoverage="16.6">
+    <Assembly name="Tests" classes="21" coverage="17" coveredlines="168" coverablelines="986" totallines="1895" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="39" totalmethods="145" methodcoverage="26.8">
       <Class name="AttackButtonScript" coverage="0" coveredlines="0" coverablelines="12" totallines="28" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
       <Class name="Battles" coverage="0" coveredlines="0" coverablelines="88" totallines="217" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0" />
       <Class name="BuildButtonScript" coverage="0" coveredlines="0" coverablelines="105" totallines="167" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
-      <Class name="Building" coverage="0" coveredlines="0" coverablelines="46" totallines="85" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="12" methodcoverage="0" />
+      <Class name="Building" coverage="100" coveredlines="49" coverablelines="49" totallines="90" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="13" totalmethods="13" methodcoverage="100" />
       <Class name="BuildingRegistry" coverage="0" coveredlines="0" coverablelines="14" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
       <Class name="CameraScript" coverage="0" coveredlines="0" coverablelines="31" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
       <Class name="Card" coverage="100" coveredlines="31" coverablelines="31" totallines="99" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
@@ -34,7 +34,7 @@
       <Class name="Inventory" coverage="0" coveredlines="0" coverablelines="56" totallines="85" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
       <Class name="InventoryManager" coverage="0" coveredlines="0" coverablelines="114" totallines="187" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0" />
       <Class name="MainMenu" coverage="0" coveredlines="0" coverablelines="56" totallines="125" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="13" methodcoverage="0" />
-      <Class name="Player" coverage="24.6" coveredlines="17" coverablelines="69" totallines="123" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="14" methodcoverage="28.5" />
+      <Class name="Player" coverage="33.3" coveredlines="23" coverablelines="69" totallines="123" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="14" methodcoverage="42.8" />
       <Class name="PlayerController" coverage="0" coveredlines="0" coverablelines="83" totallines="125" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="8" methodcoverage="0" />
       <Class name="PlayerList" coverage="0" coveredlines="0" coverablelines="27" totallines="55" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="Tile" coverage="0" coveredlines="0" coverablelines="20" totallines="53" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="9" methodcoverage="0" />
