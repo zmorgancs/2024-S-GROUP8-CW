@@ -26,9 +26,9 @@ public class Battles : MonoBehaviour
         public Vector2 originTilePos;
 
 
-        public DefendObject(List<card> cards, Vector2 origin){
+        public DefendObject(List<Card> cards, Vector2 origin){
             cardList = cards;
-            originTilePos = origin
+            originTilePos = origin;
         }
     }
 
@@ -125,7 +125,7 @@ public class Battles : MonoBehaviour
               Attack(Defender, Attacker);
         }
         else if (Attacker.Count == Defender.Count){
-            Attack(Attacker, Defender)
+            Attack(Attacker, Defender);
         }
         //if defender never selected cards for defense then attacker automatically wins
         else if (Defender.Count == 0){        
@@ -135,7 +135,7 @@ public class Battles : MonoBehaviour
 
         // swap who is attacker and defender until someone runs out of cards
         while (Attacker.Count != 0 && Defender.Count != 0){
-            Swap(ref Attacker, ref Defender);
+            swap(ref Attacker, ref Defender);
             Attack(Attacker, Defender);
         }
 
@@ -153,18 +153,19 @@ public class Battles : MonoBehaviour
 
 
     void Attack(List<Card> Attacker, List<Card> Defender){
-         int minCount = Math.Min(Attacker.Count, Defender.Count);
+         int minCount = Mathf.Min(Attacker.Count, Defender.Count);
 
 
          for (int i = 0; i < minCount; i++){
-            Card attackerCard = Attack[i];
+            Card attackerCard = Attacker[i];
             Card defenderCard = Defender[i];
 
-            if (attackerCard.Attack >= defenderCard.Defense){
+            if (attackerCard.getOffense() >= defenderCard.getDefense()){
                 Defender.RemoveAt(i);
             }
-            else if (attackerCard.Attack < defenderCard.Defense){
-                defenderCard.Defense -= attackerCard.Attack;
+            else if (attackerCard.getOffense() < defenderCard.getDefense())
+            {
+                defenderCard.setOffense(defenderCard.getOffense() - attackerCard.getOffense());
             }
         }
 
@@ -203,7 +204,7 @@ public class Battles : MonoBehaviour
         }
         else {
             int rand = UnityEngine.Random.Range(0,1);
-            if (rand = 0){
+            if (rand == 0){
                 Attack(Attacker1, Attacker2);
             }
             else {
