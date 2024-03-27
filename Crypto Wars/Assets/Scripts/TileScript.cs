@@ -8,8 +8,8 @@ public class Tile : MonoBehaviour
     private int playerIndex;
 
     // Public properties
-    public int BoardXPos { get; private set; }
-    public int BoardYPos { get; private set; }
+    public int BoardXPos { get; set; }
+    public int BoardYPos { get; set; }
     public struct TileReference
     {
         public Vector2 tilePosition;

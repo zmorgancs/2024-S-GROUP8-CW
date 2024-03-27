@@ -72,4 +72,17 @@ public class testBuilding
         Card buildCard = build.getCard();
         Assert.AreEqual(card, buildCard);
     }
+
+    [Test]
+    public void testAddCardsToInventory()
+    {
+        Card card = new Card(null, "testCard");
+        Building build = new Building("testBuilding", 2, 1);
+
+        build.didNotProduce();
+        build.didNotProduce();
+
+        build.addCardsToInventory();
+        Assert.AreEqual(0, build.getTurnsSinceLast());
+    }
 }
