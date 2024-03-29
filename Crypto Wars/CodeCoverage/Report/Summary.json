@@ -1,24 +1,24 @@
 {
   "summary": {
-    "generatedon": "2024-03-27T05:34:16Z",
+    "generatedon": "2024-03-29T00:35:05Z",
     "parser": "MultiReportParser (2x OpenCoverParser)",
-    "assemblies": 2,
-    "classes": 29,
-    "files": 29,
-    "coveredlines": 357,
-    "uncoveredlines": 819,
-    "coverablelines": 1176,
-    "totallines": 2334,
-    "linecoverage": 30.3,
+    "assemblies": 1,
+    "classes": 21,
+    "files": 21,
+    "coveredlines": 211,
+    "uncoveredlines": 778,
+    "coverablelines": 989,
+    "totallines": 1900,
+    "linecoverage": 21.3,
     "coveredbranches": 0,
     "totalbranches": 0,
-    "coveredmethods": 76,
-    "totalmethods": 182,
-    "methodcoverage": 41.7
+    "coveredmethods": 54,
+    "totalmethods": 146,
+    "methodcoverage": 36.9
  },
   "coverage": {
     "assemblies": [
-      { "name": "Tests", "classes": 28, "coverage": 30.4, "coveredlines": 357, "coverablelines": 1171, "totallines": 2309, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 42.2, "coveredmethods": 76, "totalmethods": 180, "classesinassembly": [
+      { "name": "Scripts", "classes": 21, "coverage": 21.3, "coveredlines": 211, "coverablelines": 989, "totallines": 1900, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 36.9, "coveredmethods": 54, "totalmethods": 146, "classesinassembly": [
         { "name": "AttackButtonScript", "coverage": 0, "coveredlines": 0, "coverablelines": 12, "totallines": 28, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
         { "name": "Battles", "coverage": 0, "coveredlines": 0, "coverablelines": 88, "totallines": 217, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 10 },
         { "name": "BuildButtonScript", "coverage": 0, "coveredlines": 0, "coverablelines": 105, "totallines": 167, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
@@ -28,26 +28,17 @@
         { "name": "Card", "coverage": 100, "coveredlines": 31, "coverablelines": 31, "totallines": 99, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
         { "name": "CardRegistry", "coverage": 0, "coveredlines": 0, "coverablelines": 21, "totallines": 44, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 },
         { "name": "CardStack", "coverage": 100, "coveredlines": 45, "coverablelines": 45, "totallines": 68, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
-        { "name": "CardStackTest", "coverage": 100, "coveredlines": 42, "coverablelines": 42, "totallines": 95, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 9, "totalmethods": 9 },
-        { "name": "CardTest", "coverage": 100, "coveredlines": 13, "coverablelines": 13, "totallines": 37, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 4, "totalmethods": 4 },
         { "name": "EndTurn", "coverage": 0, "coveredlines": 0, "coverablelines": 9, "totallines": 42, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
         { "name": "EscapeMenu", "coverage": 0, "coveredlines": 0, "coverablelines": 79, "totallines": 127, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
-        { "name": "ExampleTestScript", "coverage": 100, "coveredlines": 5, "coverablelines": 5, "totallines": 25, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 2, "totalmethods": 2 },
         { "name": "GameManager", "coverage": 0, "coveredlines": 0, "coverablelines": 23, "totallines": 53, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
         { "name": "Inventory", "coverage": 0, "coveredlines": 0, "coverablelines": 56, "totallines": 85, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
         { "name": "InventoryManager", "coverage": 0, "coveredlines": 0, "coverablelines": 114, "totallines": 187, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 10 },
-        { "name": "MainMenu", "coverage": 0, "coveredlines": 0, "coverablelines": 56, "totallines": 125, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 13 },
+        { "name": "MainMenu", "coverage": 12.5, "coveredlines": 7, "coverablelines": 56, "totallines": 125, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 7.6, "coveredmethods": 1, "totalmethods": 13 },
         { "name": "Player", "coverage": 63.8, "coveredlines": 46, "coverablelines": 72, "totallines": 128, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 80, "coveredmethods": 12, "totalmethods": 15 },
         { "name": "PlayerController", "coverage": 0, "coveredlines": 0, "coverablelines": 83, "totallines": 125, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 8 },
         { "name": "PlayerList", "coverage": 0, "coveredlines": 0, "coverablelines": 27, "totallines": 55, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
-        { "name": "Test.TestTileScript", "coverage": 30.4, "coveredlines": 7, "coverablelines": 23, "totallines": 57, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 40, "coveredmethods": 2, "totalmethods": 5 },
-        { "name": "testBuilding", "coverage": 100, "coveredlines": 53, "coverablelines": 53, "totallines": 88, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
-        { "name": "testPlayerScript", "coverage": 100, "coveredlines": 23, "coverablelines": 23, "totallines": 46, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 2, "totalmethods": 2 },
-        { "name": "Tile", "coverage": 0, "coveredlines": 0, "coverablelines": 20, "totallines": 53, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 9 },
+        { "name": "Tile", "coverage": 65, "coveredlines": 13, "coverablelines": 20, "totallines": 53, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 88.8, "coveredmethods": 8, "totalmethods": 9 },
         { "name": "TurnMaster", "coverage": 60.6, "coveredlines": 20, "coverablelines": 33, "totallines": 59, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 66.6, "coveredmethods": 4, "totalmethods": 6 },
-        { "name": "TurnMasterTest", "coverage": 100, "coveredlines": 23, "coverablelines": 23, "totallines": 61, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 4, "totalmethods": 4 },
-        { "name": "WinConditions", "coverage": 0, "coveredlines": 0, "coverablelines": 21, "totallines": 65, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 } ] },
-      { "name": "Tests1", "classes": 1, "coverage": 0, "coveredlines": 0, "coverablelines": 5, "totallines": 25, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2, "classesinassembly": [
-        { "name": "NewTestScript", "coverage": 0, "coveredlines": 0, "coverablelines": 5, "totallines": 25, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 } ] } ]
+        { "name": "WinConditions", "coverage": 0, "coveredlines": 0, "coverablelines": 21, "totallines": 65, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 } ] } ]
   }
 }

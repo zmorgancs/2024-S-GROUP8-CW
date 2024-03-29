@@ -4,8 +4,6 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Unity.TextMeshPro",
-        "Unity.VisualScripting.Core",
         "Scripts"
     ],
     "includePlatforms": [
