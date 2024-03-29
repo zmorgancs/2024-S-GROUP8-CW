@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.TextMeshPro",
-        "Unity.VisualScripting.Core"
+        "Unity.VisualScripting.Core",
+        "Scripts"
     ],
     "includePlatforms": [
         "Editor"
