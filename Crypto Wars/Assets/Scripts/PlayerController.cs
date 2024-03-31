@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     // Tracks the player who is currently playing
     public Player CurrentPlayer { get; set; }
 
+    // Get number of players in game
+    public int GetNumberOfPlayers(){
+        return players.Count;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

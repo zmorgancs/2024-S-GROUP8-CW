@@ -1,13 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayerList : MonoBehaviour
 {
     public PlayerController Controller;
+    private GameObject panel;
+    private Boolean visible = true;
+    private Image image;
 
     // Start is called before the first frame update
     /* Start creates all objects and components needed to create */
@@ -17,11 +22,17 @@ public class PlayerList : MonoBehaviour
         GameObject Canvas = GameObject.Find("Canvas");
 
         // create the panel which displays all needed information
-        GameObject panel = new GameObject("Panel");
+        panel = new GameObject("PlayerList");
         panel.transform.parent = Canvas.transform;
         panel.AddComponent<CanvasRenderer>();
-        Image image = panel.AddComponent<Image>();
-        image.color = new Color(0, 0, 0, 0.5f);
+        image = panel.AddComponent<Image>();
+        image.color = new Color(0, 0, 0, 1);
+        // EventTrigger is used to toggle visibility of PlayerList
+        EventTrigger et = panel.AddComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerClick;
+        entry.callback.AddListener((data) => { ToggleVisibility(); });
+        et.triggers.Add(entry);
 
         // fix panel position to middle right of screen
         panel.GetComponent<RectTransform>().localPosition = Vector3.zero;
@@ -30,20 +41,28 @@ public class PlayerList : MonoBehaviour
         panel.GetComponent<RectTransform>().pivot = new Vector2(1, 0.5f);
 
         // add text to panel
-        GameObject temp = new GameObject("Player1_Text");
-        TextMeshProUGUI player1 = temp.AddComponent<TextMeshProUGUI>();
-        player1.transform.parent = Canvas.transform;
+        for(int i = 0; i < Controller.GetNumberOfPlayers(); i++){
+            Player CurrentPlayer = Controller.CurrentPlayer; // get next player from controller
+            GameObject temp = new GameObject("Player" + CurrentPlayer.GetName() + "_Text");
+            TextMeshProUGUI playerText = temp.AddComponent<TextMeshProUGUI>();
+            playerText.transform.parent = panel.transform;
             // align text within panel
-        player1.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        player1.GetComponent<RectTransform>().anchorMin = new Vector2(1, 0.5f);
-        player1.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0.5f);
-        player1.GetComponent<RectTransform>().pivot = new Vector2(1, 0.5f);
-        player1.GetComponent<RectTransform>().sizeDelta = new Vector2(95, 50);
+            playerText.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            playerText.GetComponent<RectTransform>().anchorMin = new Vector2(1, 0.5f);
+            playerText.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0.5f);
+            playerText.GetComponent<RectTransform>().pivot = new Vector2(1, 0.5f);
+            playerText.GetComponent<RectTransform>().sizeDelta = new Vector2(125, 82);
+            if(i > 0){ // moves text further down panel dependant on number of players
+                playerText.GetComponent<RectTransform>().localPosition = new Vector3(50, -40*i, 0);
+            }
             // change how text is displayed
-        player1.text = "Player 1 \t <info>";
-        player1.color = Color.blue;
-        player1.font = font;
-        player1.fontSize = 10;
+            playerText.text = "Player " + CurrentPlayer.GetName() + "\n<info>";
+            playerText.color = CurrentPlayer.GetColor().color;
+            playerText.font = font;
+            playerText.fontSize = 10;
+
+            Controller.NextPlayer();
+        }
     }
 
     // Update is called once per frame
@@ -51,5 +70,18 @@ public class PlayerList : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void ToggleVisibility(){
+        if(visible){ // move panel out-of-view
+            panel.GetComponent<RectTransform>().localPosition = new Vector3(400, 0, 0);
+            image.color = new Color(0, 0, 0, 1);
+            visible = false;
+        }
+        else{ // move panel in-view
+            panel.GetComponent<RectTransform>().localPosition = new Vector3(448, 0, 0);
+            image.color = new Color(0, 0, 0, 0.5f);
+            visible = true;
+        }
     }
 }
