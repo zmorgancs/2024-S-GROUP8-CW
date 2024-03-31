@@ -36,7 +36,7 @@ public class InventoryManager : MonoBehaviour
 
         Debug.Log("" + Slots.Count);
         Debug.Log("" + Temp.getName());
-        this.transform.position = new Vector3(0,-375,0);
+        //this.transform.position = new Vector3(0,-375,0);
 
     }
 
