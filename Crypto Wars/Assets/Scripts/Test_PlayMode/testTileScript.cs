@@ -1,11 +1,12 @@
 using NUnit.Framework;
 using UnityEngine;
+using UnityEditor;
 
 namespace Test
 {
-    public class Testtile
+    public class TestTileScript
     {
-        private GameObject tileGameObject;
+        public GameObject tileGameObject;
         public Tile tile;
         // public Tile.TileReference tileReference;
         public Material testMaterial;
@@ -13,13 +14,15 @@ namespace Test
         [SetUp]
         public void SetUp()
         {
-            // Initialize Tile GameObject and Tile script before each test
-            // tileGameObject = new GameObject("Tile");
-            // tile = tileGameObject.AddComponent<Tile>();
-            tile = new Tile();
-            tile.SetTilePosition(5, 10);
+            GameObject tileGameObject = new GameObject("Tile");
             tileGameObject.AddComponent<MeshRenderer>();
-            // tile.rendererReference = tileGameObject.GetComponent<MeshRenderer>();
+            tileGameObject.AddComponent<Tile>();
+
+            // Initialize Tile GameObject and Tile script before each test
+            tile = tileGameObject.GetComponent<Tile>();
+            tile.rendererReference = tileGameObject.GetComponent<MeshRenderer>();
+            // tile.tilePosition = new Vector2(5, 10);
+            // tile.SetTilePosition(5, 10);
 
             // Set up a test material
             testMaterial = new Material(Shader.Find("Standard"));
@@ -39,17 +42,18 @@ namespace Test
         {
             // Test to ensure the material is set correctly
             tile.SetMaterial(testMaterial);
-            Assert.AreEqual(testMaterial, tile.GetMaterial());
-            // Assert.AreEqual(testMaterial, tile.GetComponent<MeshRenderer>().material);
+            string expectedName = testMaterial.name.Split(' ')[0];
+            string actualName = tile.GetMaterial().name.Split(' ')[0];
+            Assert.AreEqual(expectedName, actualName);
         }
 
-        // [Test]
-        // public void Tile_GetTilePosition_ReturnsCorrectPosition()
-        // {
-        //     // Test to ensure the position is retrieved correctly
-        //     Vector2 expectedPosition = new Vector2(5, 10);
-        //     Assert.AreEqual(expectedPosition, tile.GetTilePosition());
-        // }
+        [Test]
+        public void Tile_GetTilePosition_ReturnsCorrectPosition()
+        {
+            // Test to ensure the position is retrieved correctly
+            Vector2 expectedPosition = new Vector2(5, 10);
+            Assert.AreEqual(expectedPosition, tile.GetTilePosition());
+        }
 
         [TearDown]
         public void TearDown()

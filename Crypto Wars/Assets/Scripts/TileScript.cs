@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
     }
 
     // References to the renderer and materials for the tile
-    private MeshRenderer rendererReference;
+    public MeshRenderer rendererReference;
 
     // Default Materials 
     private Material BlueMaterial;
@@ -43,8 +43,8 @@ public class Tile : MonoBehaviour
     {
         playerIndex = index;
     }
-    public void SetMaterial(Material material) {
-        rendererReference.material = material;
+    public void SetMaterial(Material newMaterial) {
+        rendererReference.material = newMaterial;
     }
 
     public Material GetMaterial()
@@ -54,8 +54,7 @@ public class Tile : MonoBehaviour
 
     public void SetTilePosition(int x, int y)
     {
-        this.BoardXPos = x;
-        this.BoardYPos = y;
+        // this.TileReference.tilePosition = new Vector2(x, y);
     }
 
     public Vector2 GetTilePosition()
