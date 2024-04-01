@@ -46,6 +46,7 @@ public class Tile : MonoBehaviour
     public void SetMaterial(Material material) {
         rendererReference.material = material;
     }
+    
     public Vector2 GetTilePosition()
     {
         return new Vector2(BoardXPos, BoardYPos);
