@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/****************************************************************************
+    CameraScript - used to allow a user/player to move the in-game camera 
+    using their keyboard. (this script can be attached to the main camera)
+ *****************************************************************************/
 public class CameraScript : MonoBehaviour
 {
     public GameObject gameController;
@@ -16,8 +21,8 @@ public class CameraScript : MonoBehaviour
     public float defaultY = -4f;
 
     // Camera default zoom position
-    private float zoomAmount = 0f;
-    private float newYPos = 7.46f;
+    public float zoomAmount = 0f;
+    public float newYPos = 7.46f;
 
 
     // Start is called before the first frame update
@@ -32,60 +37,56 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // check if user wants to move camera
-        // or if user wants to zoom in/out
-        moveCamera();
-        zoomCamera();
-
         // set zoom ranges
         // Overwrite Inspector values
         minZoom = 5.5f;
         maxZoom = 20f;
 
-        // resets camera to default location
-        if (Input.GetKey(KeyCode.Space))
-        {
-            resetCamera(); 
-        }
+        // check if user wants to move camera
+        // or if user wants to zoom in/out
+        moveCamera(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Space);
+        float scrollDelta = Input.mouseScrollDelta.y; // get mouse scroll wheel input
+        zoomCamera(scrollDelta);
+
     }
 
-
     // Function to move camera based on user's keyboard input
-    public void moveCamera()
+    public void moveCamera(KeyCode up, KeyCode down, KeyCode left, KeyCode right, KeyCode reset)
     {
-        // Check if keyboard<insert key here> was pressed
-        // access keyboard to move across x and y (up down left right)
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(up))
         {
             transform.Translate(Vector3.up * cameraSpeed * Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(down))
         {
             transform.Translate(Vector3.down * cameraSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(left))
         {
             transform.Translate(Vector3.left * cameraSpeed * Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(right))
         {
             transform.Translate(Vector3.right * cameraSpeed * Time.deltaTime);
+        }
+
+        // resets camera to default location
+        if (Input.GetKey(reset))
+        {
+            resetCamera();
         }
     }
 
     // Function to zoom in/out (based on scroll wheel)
-    public void zoomCamera()
-    {
-        // get mouse scroll wheel input
-        float scrollDelta = Input.mouseScrollDelta.y;
-        
+    public void zoomCamera(float scrollDelta)
+    {        
         // check if user is scrolling
         if (scrollDelta != 0)
         {
             // zoom based on scroll direction
             zoomAmount = -scrollDelta * zoomSpeed;
-            float clampedYPos = Mathf.Clamp(transform.position.y + zoomAmount, minZoom, maxZoom);
-            transform.position = new Vector3(transform.position.x, clampedYPos, transform.position.z);
+            newYPos = Mathf.Clamp(transform.position.y + zoomAmount, minZoom, maxZoom);
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
         }
     }
 
