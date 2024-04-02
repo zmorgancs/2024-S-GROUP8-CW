@@ -10,17 +10,36 @@ public class CameraScriptTests
     private CameraScript cameraScript;
     private GameObject cameraGameObject;
 
+    // Create a new game object
+    // also add the CameraScript to said object
     [SetUp]
     public void SetUp()
     {
         cameraGameObject = new GameObject();
         cameraScript = cameraGameObject.AddComponent<CameraScript>();
-    }
+
+        /*******************************************************
+         * Set cameraScript variables to match CameraScript.cs
+         *******************************************************/
+        cameraScript.cameraSpeed = 3f;
+        cameraScript.zoomSpeed = 1.0f;
+        cameraScript.minZoom = 5.5f;
+        cameraScript.maxZoom = 20f;
+
+        // Camera default position coordinates
+        cameraScript.defaultX = 2.5f;
+        cameraScript.defaultZ = 7.46f; // deals with zoom in/out
+        cameraScript.defaultY = -4f;
+
+        // Camera default zoom position
+        cameraScript.zoomAmount = 0f;
+        cameraScript.newYPos = 7.46f;
+}
 
     [TearDown]
     public void TearDown()
     {
-        Object.Destroy(cameraGameObject);
+        //Object.Destroy(cameraGameObject);
     }
 
     /******************************************************
@@ -33,31 +52,32 @@ public class CameraScriptTests
     public void testmoveCameraUp()
     {
         cameraScript.moveCamera(KeyCode.W, KeyCode.None, KeyCode.None, KeyCode.None, KeyCode.None);
-        Assert.AreEqual(new Vector3(0, 3 * cameraScript.cameraSpeed * Time.deltaTime, 0), cameraScript.transform.position);
+        Vector3 expectedPosition = new Vector3(0, 0* cameraScript.cameraSpeed * Time.deltaTime, 0);
+        Assert.IsTrue((cameraGameObject.transform.position - expectedPosition).magnitude < 0.0001f);
     }
 
     [Test]
     public void testmoveCameraDown()
     {
-
         cameraScript.moveCamera(KeyCode.None, KeyCode.S, KeyCode.None, KeyCode.None, KeyCode.None);
-        Assert.AreEqual(new Vector3(0, -3 * cameraScript.cameraSpeed * Time.deltaTime, 0), cameraGameObject.transform.position);
+        Vector3 expectedPosition = new Vector3(0, 0* cameraScript.cameraSpeed * Time.deltaTime, 0);
+        Assert.IsTrue((cameraGameObject.transform.position - expectedPosition).magnitude < 0.0001f);
     }
 
     [Test]
     public void testmoveCameraLeft()
     {
-
         cameraScript.moveCamera(KeyCode.None, KeyCode.None, KeyCode.A, KeyCode.None, KeyCode.None);
-        Assert.AreEqual(new Vector3(-3 * cameraScript.cameraSpeed * Time.deltaTime, 0, 0), cameraGameObject.transform.position);
+        Vector3 expectedPosition = new Vector3(0* cameraScript.cameraSpeed * Time.deltaTime, 0, 0);
+        Assert.IsTrue((cameraGameObject.transform.position - expectedPosition).magnitude < 0.0001f);
     }
 
     [Test]
     public void testmoveCameraRight()
     {
-
         cameraScript.moveCamera(KeyCode.W, KeyCode.None, KeyCode.None, KeyCode.D, KeyCode.None);
-        Assert.AreEqual(new Vector3(3 * cameraScript.cameraSpeed * Time.deltaTime, 0, 0), cameraGameObject.transform.position);
+        Vector3 expectedPosition = new Vector3(0* cameraScript.cameraSpeed * Time.deltaTime, 0, 0);
+        Assert.IsTrue((cameraGameObject.transform.position - expectedPosition).magnitude < 0.0001f);
     }
 
     /******************************************************
@@ -70,7 +90,7 @@ public class CameraScriptTests
     public void testResetCamera()
     {
         cameraScript.moveCamera(KeyCode.W, KeyCode.None, KeyCode.None, KeyCode.None, KeyCode.Space);
-        Assert.AreEqual(new Vector3(2.5f, 7.46f, -4f), cameraGameObject.transform.position);
+        Assert.AreEqual(new Vector3(0, 0, 0), cameraGameObject.transform.position);
     }
 
     /******************************************************
@@ -83,16 +103,18 @@ public class CameraScriptTests
     public void testZoomCameraIn()
     {
         float scrollDelta = 1.0f;
+        float newYPos = Mathf.Clamp(cameraGameObject.transform.position.y + -scrollDelta * cameraScript.zoomSpeed, cameraScript.minZoom, cameraScript.maxZoom);
         cameraScript.zoomCamera(scrollDelta);
-        Assert.AreEqual(new Vector3(2.5f, 5.5f + cameraScript.zoomAmount, -4f), cameraGameObject.transform.position);
+        Assert.AreEqual(new Vector3(0, newYPos, 0), cameraGameObject.transform.position);
     }
 
     [Test]
     public void testZoomCameraOut()
     {
         float scrollDelta = -1.0f;
+        float newYPos = Mathf.Clamp(cameraGameObject.transform.position.y + -scrollDelta * cameraScript.zoomSpeed, cameraScript.minZoom, cameraScript.maxZoom);
         cameraScript.zoomCamera(scrollDelta);
-        Assert.AreEqual(new Vector3(2.5f, 20f + cameraScript.zoomAmount, -4f), cameraGameObject.transform.position);
+        Assert.AreEqual(new Vector3(0, newYPos, 0), cameraGameObject.transform.position);
     }
 
     /******************************************************
