@@ -1,30 +1,30 @@
 {
   "summary": {
-    "generatedon": "2024-04-02T19:44:36Z",
+    "generatedon": "2024-04-02T20:07:52Z",
     "parser": "MultiReportParser (2x OpenCoverParser)",
     "assemblies": 1,
     "classes": 21,
     "files": 21,
-    "coveredlines": 232,
-    "uncoveredlines": 783,
+    "coveredlines": 234,
+    "uncoveredlines": 781,
     "coverablelines": 1015,
-    "totallines": 1961,
-    "linecoverage": 22.8,
+    "totallines": 1960,
+    "linecoverage": 23,
     "coveredbranches": 0,
     "totalbranches": 0,
-    "coveredmethods": 57,
+    "coveredmethods": 58,
     "totalmethods": 150,
-    "methodcoverage": 38
+    "methodcoverage": 38.6
  },
   "coverage": {
     "assemblies": [
-      { "name": "Scripts", "classes": 21, "coverage": 22.8, "coveredlines": 232, "coverablelines": 1015, "totallines": 1961, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 38, "coveredmethods": 57, "totalmethods": 150, "classesinassembly": [
+      { "name": "Scripts", "classes": 21, "coverage": 23, "coveredlines": 234, "coverablelines": 1015, "totallines": 1960, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 38.6, "coveredmethods": 58, "totalmethods": 150, "classesinassembly": [
         { "name": "AttackButtonScript", "coverage": 0, "coveredlines": 0, "coverablelines": 12, "totallines": 28, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
         { "name": "Battles", "coverage": 0, "coveredlines": 0, "coverablelines": 88, "totallines": 217, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 10 },
         { "name": "BuildButtonScript", "coverage": 0, "coveredlines": 0, "coverablelines": 105, "totallines": 167, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
         { "name": "Building", "coverage": 100, "coveredlines": 49, "coverablelines": 49, "totallines": 90, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 13, "totalmethods": 13 },
         { "name": "BuildingRegistry", "coverage": 0, "coveredlines": 0, "coverablelines": 14, "totallines": 34, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
-        { "name": "CameraScript", "coverage": 49.1, "coveredlines": 28, "coverablelines": 57, "totallines": 110, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 57.1, "coveredmethods": 4, "totalmethods": 7 },
+        { "name": "CameraScript", "coverage": 52.6, "coveredlines": 30, "coverablelines": 57, "totallines": 109, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 71.4, "coveredmethods": 5, "totalmethods": 7 },
         { "name": "Card", "coverage": 100, "coveredlines": 31, "coverablelines": 31, "totallines": 99, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
         { "name": "CardRegistry", "coverage": 0, "coveredlines": 0, "coverablelines": 21, "totallines": 44, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 },
         { "name": "CardStack", "coverage": 100, "coveredlines": 45, "coverablelines": 45, "totallines": 68, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },

@@ -1,31 +1,31 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 4/2/2024 - 12:44:36 PM |
+| Generated on: | 4/2/2024 - 1:07:52 PM |
 | Parser: | MultiReportParser (2x OpenCoverParser) |
 | Assemblies: | 1 |
 | Classes: | 21 |
 | Files: | 21 |
-| Covered lines: | 232 |
-| Uncovered lines: | 783 |
+| Covered lines: | 234 |
+| Uncovered lines: | 781 |
 | Coverable lines: | 1015 |
-| Total lines: | 1961 |
-| Line coverage: | 22.8% (232 of 1015) |
+| Total lines: | 1960 |
+| Line coverage: | 23% (234 of 1015) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
-| Covered methods: | 57 |
+| Covered methods: | 58 |
 | Total methods: | 150 |
-| Method coverage: | 38% (57 of 150) |
+| Method coverage: | 38.6% (58 of 150) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|**Covered**|**Total**|**Method coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|**Scripts**|**232**|**783**|**1015**|**1961**|**22.8%**|**0**|**0**|****|**57**|**150**|**38%**|
+|**Scripts**|**234**|**781**|**1015**|**1960**|**23%**|**0**|**0**|****|**58**|**150**|**38.6%**|
 |AttackButtonScript|0|12|12|28|0%|0|0||0|3|0%|
 |Battles|0|88|88|217|0%|0|0||0|10|0%|
 |BuildButtonScript|0|105|105|167|0%|0|0||0|6|0%|
 |Building|49|0|49|90|100%|0|0||13|13|100%|
 |BuildingRegistry|0|14|14|34|0%|0|0||0|3|0%|
-|CameraScript|28|29|57|110|49.1%|0|0||4|7|57.1%|
+|CameraScript|30|27|57|109|52.6%|0|0||5|7|71.4%|
 |Card|31|0|31|99|100%|0|0||8|8|100%|
 |CardRegistry|0|21|21|44|0%|0|0||0|4|0%|
 |CardStack|45|0|45|68|100%|0|0||8|8|100%|

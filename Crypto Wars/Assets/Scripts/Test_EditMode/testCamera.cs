@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 [TestFixture]
-public class CameraScriptTests
+public class testCameraScript
 {
     private CameraScript cameraScript;
     private GameObject cameraGameObject;
@@ -51,7 +51,7 @@ public class CameraScriptTests
     [Test]
     public void testmoveCameraUp()
     {
-        cameraScript.moveCamera(KeyCode.W, KeyCode.None, KeyCode.None, KeyCode.None, KeyCode.None);
+        cameraScript.moveCamera(KeyCode.W, KeyCode.None, KeyCode.None, KeyCode.None);
         Vector3 expectedPosition = new Vector3(0, 0* cameraScript.cameraSpeed * Time.deltaTime, 0);
         Assert.IsTrue((cameraGameObject.transform.position - expectedPosition).magnitude < 0.0001f);
     }
@@ -59,7 +59,7 @@ public class CameraScriptTests
     [Test]
     public void testmoveCameraDown()
     {
-        cameraScript.moveCamera(KeyCode.None, KeyCode.S, KeyCode.None, KeyCode.None, KeyCode.None);
+        cameraScript.moveCamera(KeyCode.None, KeyCode.S, KeyCode.None, KeyCode.None);
         Vector3 expectedPosition = new Vector3(0, 0* cameraScript.cameraSpeed * Time.deltaTime, 0);
         Assert.IsTrue((cameraGameObject.transform.position - expectedPosition).magnitude < 0.0001f);
     }
@@ -67,7 +67,7 @@ public class CameraScriptTests
     [Test]
     public void testmoveCameraLeft()
     {
-        cameraScript.moveCamera(KeyCode.None, KeyCode.None, KeyCode.A, KeyCode.None, KeyCode.None);
+        cameraScript.moveCamera(KeyCode.None, KeyCode.None, KeyCode.A, KeyCode.None);
         Vector3 expectedPosition = new Vector3(0* cameraScript.cameraSpeed * Time.deltaTime, 0, 0);
         Assert.IsTrue((cameraGameObject.transform.position - expectedPosition).magnitude < 0.0001f);
     }
@@ -75,7 +75,7 @@ public class CameraScriptTests
     [Test]
     public void testmoveCameraRight()
     {
-        cameraScript.moveCamera(KeyCode.W, KeyCode.None, KeyCode.None, KeyCode.D, KeyCode.None);
+        cameraScript.moveCamera(KeyCode.W, KeyCode.None, KeyCode.None, KeyCode.D);
         Vector3 expectedPosition = new Vector3(0* cameraScript.cameraSpeed * Time.deltaTime, 0, 0);
         Assert.IsTrue((cameraGameObject.transform.position - expectedPosition).magnitude < 0.0001f);
     }
@@ -89,7 +89,7 @@ public class CameraScriptTests
     [Test]
     public void testResetCamera()
     {
-        cameraScript.moveCamera(KeyCode.W, KeyCode.None, KeyCode.None, KeyCode.None, KeyCode.Space);
+        cameraScript.resetCamera(KeyCode.Space);
         Assert.AreEqual(new Vector3(0, 0, 0), cameraGameObject.transform.position);
     }
 

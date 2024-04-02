@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>4/2/2024 - 12:44:36 PM</Generatedon>
+    <Generatedon>4/2/2024 - 1:07:52 PM</Generatedon>
     <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
     <Assemblies>1</Assemblies>
     <Classes>21</Classes>
     <Files>21</Files>
-    <Coveredlines>232</Coveredlines>
-    <Uncoveredlines>783</Uncoveredlines>
+    <Coveredlines>234</Coveredlines>
+    <Uncoveredlines>781</Uncoveredlines>
     <Coverablelines>1015</Coverablelines>
-    <Totallines>1961</Totallines>
-    <Linecoverage>22.8</Linecoverage>
+    <Totallines>1960</Totallines>
+    <Linecoverage>23</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
-    <Coveredmethods>57</Coveredmethods>
+    <Coveredmethods>58</Coveredmethods>
     <Totalmethods>150</Totalmethods>
-    <Methodcoverage>38</Methodcoverage>
+    <Methodcoverage>38.6</Methodcoverage>
   </Summary>
   <Coverage>
-    <Assembly name="Scripts" classes="21" coverage="22.8" coveredlines="232" coverablelines="1015" totallines="1961" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="57" totalmethods="150" methodcoverage="38">
+    <Assembly name="Scripts" classes="21" coverage="23" coveredlines="234" coverablelines="1015" totallines="1960" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="58" totalmethods="150" methodcoverage="38.6">
       <Class name="AttackButtonScript" coverage="0" coveredlines="0" coverablelines="12" totallines="28" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
       <Class name="Battles" coverage="0" coveredlines="0" coverablelines="88" totallines="217" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0" />
       <Class name="BuildButtonScript" coverage="0" coveredlines="0" coverablelines="105" totallines="167" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
       <Class name="Building" coverage="100" coveredlines="49" coverablelines="49" totallines="90" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="13" totalmethods="13" methodcoverage="100" />
       <Class name="BuildingRegistry" coverage="0" coveredlines="0" coverablelines="14" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
-      <Class name="CameraScript" coverage="49.1" coveredlines="28" coverablelines="57" totallines="110" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="7" methodcoverage="57.1" />
+      <Class name="CameraScript" coverage="52.6" coveredlines="30" coverablelines="57" totallines="109" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="7" methodcoverage="71.4" />
       <Class name="Card" coverage="100" coveredlines="31" coverablelines="31" totallines="99" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
       <Class name="CardRegistry" coverage="0" coveredlines="0" coverablelines="21" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
       <Class name="CardStack" coverage="100" coveredlines="45" coverablelines="45" totallines="68" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />

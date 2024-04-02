@@ -30,7 +30,7 @@ public class CameraScript : MonoBehaviour
     {
         // Set the game-controller to new game controller
         gameController = new GameObject("GameController");
-        resetCamera(); // set camera to default position
+        resetCamera(KeyCode.Space); // set camera to default position
 
     }
 
@@ -44,14 +44,15 @@ public class CameraScript : MonoBehaviour
 
         // check if user wants to move camera
         // or if user wants to zoom in/out
-        moveCamera(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Space);
+        moveCamera(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D);
         float scrollDelta = Input.mouseScrollDelta.y; // get mouse scroll wheel input
         zoomCamera(scrollDelta);
+        resetCamera(KeyCode.Space);
 
     }
 
     // Function to move camera based on user's keyboard input
-    public void moveCamera(KeyCode up, KeyCode down, KeyCode left, KeyCode right, KeyCode reset)
+    public void moveCamera(KeyCode up, KeyCode down, KeyCode left, KeyCode right)
     {
         if (Input.GetKey(up))
         {
@@ -69,12 +70,6 @@ public class CameraScript : MonoBehaviour
         {
             transform.Translate(Vector3.right * cameraSpeed * Time.deltaTime);
         }
-
-        // resets camera to default location
-        if (Input.GetKey(reset))
-        {
-            resetCamera();
-        }
     }
 
     // Function to zoom in/out (based on scroll wheel)
@@ -91,10 +86,14 @@ public class CameraScript : MonoBehaviour
     }
 
     // Function to reset camera to default location
-    public void resetCamera()
+    public void resetCamera(KeyCode reset)
     {
-        // note: 2.5 and -4 is where the current cube/tile is for the scene
-        transform.position = new Vector3(defaultX, defaultZ, defaultY);
+        // resets camera to default location
+        if (Input.GetKey(reset))
+        {
+            // note: 2.5 and -4 is where the current cube/tile is for the scene
+            transform.position = new Vector3(defaultX, defaultZ, defaultY);
+        }
     }
 
 
