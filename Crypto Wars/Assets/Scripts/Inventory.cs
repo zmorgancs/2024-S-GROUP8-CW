@@ -84,12 +84,12 @@ public class Inventory
                 index++;
             }
             if(selectedStack != null)
-                RemoveCardFromGUI(card, index);
+                RemoveCardFromStack(card, index);
         }
     }
 
     // Method for if the player chooses the specific stack to remove from
-    public void RemoveCardFromGUI(Card card, int index)
+    public void RemoveCardFromStack(Card card, int index)
     {
         // Cardstack has one card remaining
         if (CardStacks[index].GetSize() < 2)
@@ -107,32 +107,49 @@ public class Inventory
                 manager.SetText("Amount", index, "" + CardStacks[index].GetSize());
         }
     }
+
+    // Get the inventory's hand
     public Hand GetHand() { return hand; }
 
+    // Get a stack in the inventory
     public CardStack GetStack(int index) { return CardStacks[index]; }
 
+    // Get size of the inventory
     public int GetStacksListSize()
     {
         return CardStacks.Count;
     }
+
+    // Get the entire list of cardstacks
     public List<CardStack> GetStacks()
     {
         return CardStacks;
     }
-
-    public void MoveCardToHand(int amount, Card card)
+    
+    // Transfers a amount of cards from the inventory to the hand
+    public void MoveCardToHand(int amount, Card card, int index = -1)
     {
+        if (index > -1) {
+            if (!CardStacks[index].GetCardinStack().getName().Equals(card.getName())) {
+                return;
+            }
+        }
         for (int i = amount; i > 0; i--)
         {
             hand.AddCardtoHand(card);
-            RemoveCardFromStack(card);
+            if(index > -1)
+                RemoveCardFromStack(card, index);
+            else
+                RemoveCardFromStack(card);
         }
     }
 
+    // Transfers a amount of cards from the hand to the inventory
     public void MoveCardFromHand(int amount, Card card)
     {
         for (int i = amount; i > 0; i--)
         {
+            // Refactor to allow for adding to stack index
             hand.RemoveCardfromHand(card);
             AddToCardToStack(card);
         }
