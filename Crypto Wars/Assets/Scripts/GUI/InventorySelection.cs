@@ -8,6 +8,7 @@ public class InventorySelection : MonoBehaviour
     private GameObject SelectionText;
     private Button Plus;
     private Button Minus;
+    private Button SelectCard;
     private int SelectionAmount;
     // Hardcoded for now, probably should call InventoryManager in future to retrieve stack maximum
     private int MaxAmount = 16;
@@ -18,9 +19,11 @@ public class InventorySelection : MonoBehaviour
     {
         Plus = gameObject.transform.Find("Add").gameObject.GetComponent<Button>();
         Minus = gameObject.transform.Find("Sub").gameObject.GetComponent<Button>();
+        SelectCard = gameObject.transform.Find("CardImage").gameObject.GetComponent<Button>();
 
         Plus.onClick.AddListener(AddClick);
         Minus.onClick.AddListener(SubClick);
+        SelectCard.onClick.AddListener(SlotClick);
 
         SelectionText = gameObject.transform.Find("Selection").gameObject;
 
@@ -30,18 +33,6 @@ public class InventorySelection : MonoBehaviour
         char[] slotChared = gameObject.name.ToCharArray();
         slotNum = int.Parse(slotChared[slotChared.Length - 1].ToString()) - 1;
 
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0)) {
-            SlotLeftClick();
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            SlotRightClick();
-        }
     }
 
     private void AddClick() {
@@ -58,41 +49,37 @@ public class InventorySelection : MonoBehaviour
         }
     }
 
+    private int LastClickDown = -1;
+    void Update(){
+        if (Input.GetMouseButtonDown(0)) {
+            LastClickDown = 0;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            LastClickDown = 1;
+        }
+    }
+
     public int GetAmount() {
         return SelectionAmount;
     }
 
-    public void SlotLeftClick() {
+    public void SlotClick() {
         
         Inventory inventory = PlayerController.CurrentPlayer.GetInventory();
+        Debug.Log("Got here " + inventory.GetStacksListSize());
         int amountToHand = int.Parse(SelectionAmount.ToString());
         if (inventory.GetStacksListSize() > 0) {
+            
             Card CardInStack = null;
             if (inventory.GetStacksListSize() > slotNum) { 
                 CardInStack = inventory.GetStack(slotNum).GetCardinStack();
             }
             if (CardInStack != null) {
-                inventory.MoveCardToHand(amountToHand, CardInStack);
-            }
-        }
-    }
-
-    public void SlotRightClick()
-    {
-
-        int amountToHand = int.Parse(SelectionAmount.ToString());
-
-        Inventory inventory = PlayerController.CurrentPlayer.GetInventory();
-        if (inventory.GetStacksListSize() > 0)
-        {
-            Card CardInStack = null;
-            if (inventory.GetStacksListSize() > slotNum)
-            {
-                CardInStack = inventory.GetStack(slotNum).GetCardinStack();
-            }
-            if (CardInStack != null)
-            {
-                inventory.MoveCardFromHand(amountToHand, CardInStack);
+                if(LastClickDown == 0)
+                    inventory.MoveCardToHand(amountToHand, CardInStack);
+                if (LastClickDown == 1)
+                    inventory.MoveCardFromHand(amountToHand, CardInStack);
             }
         }
     }

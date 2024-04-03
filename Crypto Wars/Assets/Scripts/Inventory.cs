@@ -10,10 +10,11 @@ public class Inventory
     private static List<GameObject> Slots = new List<GameObject>();
     private const int maxSize = 5;
     private const int maxCardStack = 16;
-    private Hand hand;
+    private Hand hand = new Hand();
 
     static Inventory(){
         manager = GameObject.Find("Inventory Bar").GetComponent<InventoryManager>();
+        
     }
 
     // Add a card to the UI inventory
