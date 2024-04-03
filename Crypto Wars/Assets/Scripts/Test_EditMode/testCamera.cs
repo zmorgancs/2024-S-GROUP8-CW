@@ -39,7 +39,7 @@ public class testCameraScript
     [TearDown]
     public void TearDown()
     {
-        //Object.Destroy(cameraGameObject);
+        Object.Destroy(cameraGameObject);
     }
 
     /******************************************************
@@ -122,7 +122,7 @@ public class testCameraScript
      * TEST setCameraPosition using a dummy tile
      * 
      *******************************************************/
-
+    // ai-gen start (ChatGPT-3.5, human intervention level 1):
     [Test]
     public void testSetCameraPosition()
     {
@@ -144,5 +144,6 @@ public class testCameraScript
         tile.BoardYPos = (int)position.y;
         return tile;
     }
+    // ai-gen end
 }
 
