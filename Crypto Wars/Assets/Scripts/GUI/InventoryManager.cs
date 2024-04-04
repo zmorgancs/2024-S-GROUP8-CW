@@ -27,6 +27,7 @@ public class InventoryManager : MonoBehaviour
             SetupSlot(i); // Create each slot in the inventory
             Debug.Log("" + Slots.Count);
         }
+        
         Temp = new Card(null, "John");
         Temp1 = new Card(null, "Steve");
 
@@ -74,7 +75,8 @@ public class InventoryManager : MonoBehaviour
 
     // Easy reference to alter text inside the slot UI object
     public void SetText(string textObject, int index, string newText) {
-        Slots[index].transform.Find(textObject).GetComponent<TextMeshProUGUI>().text = newText;
+        if(Slots[index] != null)
+            Slots[index].transform.Find(textObject).GetComponent<TextMeshProUGUI>().text = newText;
     }
 
     // Setups a inventory slot and sets the text values to an empty string

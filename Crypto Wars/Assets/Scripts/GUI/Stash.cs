@@ -73,4 +73,12 @@ public class Stash : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public int GetStashSize() { 
+        return stashedCards.Count;
+    }
+
+    public void Clear(){
+        stashedCards.Clear();
+    }
 }
