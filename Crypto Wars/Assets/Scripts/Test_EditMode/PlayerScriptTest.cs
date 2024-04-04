@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 //using Player;
 
-public class testPlayerScript
+public class PlayerScriptTest
 {
     // A Test behaves as an ordinary method
     [Test]

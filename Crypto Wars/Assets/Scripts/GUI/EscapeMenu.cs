@@ -118,7 +118,7 @@ public class EscapeMenu : MonoBehaviour
         return panel;
     
     }
-    void ToggleMenu()
+    public void ToggleMenu()
     {
         inPauseMenu = !inPauseMenu; // Toggle escape menu when esc is pressed
         escMenu.SetActive(inPauseMenu);

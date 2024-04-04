@@ -43,7 +43,9 @@ public class Tile : MonoBehaviour
     {
         playerIndex = index;
     }
-    public void SetMaterial(Material newMaterial) {
+    
+    public void SetMaterial(Material newMaterial)
+    {
         rendererReference.material = newMaterial;
     }
 
@@ -54,7 +56,8 @@ public class Tile : MonoBehaviour
 
     public void SetTilePosition(int x, int y)
     {
-        // this.TileReference.tilePosition = new Vector2(x, y);
+        this.BoardXPos = x;
+        this.BoardYPos = y;
     }
 
     public Vector2 GetTilePosition()

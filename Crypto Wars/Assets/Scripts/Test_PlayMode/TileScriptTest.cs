@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace Test
 {
-    public class TestTileScript
+    public class TileScriptTest
     {
         public GameObject tileGameObject;
         public Tile tile;
@@ -21,8 +21,6 @@ namespace Test
             // Initialize Tile GameObject and Tile script before each test
             tile = tileGameObject.GetComponent<Tile>();
             tile.rendererReference = tileGameObject.GetComponent<MeshRenderer>();
-            // tile.tilePosition = new Vector2(5, 10);
-            // tile.SetTilePosition(5, 10);
 
             // Set up a test material
             testMaterial = new Material(Shader.Find("Standard"));
@@ -42,8 +40,11 @@ namespace Test
         {
             // Test to ensure the material is set correctly
             tile.SetMaterial(testMaterial);
+            Material actualMaterial = tile.GetMaterial();
+
             string expectedName = testMaterial.name.Split(' ')[0];
-            string actualName = tile.GetMaterial().name.Split(' ')[0];
+            string actualName = actualMaterial.name.Split(' ')[0];
+
             Assert.AreEqual(expectedName, actualName);
         }
 
@@ -52,6 +53,7 @@ namespace Test
         {
             // Test to ensure the position is retrieved correctly
             Vector2 expectedPosition = new Vector2(5, 10);
+            tile.SetTilePosition(5, 10);
             Assert.AreEqual(expectedPosition, tile.GetTilePosition());
         }
 
