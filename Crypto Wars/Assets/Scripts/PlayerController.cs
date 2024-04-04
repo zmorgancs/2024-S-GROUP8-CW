@@ -46,10 +46,12 @@ public class PlayerController : MonoBehaviour
                         {
                             if(tile.GetPlayer() != CurrentPlayerIndex){
                               GameObject attackButton = GameObject.Find("Attack Button");
+                              GameObject cancelButton = GameObject.Find("Cancel Button");
                               attackButton.transform.position = new Vector3(50,35,0);
+                              cancelButton.transform.position = new Vector3(100,360,0);
                               Debug.Log("Creating an Attack Button");
                             }
-                            if(tile.GetPlayer() == CurrentPlayerIndex)
+                            /*if(tile.GetPlayer() == CurrentPlayerIndex)
                             { 
                                 GameObject buildButton = GameObject.Find("BuildButton");
                                 GameObject destroyButton = GameObject.Find("DestroyButton");
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
                                     cancelButton.GetComponent<Image>().enabled = true;
                                     cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
                                 }
-                            }
+                            }*/
                         } 
                         else
                         {
