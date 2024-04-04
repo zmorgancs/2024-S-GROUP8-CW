@@ -17,6 +17,7 @@ public class AttackButtonScript : MonoBehaviour
 
     }
 
+    //Moves the Attack Button out of frame
     public void outOfFrame()
     {
         this.transform.position = new Vector3(0,-375,0);

@@ -16,6 +16,7 @@ public class CancelButton : MonoBehaviour
         
     }
 
+    //Moves the cancel button out of frame
     public void outOfFrame()
     {
         this.transform.position = new Vector3(0,-375,0);

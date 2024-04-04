@@ -44,7 +44,9 @@ public class PlayerController : MonoBehaviour
                     if (tile != null) {
                         if(tile.GetPlayer() > -1)
                         {
+                            // If the tile clicked on is not controlled by the current player
                             if(tile.GetPlayer() != CurrentPlayerIndex){
+                                //Get the attack and cancel buttons and move them into frame
                               GameObject attackButton = GameObject.Find("Attack Button");
                               GameObject cancelButton = GameObject.Find("Cancel Button");
                               attackButton.transform.position = new Vector3(50,35,0);
