@@ -10,9 +10,9 @@ using UnityEngine.UI;
 public class PlayerList : MonoBehaviour
 {
     public PlayerController Controller;
+    public Boolean visible = true;
+    public Image image;
     private GameObject panel;
-    private Boolean visible = true;
-    private Image image;
 
     // Start is called before the first frame update
     /* Start creates all objects and components needed to create */
@@ -72,7 +72,7 @@ public class PlayerList : MonoBehaviour
         
     }
 
-    private void ToggleVisibility(){
+    public void ToggleVisibility(){
         if(visible){ // move panel out-of-view
             panel.GetComponent<RectTransform>().localPosition = new Vector3(400, 0, 0);
             image.color = new Color(0, 0, 0, 1);
