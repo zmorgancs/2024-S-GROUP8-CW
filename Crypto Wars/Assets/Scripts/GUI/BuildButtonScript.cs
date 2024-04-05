@@ -17,9 +17,9 @@ public class BuildButtonScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreateBuildButton();
-        CreateDestroyButton();
-        CreateCancelButton();
+        //CreateBuildButton();
+        //CreateDestroyButton();
+        //CreateCancelButton();
         buildButton = GameObject.Find("BuildButton");
         destroyButton = GameObject.Find("DestroyButton");
         cancelButton = GameObject.Find("CancelButton");
@@ -163,5 +163,10 @@ public class BuildButtonScript : MonoBehaviour
         cancelText.transform.Translate(50, 0, 0);
         cancelButton.GetComponent<Button>().onClick.AddListener(ToggleMenu);
         // cancelButton = GameObject.Find("CancelButton");
+    }
+
+    public void outOfFrame()
+    {
+        this.transform.position = new Vector3(0,-375,0);
     }
 }

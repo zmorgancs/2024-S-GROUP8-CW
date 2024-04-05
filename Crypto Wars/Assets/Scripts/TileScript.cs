@@ -18,6 +18,7 @@ public class Tile : MonoBehaviour
 
     // References to the renderer and materials for the tile
     private MeshRenderer rendererReference;
+    private Building currBuilding;
 
     // Default Materials 
     private Material BlueMaterial;
@@ -32,6 +33,7 @@ public class Tile : MonoBehaviour
         BlueMaterial = Resources.Load<Material>("Materials/PlayerTileColor");
         RedMaterial = Resources.Load<Material>("Materials/EnemyTileColor");
         this.playerIndex = -1;
+        currBuilding = new Building("Nothing",0,0);
     }
 
     public int GetPlayer() 
@@ -49,5 +51,15 @@ public class Tile : MonoBehaviour
     public Vector2 GetTilePosition()
     {
         return new Vector2(BoardXPos, BoardYPos);
+    }
+
+    public Building getBuilding()
+    {
+        return currBuilding;
+    }
+
+    public void setBuilding(Building newBuilding)
+    {
+        currBuilding = newBuilding;
     }
 }
