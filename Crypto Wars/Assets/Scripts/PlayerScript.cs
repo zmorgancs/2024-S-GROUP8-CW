@@ -18,8 +18,8 @@ public class Player
      // Enum to represent the different phases each player can be in
     public enum Phase
     {
-        Attack,
         Defense,
+        Attack,
         Build
     }
 
@@ -32,7 +32,7 @@ public class Player
     // Resets the phase to the start (useful at the start of a new turn)
     public void ResetPhase()
     {
-        currentPhase = Phase.Attack;
+        currentPhase = Phase.Defense; // Defense Phase is now first
     }
 
     // Method to check the current phase
