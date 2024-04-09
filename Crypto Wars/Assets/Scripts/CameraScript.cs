@@ -2,48 +2,108 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/****************************************************************************
+    CameraScript - used to allow a user/player to move the in-game camera 
+    using their keyboard. (this script can be attached to the main camera)
+ *****************************************************************************/
 public class CameraScript : MonoBehaviour
 {
     public GameObject gameController;
     public float cameraSpeed = 3f;
-    public float zoomSpeed = 1.5f;
-    public float minZoom = 2f;
-    public float maxZoom = 3f;
+    public float zoomSpeed = 1.0f;
+    public float minZoom = 5.5f;
+    public float maxZoom = 20f;
 
-    private float zoomAmount = 0;
-    private float newYPos = 0;
+    // Camera default position coordinates
+    public float defaultX = 2.5f;
+    public float defaultZ = 7.46f; // deals with zoom in/out
+    public float defaultY = -4f;
+
+    // Camera default zoom position
+    public float zoomAmount = 0f;
+    public float newYPos = 7.46f;
+
+
     // Start is called before the first frame update
     void Start()
     {
         // Set the game-controller to new game controller
         gameController = new GameObject("GameController");
+        resetCamera(KeyCode.Space); // set camera to default position
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        float scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
-        // Check if keyboard<insert key here> was pressed
-            // access keyboard to move across x and y (up down left right)
-        if(Input.GetKey(KeyCode.W))
+        // set zoom ranges
+        // Overwrite Inspector values
+        minZoom = 5.5f;
+        maxZoom = 20f;
+
+        // check if user wants to move camera
+        // or if user wants to zoom in/out
+        moveCamera(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D);
+        float scrollDelta = Input.mouseScrollDelta.y; // get mouse scroll wheel input
+        zoomCamera(scrollDelta);
+        resetCamera(KeyCode.Space);
+
+    }
+
+    // Function to move camera based on user's keyboard input
+    public void moveCamera(KeyCode up, KeyCode down, KeyCode left, KeyCode right)
+    {
+        if (Input.GetKey(up))
         {
-            transform.position += new Vector3(-cameraSpeed * Time.deltaTime, 0, 0);
+            transform.Translate(Vector3.up * cameraSpeed * Time.deltaTime);
         }
-        if(Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(down))
         {
-            transform.position += new Vector3(cameraSpeed * Time.deltaTime, 0, 0);
+            transform.Translate(Vector3.down * cameraSpeed * Time.deltaTime);
         }
-        if(Input.GetKey(KeyCode.A))
+        if (Input.GetKey(left))
         {
-            transform.position += new Vector3(0, 0, -cameraSpeed * Time.deltaTime);
+            transform.Translate(Vector3.left * cameraSpeed * Time.deltaTime);
         }
-        if(Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(right))
         {
-            transform.position += new Vector3(0, 0, cameraSpeed * Time.deltaTime);
+            transform.Translate(Vector3.right * cameraSpeed * Time.deltaTime);
         }
-        // If using the scroll wheel, will zoom a bit, depending on how zoomed the player is
-        zoomAmount = zoomSpeed * scrollWheelInput;
-        newYPos = Mathf.Clamp(transform.position.y + zoomAmount, minZoom, maxZoom);
-        transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+    }
+
+    // Function to zoom in/out (based on scroll wheel)
+    public void zoomCamera(float scrollDelta)
+    {        
+        // check if user is scrolling
+        if (scrollDelta != 0)
+        {
+            // zoom based on scroll direction
+            zoomAmount = -scrollDelta * zoomSpeed;
+            newYPos = Mathf.Clamp(transform.position.y + zoomAmount, minZoom, maxZoom);
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+        }
+    }
+
+    // Function to reset camera to default location
+    public void resetCamera(KeyCode reset)
+    {
+        // resets camera to default location
+        if (Input.GetKey(reset))
+        {
+            // note: 2.5 and -4 is where the current cube/tile is for the scene
+            transform.position = new Vector3(defaultX, defaultZ, defaultY);
+        }
+    }
+
+
+    // Function to set the camera to a tile's location
+    // can be used to switch between each players' location
+    public void setCameraPosition(Tile tile)
+    {
+        transform.position = tile.GetTilePosition();
+
+        // set camera to move above tile position (since working in 3d space)
+        transform.position = new Vector3(0, defaultZ, 0);
     }
 }
