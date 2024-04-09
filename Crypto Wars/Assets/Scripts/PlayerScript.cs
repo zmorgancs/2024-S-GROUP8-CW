@@ -22,6 +22,12 @@ public class Player
         inventory = new Inventory();
     }
 
+    // Return the inventory from this player
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
+
     // Returns whether the player is done with there turn
     // Turn master will refer to this when calculating whether a full turn will elapse
     public bool IsPlayerTurnFinished() {

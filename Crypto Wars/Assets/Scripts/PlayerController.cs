@@ -9,10 +9,11 @@ public class PlayerController : MonoBehaviour
 {
     // Temp players
     public static List<Player> players { get; set; }
-    private int CurrentPlayerIndex;
+    private static int CurrentPlayerIndex;
 
     // Tracks the player who is currently playing
-    public Player CurrentPlayer { get; set; }
+    public static Player CurrentPlayer { get; set; }
+    public static bool Switching = false;
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +79,7 @@ public class PlayerController : MonoBehaviour
         }
         // Temp player switching until TurnMaster additions can be made
         if (Input.GetKeyDown(KeyCode.T)) {
+            Switching = true;
             NextPlayer();
             Debug.Log("Next: Player Index is now: " + CurrentPlayerIndex);
         }

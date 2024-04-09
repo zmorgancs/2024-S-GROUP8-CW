@@ -20,15 +20,23 @@
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "PathsToExclude",
                 "value": "{\"m_Value\":\"{ProjectPath}/Assets/Scripts/Test_EditMode/**,{ProjectPath}/Assets/Scripts/Test_PlayMode/**\"}"
+<<<<<<< HEAD
             },
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "PathsToInclude",
                 "value": "{\"m_Value\":\"{ProjectPath}/Assets/Scripts/**\"}"
+=======
+>>>>>>> 21a415fa3c609ebac95b0552b9405477f27aa707
             },
             {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "EnableCodeCoverage",
+                "value": "{\"m_Value\":true}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "GenerateAdditionalMetrics",
                 "value": "{\"m_Value\":true}"
             }
         ]

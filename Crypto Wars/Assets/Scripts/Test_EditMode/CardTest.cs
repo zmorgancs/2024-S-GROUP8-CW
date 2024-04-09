@@ -1,16 +1,11 @@
 using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class CardTest
 {
-    Card TestCard = new Card(null, "John");
-
     // Test get attack from card
     [Test]
     public void TestGetAttack()
     {
+        Card TestCard = new Card(null, "John");
         TestCard.setOffense(10);
         Assert.AreEqual(10, TestCard.getOffense());
 
@@ -20,6 +15,7 @@ public class CardTest
     [Test]
     public void TestGetDefense()
     {
+        Card TestCard = new Card(null, "John");
         TestCard.setDefense(10);
         Assert.AreEqual(10, TestCard.getDefense());
 
@@ -29,6 +25,7 @@ public class CardTest
     [Test]
     public void TestGetStamina()
     {
+        Card TestCard = new Card(null, "John");
         TestCard.setStaminaCost(10);
         Assert.AreEqual(10, TestCard.getStaminaCost());
 
