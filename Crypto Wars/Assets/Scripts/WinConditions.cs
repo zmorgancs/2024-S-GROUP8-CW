@@ -6,17 +6,18 @@ using System.Collections.Generic;
 
 public class WinConditions : MonoBehaviour
 {
-    private float timer;                // Starting timer
-    private float maxTime = 45.5f;      // Time limit of 45.5 sec (for now)
+    public float timer { get; set; }    // Starting timer
+    public float maxTime { get; set; }  // Time limit of 45.5 sec (for now)
     public GameObject gameOver;         // Unity game over object
     public TextMeshProUGUI gameWinner;  // Output text for overall game winner
-    private Player winningPlayer;       // Find/output the winner
+    public Player winningPlayer { get; private set; } // Find/output the winner
     private PlayerController playerCtrl;
     private GameObject playerCtrlGameObject;
 
 
     void Start() {
         timer = 0f;
+        maxTime = 45.5f;
         gameWinner = GetComponent<TextMeshProUGUI>();
         gameWinner.text = "Winner ";
         playerCtrlGameObject = new GameObject();
@@ -83,7 +84,7 @@ public class WinConditions : MonoBehaviour
             // Check if any player's tile controlled  % >= 50%
             for (int i = 0; i < PlayerController.players.Count; i++)
             {
-                ply = playerController.CurrentPlayer;
+                ply = PlayerController.CurrentPlayer;
 
                 // Player needs at least 50% overall tile control to win
                 if (ply.CalculatePercentage() >= 0.50)
@@ -102,13 +103,13 @@ public class WinConditions : MonoBehaviour
             Debug.Log("Game Time Limit Reached");
 
             // Default winner is currentPlayer to prevent winningPlayer = null
-            winningPlayer = playerController.CurrentPlayer;
+            winningPlayer = PlayerController.CurrentPlayer;
 
             // Find max of all players TilesControlledCount
             for (int i = 0; i < PlayerController.players.Count; i++)
             {
                 playerController.NextPlayer();
-                ply = playerController.CurrentPlayer;
+                ply = PlayerController.CurrentPlayer;
 
                 if (winningPlayer.getTilesControlledCount() < ply.getTilesControlledCount())
                     winningPlayer = ply;
