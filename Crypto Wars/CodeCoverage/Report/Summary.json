@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "generatedon": "2024-04-09T06:10:03Z",
+    "parser": "MultiReportParser (4x OpenCoverParser)",
+    "assemblies": 1,
+    "classes": 24,
+    "files": 24,
+    "coveredlines": 529,
+    "uncoveredlines": 598,
+    "coverablelines": 1127,
+    "totallines": 2172,
+    "linecoverage": 46.9,
+    "coveredbranches": 0,
+    "totalbranches": 0,
+    "coveredmethods": 109,
+    "totalmethods": 176,
+    "methodcoverage": 61.9
+ },
+  "coverage": {
+    "assemblies": [
+      { "name": "Scripts", "classes": 24, "coverage": 46.9, "coveredlines": 529, "coverablelines": 1127, "totallines": 2172, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 61.9, "coveredmethods": 109, "totalmethods": 176, "classesinassembly": [
+        { "name": "AttackButtonScript", "coverage": 72.7, "coveredlines": 8, "coverablelines": 11, "totallines": 28, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 },
+        { "name": "Battles", "coverage": 0, "coveredlines": 0, "coverablelines": 88, "totallines": 217, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 10 },
+        { "name": "BuildButtonScript", "coverage": 86.6, "coveredlines": 91, "coverablelines": 105, "totallines": 167, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 66.6, "coveredmethods": 4, "totalmethods": 6 },
+        { "name": "Building", "coverage": 100, "coveredlines": 49, "coverablelines": 49, "totallines": 90, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 13, "totalmethods": 13 },
+        { "name": "BuildingRegistry", "coverage": 0, "coveredlines": 0, "coverablelines": 14, "totallines": 34, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
+        { "name": "CameraScript", "coverage": 61.2, "coveredlines": 19, "coverablelines": 31, "totallines": 49, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 },
+        { "name": "Card", "coverage": 100, "coveredlines": 31, "coverablelines": 31, "totallines": 99, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
+        { "name": "CardRegistry", "coverage": 0, "coveredlines": 0, "coverablelines": 21, "totallines": 44, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 },
+        { "name": "CardStack", "coverage": 100, "coveredlines": 45, "coverablelines": 45, "totallines": 68, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
+        { "name": "EndTurn", "coverage": 88.8, "coveredlines": 8, "coverablelines": 9, "totallines": 42, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 2, "totalmethods": 2 },
+        { "name": "EscapeMenu", "coverage": 5, "coveredlines": 4, "coverablelines": 79, "totallines": 127, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 33.3, "coveredmethods": 2, "totalmethods": 6 },
+        { "name": "GameManager", "coverage": 0, "coveredlines": 0, "coverablelines": 23, "totallines": 53, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
+        { "name": "Hand", "coverage": 100, "coveredlines": 26, "coverablelines": 26, "totallines": 48, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 6, "totalmethods": 6 },
+        { "name": "Inventory", "coverage": 43.8, "coveredlines": 43, "coverablelines": 98, "totallines": 158, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 72.7, "coveredmethods": 8, "totalmethods": 11 },
+        { "name": "InventoryManager", "coverage": 53.2, "coveredlines": 33, "coverablelines": 62, "totallines": 105, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 75, "coveredmethods": 6, "totalmethods": 8 },
+        { "name": "InventorySelection", "coverage": 32.3, "coveredlines": 21, "coverablelines": 65, "totallines": 117, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 42.8, "coveredmethods": 3, "totalmethods": 7 },
+        { "name": "MainMenu", "coverage": 0, "coveredlines": 0, "coverablelines": 56, "totallines": 125, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 13 },
+        { "name": "Player", "coverage": 65.3, "coveredlines": 49, "coverablelines": 75, "totallines": 134, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 81.2, "coveredmethods": 13, "totalmethods": 16 },
+        { "name": "PlayerController", "coverage": 17.7, "coveredlines": 16, "coverablelines": 90, "totallines": 137, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 70, "coveredmethods": 7, "totalmethods": 10 },
+        { "name": "PlayerList", "coverage": 0, "coveredlines": 0, "coverablelines": 27, "totallines": 55, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
+        { "name": "Stash", "coverage": 95.1, "coveredlines": 39, "coverablelines": 41, "totallines": 84, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 88.8, "coveredmethods": 8, "totalmethods": 9 },
+        { "name": "Tile", "coverage": 100, "coveredlines": 27, "coverablelines": 27, "totallines": 67, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 11, "totalmethods": 11 },
+        { "name": "TurnMaster", "coverage": 60.6, "coveredlines": 20, "coverablelines": 33, "totallines": 59, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 66.6, "coveredmethods": 4, "totalmethods": 6 },
+        { "name": "WinConditions", "coverage": 0, "coveredlines": 0, "coverablelines": 21, "totallines": 65, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 } ] } ]
+  }
+}
