@@ -67,7 +67,7 @@ public class TurnMaster : MonoBehaviour
         foreach (Player player in players)
         {
             // Check if the player is in the last phase (Build) and has finished their turn
-            if (!(player.GetCurrentPhase() == Phase.Build && player.IsPlayerTurnFinished()))
+            if (!(player.GetCurrentPhase() == Player.Phase.Build && player.IsPlayerTurnFinished())) // Uses Player.Phase to reference the Phase enum from the Player class
             {
                 return false;
             }
@@ -80,7 +80,7 @@ public class TurnMaster : MonoBehaviour
         player.NextPhase(); // Advances the player to the next phase
 
         // If the player has completed the Build phase, mark their turn as finished
-        if (player.GetCurrentPhase() == Phase.Attack) // This means the player has looped back to the start
+        if (player.GetCurrentPhase() == Player.Phase.Defense) // This means the player has looped back to the start
         {
             player.PlayerFinishTurn();
         }
