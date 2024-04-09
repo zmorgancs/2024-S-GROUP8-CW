@@ -124,4 +124,14 @@ public class PlayerController : MonoBehaviour
             CurrentPlayer = players[index];
         }
     }
+
+    public int GetCurrentPlayerIndex()
+    {
+        return CurrentPlayerIndex;
+    }
+
+    public List<Player> GetPlayerList()
+    {
+        return players;
+    }
 }
