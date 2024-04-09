@@ -8,7 +8,6 @@ namespace Test
     {
         public GameObject tileGameObject;
         public Tile tile;
-        // public Tile.TileReference tileReference;
         public Material testMaterial;
 
         [SetUp]

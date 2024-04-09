@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
 
     public int GetCurrentPlayerIndex()
     {
-        return this.CurrentPlayerIndex;
+        return CurrentPlayerIndex;
     }
 
     public List<Player> GetPlayerList()
