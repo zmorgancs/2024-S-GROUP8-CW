@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class testBuilding
+public class BuildingTest
 {
     [Test]
     public void testBuildingCreate()

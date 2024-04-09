@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     public static Player CurrentPlayer { get; set; }
     public static bool Switching = false;
 
+    // Get number of players in game
+    public int GetNumberOfPlayers(){
+        return players.Count;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -123,5 +128,15 @@ public class PlayerController : MonoBehaviour
             CurrentPlayerIndex = index;
             CurrentPlayer = players[index];
         }
+    }
+
+    public int GetCurrentPlayerIndex()
+    {
+        return CurrentPlayerIndex;
+    }
+
+    public List<Player> GetPlayerList()
+    {
+        return players;
     }
 }
