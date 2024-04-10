@@ -17,23 +17,33 @@ public class BuildButtonScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreateBuildButton();
-        CreateDestroyButton();
-        CreateCancelButton();
+        outOfFrame();
+        //CreateBuildButton();
+        //CreateDestroyButton();
+        //CreateCancelButton();
         buildButton = GameObject.Find("BuildButton");
         destroyButton = GameObject.Find("DestroyButton");
         cancelButton = GameObject.Find("CancelButton");
     }
 
+    public void outOfFrame()
+    {
+        this.transform.position = new Vector3(0,-375,0);
+    }
+    
+
+
+     /*
+    //This is the code for the old implementation, but I decided to keep it in just in case we end up needing it in the future
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.M)) {
             Debug.Log("Toggling Building Menu");
             ToggleMenu();
         }
     }
-    
     // function to, when the button in the canvas (see line 15) is clicked, toggle the state
     // of the build options menu
     public void ToggleMenu()
@@ -163,5 +173,6 @@ public class BuildButtonScript : MonoBehaviour
         cancelText.transform.Translate(50, 0, 0);
         cancelButton.GetComponent<Button>().onClick.AddListener(ToggleMenu);
         // cancelButton = GameObject.Find("CancelButton");
-    }
+    }*/
+
 }

@@ -50,26 +50,54 @@ public class PlayerController : MonoBehaviour
                     if (tile != null) {
                         if(tile.GetPlayer() > -1)
                         {
+                            // If the tile clicked on is not controlled by the current player
                             if(tile.GetPlayer() != CurrentPlayerIndex){
+                                //Get the attack button and cancel button
                               GameObject attackButton = GameObject.Find("Attack Button");
-                              attackButton.transform.position = new Vector3(50,35,0);
+                              GameObject cancelButton = GameObject.Find("Cancel Button");
+                              attackButton.transform.position = new Vector3(tile.GetTilePosition().x+1.8f, 2.5f, tile.GetTilePosition().y-3.5f);
+                              attackButton.transform.localScale = new Vector3(0.005f,0.015f,0.005f);
+                              attackButton.transform.eulerAngles = new Vector3(90,0,0);
+                              cancelButton.transform.position = new Vector3(100,360,0);
                               Debug.Log("Creating an Attack Button");
                             }
                             if(tile.GetPlayer() == CurrentPlayerIndex)
                             { 
-                                GameObject buildButton = GameObject.Find("BuildButton");
-                                GameObject destroyButton = GameObject.Find("DestroyButton");
-                                GameObject cancelButton = GameObject.Find("CancelButton");
-                                if(!buildButton.GetComponent<Image>().enabled)
+                                GameObject buildButton = GameObject.Find("Build Button");
+                                GameObject destroyButton = GameObject.Find("Destroy Button");
+                                GameObject cancelButton = GameObject.Find("Cancel Button");
+                                if(buildButton.GetComponent<Image>().enabled)
                                 {
-                                    buildButton.GetComponent<Image>().enabled = true;
-                                    buildButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-                                    
-                                    destroyButton.GetComponent<Image>().enabled = true;
-                                    destroyButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-                                    
-                                    cancelButton.GetComponent<Image>().enabled = true;
-                                    cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+                                    if(tile.getBuilding().getName() == "Nothing")
+                                    {
+                                        buildButton.GetComponent<Image>().enabled = true;
+                                        buildButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+
+                                        //cancelButton.GetComponent<Image>().enabled = true;
+                                        //cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+
+                                        buildButton.transform.position = new Vector3(tile.GetTilePosition().x+1.8f, 2.5f, tile.GetTilePosition().y-3.5f);
+                                        buildButton.transform.localScale = new Vector3(0.005f,0.005f,0.005f);
+                                        buildButton.transform.eulerAngles = new Vector3(90,0,0);
+
+                                        cancelButton.transform.position = new Vector3(100,360,0);
+                                        Debug.Log("Creating a Build Button");
+                                    }
+                                    else
+                                    {
+                                        destroyButton.GetComponent<Image>().enabled = true;
+                                        destroyButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+
+                                        cancelButton.GetComponent<Image>().enabled = true;
+                                        cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+
+                                        destroyButton.transform.position = new Vector3(tile.GetTilePosition().x+1.8f, 2.5f, tile.GetTilePosition().y-3.5f);
+                                        destroyButton.transform.localScale = new Vector3(0.005f,0.005f,0.005f);
+                                        destroyButton.transform.eulerAngles = new Vector3(90,0,0);
+
+                                        cancelButton.transform.position = new Vector3(100,360,0);
+                                        Debug.Log("Creating a Destroy Button");
+                                    }
                                 }
                             }
                         } 

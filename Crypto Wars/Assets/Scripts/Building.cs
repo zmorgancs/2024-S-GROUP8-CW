@@ -21,6 +21,15 @@ public class Building
         turnsSinceLastProdction = 0;
     }
 
+   public Building(string nme, int amt, int ttProduce, Tile crrTile)
+    {
+        name = nme;
+        amount = amt;
+        turnsToProduce = ttProduce;
+        currentTile = crrTile;
+        turnsSinceLastProdction = 0;
+    }
+
     public Player getOwner()
     {
         return owner;
@@ -86,5 +95,10 @@ public class Building
     public void didNotProduce()
     {
         turnsSinceLastProdction++;
+    }
+
+    public void goToTile()
+    {
+        
     }
 }
