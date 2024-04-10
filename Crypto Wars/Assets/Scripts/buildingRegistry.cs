@@ -22,7 +22,6 @@ public class BuildingRegistry : MonoBehaviour
         Building newBuild = new Building(name, numProduced, turnsToProduce);
         Card cardProduct = CardRegistry.GetCardByName(cardName);  
         newBuild.setCard(cardProduct);
-
         buildingList.Add(newBuild);
     }
 
