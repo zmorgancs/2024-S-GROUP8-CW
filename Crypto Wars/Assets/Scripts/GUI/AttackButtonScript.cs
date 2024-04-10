@@ -8,7 +8,7 @@ public class AttackButtonScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        outOfFrame();
+        //outOfFrame();
     }
 
     // Update is called once per frame
