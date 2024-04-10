@@ -12,6 +12,7 @@ public class Player
     private List<Tile.TileReference> tilesOwned = new List<Tile.TileReference>();
 
     private Inventory inventory;
+    private Hand hand;
 
     private Phase currentPhase; // Tracks current phase
 
@@ -55,6 +56,12 @@ public class Player
     public Inventory GetInventory()
     {
         return inventory;
+    }
+
+    // Return the hand from this player
+    public Hand GetHand()
+    {
+        return hand;
     }
 
     // Returns whether the player is done with there turn
