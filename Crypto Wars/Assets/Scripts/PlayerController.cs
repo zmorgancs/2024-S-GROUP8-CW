@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         players = new List<Player>();
 
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         // Temp player switching until TurnMaster additions can be made
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.K)) {
             Switching = true;
             NextPlayer();
             Debug.Log("Next: Player Index is now: " + CurrentPlayerIndex);
