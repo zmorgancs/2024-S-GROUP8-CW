@@ -89,18 +89,26 @@ public class InventoryManager : MonoBehaviour
 
     // Reorders the inventory slot objects based on the list array once a item has been deleted
     public void ReorderSlots() {
-        List<CardStack> stacks = currentPlayerInventory.GetStacks();
-        for (int i = 0; i < stacks.Count(); i++) {
-            SetText("CardName", i, "" + stacks[i].GetCardinStack().getName());
-            SetText("Amount", i, "" + stacks[i].GetSize());
-        }
+        if (currentPlayerInventory != null){
+            List<CardStack> stacks = currentPlayerInventory.GetStacks();
+            for (int i = 0; i < stacks.Count(); i++) {
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName());
+                SetText("Amount", i, "" + stacks[i].GetSize());
+            }
         SetText("CardName", stacks.Count(), "");
         SetText("Amount", stacks.Count(), "");
+        }
     }
 
     public void comeIntoFrame()
     {
         this.transform.position = new Vector3(200,35,0);
+    }
+
+      //function for unit tests to reset slots
+    public static void ClearSlots()
+    {
+        Slots.Clear();
     }
 
 }
