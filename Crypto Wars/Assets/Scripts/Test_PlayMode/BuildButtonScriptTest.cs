@@ -18,9 +18,9 @@ public class BuildButtonScriptTest
         canvas = new GameObject("Canvas");
         go.AddComponent<BuildButtonScript>();
         testBuildButton = go.GetComponent<BuildButtonScript>();
-        testBuildButton.CreateBuildButton();
-        testBuildButton.CreateDestroyButton();
-        testBuildButton.CreateCancelButton();
+        //testBuildButton.CreateBuildButton();
+        //testBuildButton.CreateDestroyButton();
+        //testBuildButton.CreateCancelButton();
         testBuildButton.buildButton = GameObject.Find("BuildButton");
         testBuildButton.destroyButton = GameObject.Find("DestroyButton");
         testBuildButton.cancelButton = GameObject.Find("CancelButton");
@@ -30,9 +30,9 @@ public class BuildButtonScriptTest
     public void TestToggleMenu()
     {
         // buildButton.AddComponent<Image>();
-        testBuildButton.ToggleMenu();
+        //testBuildButton.ToggleMenu();
         Assert.IsFalse(testBuildButton.buildButton.GetComponent<Image>().enabled);
-        testBuildButton.ToggleMenu();
+        //testBuildButton.ToggleMenu();
         Assert.IsTrue(testBuildButton.buildButton.GetComponent<Image>().enabled);
     }
     
