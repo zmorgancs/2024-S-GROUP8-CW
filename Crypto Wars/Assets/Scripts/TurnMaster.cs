@@ -45,7 +45,7 @@ public class TurnMaster : MonoBehaviour
     }
 
     // Checks if all players are done with their turns
-    private bool AllPhasesDone()
+    public bool AllPhasesDone()
     {
         foreach (Player player in Players)
         {
