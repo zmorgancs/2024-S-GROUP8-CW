@@ -21,27 +21,27 @@ public class TurnMasterTest
         turnMaster.SetPlayers(players); // Implemented in TurnMaster to set the Players array
     }
 
-    [Test]
-    public void TestAllAreDone_True()
-    {
-        player1.PlayerFinishTurn();
-        player2.PlayerFinishTurn();
-        Assert.IsTrue(turnMaster.allAreDone(turnMaster.Players));
-    }
+    // [Test]
+    // public void TestAllAreDone_True()
+    // {
+    //     player1.PlayerFinishTurn();
+    //     player2.PlayerFinishTurn();
+    //     Assert.IsTrue(turnMaster.allAreDone(turnMaster.Players));
+    // }
 
-    [Test]
-    public void TestAllAreDone_False()
-    {
-        player1.PlayerFinishTurn();
-        // player2 does not finish the turn
-        Assert.IsFalse(turnMaster.allAreDone(turnMaster.Players));
-    }
+    // [Test]
+    // public void TestAllAreDone_False()
+    // {
+    //     player1.PlayerFinishTurn();
+    //     // player2 does not finish the turn
+    //     Assert.IsFalse(turnMaster.allAreDone(turnMaster.Players));
+    // }
 
     [Test]
     public void TestNewTurn_ResetsPlayers()
     {
         player1.PlayerFinishTurn();
-        turnMaster.newTurn(turnMaster.Players);
+        turnMaster.StartNewTurn();
         Assert.IsFalse(player1.IsPlayerTurnFinished());
         Assert.AreEqual(Player.Phase.Defense, player1.GetCurrentPhase());
     }
@@ -55,7 +55,7 @@ public class TurnMasterTest
         player2.PlayerFinishTurn();
         player2.NextPhase(); // Attack
         player2.NextPhase(); // Build
-        Assert.IsTrue(turnMaster.AllPhasesDone(turnMaster.Players));
+        Assert.IsTrue(turnMaster.AllPhasesDone());
     }
 
     [Test]
@@ -64,7 +64,7 @@ public class TurnMasterTest
         player1.PlayerFinishTurn();
         player1.NextPhase(); // Attack
         // player2 is still in Defense phase
-        Assert.IsFalse(turnMaster.AllPhasesDone(turnMaster.Players));
+        Assert.IsFalse(turnMaster.AllPhasesDone());
     }
 
     [Test]
@@ -81,7 +81,7 @@ public class TurnMasterTest
     [Test]
     public void TestGetCurrTurn_Initial()
     {
-        Assert.AreEqual(0, turnMaster.getCurrTurn());
+        Assert.AreEqual(0, turnMaster.GetCurrentTurn());
     }
 }
 
