@@ -5,57 +5,83 @@ using UnityEngine;
 
 public class TurnMasterTest
 {
-    // Tests if players are all finished with their turn
+    private TurnMaster turnMaster;
+    private Player player1, player2;
+
+    [SetUp]
+    public void Setup()
+    {
+        // Setup method to initialize objects before each test
+        turnMaster = new TurnMaster();
+        player1 = new Player("Player1", null);
+        player2 = new Player("Player2", null);
+
+        // Initialize TurnMaster with two players
+        Player[] players = new Player[] { player1, player2 };
+        turnMaster.SetPlayers(players); // Implemented in TurnMaster to set the Players array
+    }
+
     [Test]
     public void TestAllAreDone_True()
     {
-        TurnMaster master = new TurnMaster();
-        // One player list
-        List<Player> players = new List<Player>
-        {
-            new Player("name", null)
-        };
-
-        players[0].PlayerFinishTurn();
-        bool b = master.allAreDone(players.ToArray());
-        Assert.IsTrue(b);
+        player1.PlayerFinishTurn();
+        player2.PlayerFinishTurn();
+        Assert.IsTrue(turnMaster.allAreDone(turnMaster.Players));
     }
 
-    // Tests if players aren't finished with their turns
     [Test]
     public void TestAllAreDone_False()
     {
-        TurnMaster master = new TurnMaster();
-        // One player list
-        List<Player> players = new List<Player>
-        {
-            new Player("name", null)
-        };
-
-        bool b = master.allAreDone(players.ToArray());
-        Assert.IsFalse(b);
+        player1.PlayerFinishTurn();
+        // player2 does not finish the turn
+        Assert.IsFalse(turnMaster.allAreDone(turnMaster.Players));
     }
 
-    // Tests if a player can be moved into a new turn
     [Test]
-    public void TestNewTurn()
+    public void TestNewTurn_ResetsPlayers()
     {
-        TurnMaster master = new TurnMaster();
-        // One player list
-        List<Player> players = new List<Player>
-        {
-            new Player("name", null)
-        };
-
-        master.newTurn(players.ToArray());
-        Assert.IsTrue(!players[0].IsPlayerTurnFinished());
+        player1.PlayerFinishTurn();
+        turnMaster.newTurn(turnMaster.Players);
+        Assert.IsFalse(player1.IsPlayerTurnFinished());
+        Assert.AreEqual(Player.Phase.Defense, player1.GetCurrentPhase());
     }
 
-    // Tests if can get current turn
     [Test]
-    public void TestGetCurrTurn()
+    public void TestAllPhasesDone_True()
     {
-        TurnMaster master = new TurnMaster(); 
-        Assert.AreEqual(master.getCurrTurn(), 0);
+        player1.PlayerFinishTurn();
+        player1.NextPhase(); // Attack
+        player1.NextPhase(); // Build
+        player2.PlayerFinishTurn();
+        player2.NextPhase(); // Attack
+        player2.NextPhase(); // Build
+        Assert.IsTrue(turnMaster.AllPhasesDone(turnMaster.Players));
+    }
+
+    [Test]
+    public void TestAllPhasesDone_False()
+    {
+        player1.PlayerFinishTurn();
+        player1.NextPhase(); // Attack
+        // player2 is still in Defense phase
+        Assert.IsFalse(turnMaster.AllPhasesDone(turnMaster.Players));
+    }
+
+    [Test]
+    public void TestAdvancePlayerPhase_CyclesThroughPhases()
+    {
+        turnMaster.AdvancePlayerPhase(player1);
+        Assert.AreEqual(Player.Phase.Attack, player1.GetCurrentPhase());
+        turnMaster.AdvancePlayerPhase(player1);
+        turnMaster.AdvancePlayerPhase(player1);
+        Assert.AreEqual(Player.Phase.Defense, player1.GetCurrentPhase());
+        Assert.IsTrue(player1.IsPlayerTurnFinished());
+    }
+
+    [Test]
+    public void TestGetCurrTurn_Initial()
+    {
+        Assert.AreEqual(0, turnMaster.getCurrTurn());
     }
 }
+
