@@ -213,5 +213,8 @@ public class Battles : MonoBehaviour
         }
     }
 
+    public void AddAttackObject(AttackObject attack){
+        atackArray.Add(attack);
+    }
 
 }

@@ -9,6 +9,11 @@ public class Stash : MonoBehaviour
 {
     private List<Card> stashedCards = new List<Card>();
     private Player currentPlayer;
+    private Battles.AttackObject makeAttack;
+    private Battles.DefendObject makeDefend;
+    private Tile tileSelect;
+    private PlayerController selectedTile;
+    private Battles battle;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +24,8 @@ public class Stash : MonoBehaviour
         // Accept and Cancel button listeners
         gameObject.transform.Find("Confirm").GetComponent<Button>().onClick.AddListener(Accept);
         gameObject.transform.Find("Cancel").GetComponent<Button>().onClick.AddListener(Cancel);
+        battle = FindObjectOfType<Battles>();
+        selectedTile = FindObjectOfType<PlayerController>();
     }
 
     /// <summary>
@@ -60,6 +67,21 @@ public class Stash : MonoBehaviour
     /// </summary>
     public void Accept() {
         // This is where battle stuff goes
+        if(currentPlayer.GetCurrentPhase() == Player.Phase.Attack){
+            this.Activate(false);
+            Debug.Log("Collecting attacker data");
+            tileSelect = selectedTile.GetSelectedTile();
+            makeAttack = new Battles.AttackObject(stashedCards, new Vector2(0,0), tileSelect.GetTilePosition());
+            // Add the tile being attacked to attackArray for use in the defense phase
+            battle.AddAttackObject(makeAttack);
+            // Clear the stash since we have our attackObject storing it now
+            this.Clear();
+            currentPlayer.NextPhase();
+        }
+        else if(currentPlayer.GetCurrentPhase() == Player.Phase.Defense){
+            // If we are in the defense phase then the attacker should've made their card selection, so we can 
+            // prepare to battle once the defender cards are selected(?)
+        }
     }
 
     /// <summary>

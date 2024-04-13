@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     // Tracks the player who is currently playing
     public static Player CurrentPlayer { get; set; }
     public static bool Switching = false;
+    // Store the most recently selected tile
+    private static Tile selectedTile;
 
     // Get number of players in game
     public int GetNumberOfPlayers(){
@@ -46,8 +48,8 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100f)) {
                 if (hit.transform != null) {
                     Tile tile = hit.transform.GetComponent<Tile>();
-
                     if (tile != null) {
+                        selectedTile = tile;
                         if(tile.GetPlayer() > -1)
                         {
                             // If the tile clicked on is not controlled by the current player
@@ -166,5 +168,10 @@ public class PlayerController : MonoBehaviour
     public List<Player> GetPlayerList()
     {
         return players;
+    }
+
+    public Tile GetSelectedTile()
+    {
+        return selectedTile;
     }
 }
