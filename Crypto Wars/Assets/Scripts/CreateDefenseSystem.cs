@@ -7,26 +7,32 @@ public class CreateDefenseSystem : MonoBehaviour
     private Battles battle;
     private Stash stash;
     private Player defendingPlayer;
-    private bool activeStash = true;
-    private bool updateDefense = true;
+    private bool activeStash;
+    private bool updateDefense;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        activeStash = true;
+        updateDefense = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // when it's the player's defend phase, it checks all the attacked tiles in battles
+        // when it's the player's defend phase, it checks all the attacked tiles in battle
         // needs to check if the tile is owned by the player to instantiate the defend button
+        // clears previous defense array
         if(checkDefensePhase(defendingPlayer) && updateDefense){
             List<Vector2> attackedTiles = getAttackTiles(battle);
             List<Tile.TileReference> tileRef = defendingPlayer.getTiles();
+            battle.clearDefense();
+
             foreach(Vector2 attTile in attackedTiles){
                 if(checkPlayerTiles(attTile, tileRef)){
-                    // values based on playercontroller buttons
+                    Battles.DefendObject defObj = new Battles.DefendObject(null, attTile);
+                    battle.addDefense(defObj);
+
                     GameObject defendButton = GameObject.Find("Defend Button");
                     defendButton.transform.position = new Vector3(attTile.x+1.8f, 2.5f, attTile.y-3.5f);
                     defendButton.transform.localScale = new Vector3(0.005f, 0.015f, 0.005f);
