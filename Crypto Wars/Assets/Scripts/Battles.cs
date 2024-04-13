@@ -32,10 +32,13 @@ public class Battles : MonoBehaviour
         }
     }
 
+    public List<AttackObject> getAttackArray(){
+        return atackArray;
+    }
 
-
-
-
+    public List<DefendObject> getDefenseArray(){
+        return defenseArray;
+    }
 
 
     
