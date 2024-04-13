@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Tile : MonoBehaviour
 {
     // Backing fields
-    private int playerIndex;
+    public int playerIndex;
 
     // Public properties
     public int BoardXPos { get; set; }
@@ -32,8 +33,12 @@ public class Tile : MonoBehaviour
         // Materials are loaded with the generic typecast
         BlueMaterial = Resources.Load<Material>("Materials/PlayerTileColor");
         RedMaterial = Resources.Load<Material>("Materials/EnemyTileColor");
-        this.playerIndex = -1;
+        SetMaterial(PlayerController.players[playerIndex].GetColor());
         currBuilding = new Building("Nothing",0,0);
+        if (gameObject != null) {
+            BoardXPos = (int)gameObject.transform.position.x;
+            BoardXPos = (int)gameObject.transform.position.y;
+        }
     }
 
     public int GetPlayer() 

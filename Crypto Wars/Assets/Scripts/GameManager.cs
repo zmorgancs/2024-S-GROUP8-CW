@@ -8,42 +8,49 @@ using UnityEngine.Tilemaps;
 public class GameManager : MonoBehaviour
 {
     /* Battle object is an instance of a single battle */
-    private class Battle {
-        public Vector2 coordinates; // Position in Unity engine
+    public class Battle { 
         public Player attacker; // Player who is attacking
-        public Player winner; // null until winner is chosen in DoAllBattles
-        public Tile tile; // Position in-game
-        public Boolean defenderHasCards; // Has defender selected cards?
-        Battle(Vector2 cord, Player atk, Tile pos, Boolean dhc){ // Constructor
-            coordinates = cord;
-            attacker = atk;
-            tile = pos;
-            defenderHasCards = dhc;
-            winner = null;
+        public Player defender; // null until winner is chosen in DoAllBattles
+        public Battles.AttackObject attack;
+        public Battles.DefendObject defence;
+        public bool defenderHasCards; // Has defender selected cards?
+        public Battle(Player attacker, Battles.AttackObject attack){ // Constructor
+            this.attacker = attacker;
+            this.attack = attack;
+            defender = null;
+            defenderHasCards = false;
         }
     }
-    List<Battle> OngoingBattles;
+    public static List<Battle> PlannedBattles;
+    public static List<Battle> FinalBattles;
 
     // Start is called before the first frame update
     void Start()
-    {    
+    {
+        PlannedBattles = new List<Battle>();
+        FinalBattles = new List<Battle>();
     }
     // Update is called once per frame
     void Update()
     {
     }
 
-    void AddBattle(Battle b){
-        OngoingBattles.Add(b);
+    public static void AddAttackerToBattle(Player player, Battles.AttackObject attack)
+    {
+        PlannedBattles.Add(new Battle(player, attack));
+        Debug.Log("Battle - Player: " + player.GetName() + " Position: " + attack.destinationTilePos.ToString());
+        foreach (Card card in attack.cardList) {
+            Debug.Log("BattleCard: " + card.getName());
+        }
     }
 
-    void DoAllBattles(){
-        for(int i = 0; i < OngoingBattles.Count; i++){
+    public void DoAllBattles(){
+        for(int i = 0; i < FinalBattles.Count; i++){
             // Calculate outcome for battle i
-            if(OngoingBattles[i].defenderHasCards){
+            if(FinalBattles[i].defenderHasCards){
                 // Defender has selected cards
             }
-            OngoingBattles[i].winner = OngoingBattles[i].attacker; // return attacker as victor for now
+            //FinalBattles[i].winner = FinalBattles[i].attacker; // return attacker as victor for now
         }
     }
 

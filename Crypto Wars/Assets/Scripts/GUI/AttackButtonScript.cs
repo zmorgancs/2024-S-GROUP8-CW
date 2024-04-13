@@ -15,6 +15,7 @@ public class AttackButtonScript : MonoBehaviour
         stash = FindObjectOfType<Stash>();
         button = GetComponent<Button>();
         button.onClick.AddListener(OnButtonClick);
+        stash.Activate(false);
     }
 
     // Update is called once per frame

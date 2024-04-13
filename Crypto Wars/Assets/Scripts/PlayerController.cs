@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
                               attackButton.transform.localScale = new Vector3(0.005f,0.015f,0.005f);
                               attackButton.transform.eulerAngles = new Vector3(90,0,0);
                               cancelButton.transform.position = new Vector3(100,360,0);
-                              Debug.Log("Creating an Attack Button");
+                              //Debug.Log("Creating an Attack Button");
                             }
                             if(tile.GetPlayer() == CurrentPlayerIndex)
                             { 
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
                                         buildButton.transform.eulerAngles = new Vector3(90,0,0);
 
                                         cancelButton.transform.position = new Vector3(100,360,0);
-                                        Debug.Log("Creating a Build Button");
+                                        //Debug.Log("Creating a Build Button");
                                     }
                                     else
                                     {
@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Moves to the next player in line
-    public void NextPlayer() {
+    public static void NextPlayer() {
         if (players.Count > (CurrentPlayerIndex + 1))
         {
             CurrentPlayerIndex++; 
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
         return players;
     }
 
-    public Tile GetSelectedTile()
+    public static Tile GetSelectedTile()
     {
         return selectedTile;
     }
