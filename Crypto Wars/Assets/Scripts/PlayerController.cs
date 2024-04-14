@@ -53,12 +53,21 @@ public class PlayerController : MonoBehaviour
                         if(tile.GetPlayer() > -1)
                         {
                             // If the tile clicked on is not controlled by the current player
-                            if(tile.GetPlayer() != CurrentPlayerIndex){
+                            if(tile.GetPlayer() != CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack){
                                 SetupAttackButton(tile);
                             }
-                            if(tile.GetPlayer() == CurrentPlayerIndex)
-                            {
+                            if(tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Build){
                                 SetupBuildButton(tile);
+                            }
+                            if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense)
+                            {
+                                Stash stash = FindObjectOfType<Stash>();
+                                if (CreateDefenseSystem.IsDefendable(tile.GetTilePosition())){
+                                    stash.Activate(true);
+                                }
+                                else {
+                                    stash.Activate(true);
+                                }
                             }
                         } 
                         else

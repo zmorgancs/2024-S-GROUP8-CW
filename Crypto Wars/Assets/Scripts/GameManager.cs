@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static PlasticPipe.Server.MonitorStats;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FinalBattles.Count > 0) {
+            if (PlayerController.CurrentPlayer.GetCurrentPhase() == Player.Phase.Build) {
+                DoAllBattles();
+            }
+        }
     }
 
     public static void AddAttackerToBattle(Player From, Player To, Battles.AttackObject attack)
@@ -53,6 +59,28 @@ public class GameManager : MonoBehaviour
         foreach (Card card in attack.cardList) {
             Debug.Log("BattleCard: " + card.getName());
         }
+    }
+
+    public static void AddDefenderToBattle(Player For, Battles.DefendObject defend)
+    {
+        foreach (Battle battle in PlannedBattles)
+        {
+            if (battle.attack.destinationTilePos == defend.originTilePos) {
+                PlannedBattles.Remove(battle);
+                battle.defender = For;
+                if (defend.cardList.Count > 0) {
+                    battle.defenderHasCards = true; 
+                }
+                FinalBattles.Add(battle);
+                Debug.Log("Battle - D Player: " + For.GetName() + "A Player: " + battle.attacker.GetName() + " Position: " + defend.originTilePos.ToString());
+                foreach (Card card in defend.cardList)
+                {
+                    Debug.Log("BattleCard: " + card.getName());
+                }
+            }
+        }
+        
+        
     }
 
     public void DoAllBattles(){

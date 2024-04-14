@@ -11,7 +11,17 @@ public class CreateDefenseSystem : MonoBehaviour
     private Player defendingPlayer;
     private bool activeStash;
     private bool updateDefense;
-    private List<GameObject> defendObjects;
+    private static List<GameObject> defendObjects;
+    private static List<Vector2> needDefensePositions;
+
+    public static bool IsDefendable(Vector2 pos) {
+        foreach (Vector2 needDefence in needDefensePositions) {
+            if (needDefence == pos) { 
+                return true;
+            }
+        }
+        return false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +55,7 @@ public class CreateDefenseSystem : MonoBehaviour
                     defendButton.transform.eulerAngles = new Vector3(90, 0, 0);
                     defendButton.transform.SetParent(Canvas.transform);
                     defendObjects.Add(defendButton);
+                    needDefensePositions.Add(new Vector2(battlePos.x, battlePos.y));
                     Debug.Log("Creating a Defend Button");
                 }
             }
