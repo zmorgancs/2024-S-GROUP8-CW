@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building
+public class Building : MonoBehaviour
 {
     private GameObject inv;
     private int amount;
@@ -95,10 +95,5 @@ public class Building
     public void didNotProduce()
     {
         turnsSinceLastProdction++;
-    }
-
-    public void goToTile()
-    {
-        
     }
 }

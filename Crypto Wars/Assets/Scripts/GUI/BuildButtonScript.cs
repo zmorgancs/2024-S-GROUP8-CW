@@ -13,6 +13,7 @@ public class BuildButtonScript : MonoBehaviour
     public GameObject destroyButton;
     public GameObject buildButton;
     public GameObject cancelButton;
+    public GameObject BuildingPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +25,24 @@ public class BuildButtonScript : MonoBehaviour
         buildButton = GameObject.Find("BuildButton");
         destroyButton = GameObject.Find("DestroyButton");
         cancelButton = GameObject.Find("CancelButton");
+        BuildingPrefab = GameObject.Find("Building");
     }
+
 
     public void outOfFrame()
     {
         this.transform.position = new Vector3(0,-375,0);
     }
-    
+
+    public void instantiatePrefab(Tile tile)
+    {
+        
+        GameObject newBuilding = Instantiate(BuildingPrefab,new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z+.6f),Quaternion.identity);
+        newBuilding.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
+        newBuilding.transform.eulerAngles = new Vector3(90,0,0);
+        tile.setBuilding(newBuilding.GetComponent<Building>());
+        Debug.Log("Creating a Building");
+    }
 
 
      /*
