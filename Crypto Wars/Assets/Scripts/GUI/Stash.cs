@@ -24,7 +24,7 @@ public class Stash : MonoBehaviour
         // Accept and Cancel button listeners
         gameObject.transform.Find("Confirm").GetComponent<Button>().onClick.AddListener(Accept);
         gameObject.transform.Find("Cancel").GetComponent<Button>().onClick.AddListener(Cancel);
-        battle = FindObjectOfType<Battles>();
+        //battle = FindObjectOfType<Battles>();
         selectedTile = FindObjectOfType<PlayerController>();
     }
 
@@ -73,7 +73,7 @@ public class Stash : MonoBehaviour
             tileSelect = selectedTile.GetSelectedTile();
             makeAttack = new Battles.AttackObject(stashedCards, new Vector2(0,0), tileSelect.GetTilePosition());
             // Add the tile being attacked to attackArray for use in the defense phase
-            battle.AddAttackObject(makeAttack);
+            //battle.AddAttackObject(makeAttack);
             // Clear the stash since we have our attackObject storing it now
             this.Clear();
             currentPlayer.NextPhase();

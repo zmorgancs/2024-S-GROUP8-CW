@@ -26,12 +26,12 @@ public class CreateDefenseSystem : MonoBehaviour
         if(checkDefensePhase(defendingPlayer) && updateDefense){
             List<Vector2> attackedTiles = getAttackTiles(battle);
             List<Tile.TileReference> tileRef = defendingPlayer.getTiles();
-            battle.clearDefense();
+            //battle.clearDefense();
 
             foreach(Vector2 attTile in attackedTiles){
                 if(checkPlayerTiles(attTile, tileRef)){
                     Battles.DefendObject defObj = new Battles.DefendObject(null, attTile);
-                    battle.addDefense(defObj);
+                    //battle.addDefense(defObj);
 
                     GameObject defendButton = GameObject.Find("Defend Button");
                     defendButton.transform.position = new Vector3(attTile.x+1.8f, 2.5f, attTile.y-3.5f);
@@ -63,11 +63,11 @@ public class CreateDefenseSystem : MonoBehaviour
     // pull attack objects and check which tiles they're on
     public List<Vector2> getAttackTiles(Battles bat){
         List<Vector2> attTiles = new List<Vector2>();        
-        List<Battles.AttackObject> attackArray = bat.getAttackArray();
+        //List<Battles.AttackObject> attackArray = bat.getAttackArray();
 
-        foreach(Battles.AttackObject attObj in attackArray){
-            attTiles.Add(attObj.destinationTilePos);
-        }
+        // foreach(Battles.AttackObject attObj in attackArray){
+        //     attTiles.Add(attObj.destinationTilePos);
+        // }
 
         return attTiles;
     }
