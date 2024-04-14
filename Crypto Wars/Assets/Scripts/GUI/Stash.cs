@@ -63,7 +63,6 @@ public class Stash : MonoBehaviour
     /// </summary>
     public void Accept() {
         // This is where battle stuff goes
-        PlayerController.CurrentPlayer.SetPhase(Player.Phase.Attack);
         Debug.Log(PlayerController.CurrentPlayer.GetCurrentPhase().ToString());
         if ((PlayerController.CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack) && GetStashSize() > 0){
             Activate(false);
@@ -71,11 +70,12 @@ public class Stash : MonoBehaviour
             tileSelect = PlayerController.GetSelectedTile();
             makeAttack = new Battles.AttackObject(stashedCards, new Vector2(0, 0) /* Null for now */, tileSelect.GetTilePosition());
             // Create a new incomplete battle with our attacker object
-            GameManager.AddAttackerToBattle(PlayerController.CurrentPlayer, makeAttack);
+            GameManager.AddAttackerToBattle(PlayerController.CurrentPlayer, PlayerController.players[tileSelect.GetPlayer()], makeAttack);
             // Clear the stash since we have our attackObject storing it now
             Clear();
             PlayerController.NextPlayer();
             Debug.Log(PlayerController.CurrentPlayer.GetCurrentPhase().ToString());
+            PlayerController.CurrentPlayer.SetPhase(Player.Phase.Defense);
         }
         else if ((PlayerController.CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense) && GetStashSize() > 0){
             // If we are in the defense phase then the attacker should've made their card selection, so we can 

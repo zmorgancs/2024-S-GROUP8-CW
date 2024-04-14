@@ -33,6 +33,8 @@ public class Battles : MonoBehaviour
     }
 
 
+    // REFACTORINGS FOR NEW SYSTEM
+    /*
     // used to access battles arrays from CreateDefenseSystem
     public List<AttackObject> getAttackArray(){
         return atackArray;
@@ -49,6 +51,7 @@ public class Battles : MonoBehaviour
     public void clearDefense(){
         defenseArray.Clear();
     }
+    */
 
     
     bool promptForDefCards;

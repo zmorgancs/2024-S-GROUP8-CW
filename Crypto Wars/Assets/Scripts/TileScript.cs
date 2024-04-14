@@ -9,8 +9,6 @@ public class Tile : MonoBehaviour
     public int playerIndex;
 
     // Public properties
-    public int BoardXPos { get; set; }
-    public int BoardYPos { get; set; }
     public struct TileReference
     {
         public Vector2 tilePosition;
@@ -20,25 +18,23 @@ public class Tile : MonoBehaviour
     // References to the renderer and materials for the tile
     private MeshRenderer rendererReference;
     private Building currBuilding;
-
-    // Default Materials 
-    private Material BlueMaterial;
-    private Material RedMaterial;
+    private TileReference reference;
 
     // Initialization in Start method
     // Assumes that the tile materials are located within a Resources folder
     void Start()
     {
         rendererReference = GetComponent<MeshRenderer>();
-        // Materials are loaded with the generic typecast
-        BlueMaterial = Resources.Load<Material>("Materials/PlayerTileColor");
-        RedMaterial = Resources.Load<Material>("Materials/EnemyTileColor");
+        reference = new TileReference();
         SetMaterial(PlayerController.players[playerIndex].GetColor());
         currBuilding = new Building("Nothing",0,0);
         if (gameObject != null) {
-            BoardXPos = (int)gameObject.transform.position.x;
-            BoardXPos = (int)gameObject.transform.position.y;
+            reference.tilePosition.x = (int)gameObject.transform.position.x;
+            reference.tilePosition.y = (int)gameObject.transform.position.z;
+            // Temp name system
+            reference.tileName = " " + reference.tilePosition.x + " " + reference.tilePosition.y;
         }
+        SetPlayer(playerIndex);
     }
 
     public int GetPlayer() 
@@ -49,6 +45,10 @@ public class Tile : MonoBehaviour
     public void SetPlayer(int index)
     {
         playerIndex = index;
+        // -1 represents non-ownership
+        if (playerIndex != -1) {
+            PlayerController.players[index].AddTiles(reference);
+        }
     }
     
     public void SetMaterial(Material newMaterial)
@@ -73,13 +73,13 @@ public class Tile : MonoBehaviour
 
     public void SetTilePosition(int x, int y)
     {
-        this.BoardXPos = x;
-        this.BoardYPos = y;
+        reference.tilePosition.x = x;
+        reference.tilePosition.y = y;
     }
 
     public Vector2 GetTilePosition()
     {
-        return new Vector2(BoardXPos, BoardYPos);
+        return reference.tilePosition;
     }
 
     public Building getBuilding()

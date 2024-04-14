@@ -14,15 +14,26 @@ public class GameManager : MonoBehaviour
         public Battles.AttackObject attack;
         public Battles.DefendObject defence;
         public bool defenderHasCards; // Has defender selected cards?
-        public Battle(Player attacker, Battles.AttackObject attack){ // Constructor
+        public Battle(Player attacker, Player defender, Battles.AttackObject attack){ // Constructor
             this.attacker = attacker;
             this.attack = attack;
-            defender = null;
+            this.defender = defender;
+            defence = null;
             defenderHasCards = false;
         }
     }
     public static List<Battle> PlannedBattles;
     public static List<Battle> FinalBattles;
+
+    public static List<Battle> OnlyDefenderBattles(Player player) {
+        List<Battle> Battles = new List<Battle>();
+        foreach (Battle battle in PlannedBattles) {
+            if (battle.defender.GetName().Equals(player.GetName())) {
+                Battles.Add(battle);
+            }
+        }
+        return Battles;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -35,10 +46,10 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    public static void AddAttackerToBattle(Player player, Battles.AttackObject attack)
+    public static void AddAttackerToBattle(Player From, Player To, Battles.AttackObject attack)
     {
-        PlannedBattles.Add(new Battle(player, attack));
-        Debug.Log("Battle - Player: " + player.GetName() + " Position: " + attack.destinationTilePos.ToString());
+        PlannedBattles.Add(new Battle(From, To, attack));
+        Debug.Log("Battle - Player: " + From.GetName() + " Position: " + attack.destinationTilePos.ToString());
         foreach (Card card in attack.cardList) {
             Debug.Log("BattleCard: " + card.getName());
         }
