@@ -8,35 +8,31 @@ using TMPro;
 // using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 using static Card;
 
+
+// Need some way of switching the InventoryManager system for each player
 public class InventoryManager : MonoBehaviour
 {
-    private static List<CardStack> CardStacks = new List<CardStack>();
     private static List<GameObject> Slots = new List<GameObject>();
+    private static Inventory currentPlayerInventory = null;
     private Card Temp;
     private Card Temp1;
-    private const int maxSize = 5;
-    private const int maxCardStack = 16;
-
-    private CardStack selectedStack; // Stored stack for easy recall
 
     // Start is called before the first frame update
     void Start()
     {
+        Slots = new List<GameObject>();
         for (int i = 0; i < 5; i++) {
             SetupSlot(i); // Create each slot in the inventory
             Debug.Log("" + Slots.Count);
         }
+        
+        Temp = new Card(null, "John");
+        Temp1 = new Card(null, "Steve");
 
-        // Temp Cards for testing 
-        Temp = new Card(Resources.Load<Sprite>("Sprites/test_1"), "John");
-        Temp1 = new Card(Resources.Load<Sprite>("Sprites/test_2"), "Steve");
-
-
-        Debug.Log("" + Slots.Count);
-        Debug.Log("" + Temp.getName());
-        this.transform.position = new Vector3(0,-375,0);
+        currentPlayerInventory = PlayerController.CurrentPlayer.GetInventory();
 
     }
 
@@ -45,121 +41,43 @@ public class InventoryManager : MonoBehaviour
     {
         // Bunch of testing stuff
         if (Input.GetKeyDown(KeyCode.R)) {
-            AddToStackinGUI(Temp);
+            currentPlayerInventory.AddToCardToStack(Temp);
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            AddToStackinGUI(Temp1);
+            currentPlayerInventory.AddToCardToStack(Temp1);
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            RemoveCardFromGUI(Temp);
+            currentPlayerInventory.RemoveCardFromStack(Temp);
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            RemoveCardFromGUI(Temp1);
+            currentPlayerInventory.RemoveCardFromStack(Temp1);
+        }
+
+        if (PlayerController.Switching) {
+            currentPlayerInventory = PlayerController.CurrentPlayer.GetInventory();
+
+            Debug.Log(PlayerController.CurrentPlayer.GetName());
+
+            // Empty slots
+            for (int i = 0; i < 5; i++){
+                SetupSlot(i); 
+            }
+            List<CardStack> stacks = currentPlayerInventory.GetStacks();
+            for (int i = 0; i < currentPlayerInventory.GetStacksListSize(); i++){
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName());
+                SetText("Amount", i, "" + stacks[i].GetSize());
+            }
+            PlayerController.Switching = false;
         }
     }
 
     // Easy reference to alter text inside the slot UI object
     public void SetText(string textObject, int index, string newText) {
-        Slots[index].transform.Find(textObject).GetComponent<TextMeshProUGUI>().text = newText;
-    }
-
-    // Add a card to the UI inventory
-    public void AddToStackinGUI(Card card) {
-        // No stacks currently exist
-        if (CardStacks.Count < 1){
-            CardStacks.Add(new CardStack(card, maxCardStack));
-            SetText("CardName", 0, "" + CardStacks[0].GetCardinStack().getName());
-            SetText("Amount", 0, "" + 1);
-        }
-        // Stacks already exist
-        else {
-            // No new stack is necassary
-            bool hasBeenAdded = false;
-            for (int i = 0; i < CardStacks.Count; i++){
-                if (!CardStacks[i].IsFull()) { 
-                    if (CardStacks[i].AddCardtoStack(card)) { 
-                        hasBeenAdded = true;
-                        SetText("Amount", i, "" + CardStacks[i].GetSize());
-                    }
-                }
-            }
-
-            // Prior Stacks are filled
-            if (!hasBeenAdded && CardStacks.Count < maxSize)
-            {
-                CardStacks.Add(new CardStack(card, maxCardStack));
-                SetText("CardName", CardStacks.Count - 1, "" + CardStacks[CardStacks.Count - 1].GetCardinStack().getName());
-                SetText("Amount", CardStacks.Count - 1, "" + CardStacks[CardStacks.Count - 1].GetSize());
-            }
-            else { 
-                // Card cannot be added in any way
-            }
-        }
-    }
-
-    
-    // Method for quick removable if player doesn't want to select which stack
-    // the player wants to draw from
-    public void RemoveCardFromGUI(Card card)
-    {
-        CardStack selectedStack = null;
-        // Grab the first stack in the array
-        if (CardStacks.Count > 0)
-             selectedStack = CardStacks[0];
-        int index = 0;
-        if(selectedStack != null){ 
-            // Find stack with an existing card name
-            foreach (CardStack existing in CardStacks)
-            {
-                if (existing.GetCardinStack().getName().Equals(card.getName()))
-                {
-                    selectedStack = existing;
-                    break;
-                }
-                index++;
-            }
-            // Cardstack has one card remaining
-            if (selectedStack.GetSize() < 2)
-            {
-                // Delete cardstack slot
-                CardStacks.Remove(selectedStack);
-                ReorderSlots(); // Reorder slots leftward
-            }
-            // Cardstack has more than one card remaining
-            else
-            {
-                if (!selectedStack.RemoveCardFromStack(card))
-                    Debug.Log("Card to be removed does not exist in CardStack");
-                else
-                    // Cardstack UI object loses one
-                    SetText("Amount", index, "" + selectedStack.GetSize());
-            }
-        }
-    }
-
-    // Method for if the player chooses the specific stack to remove from
-    public void RemoveCardFromGUI(Card card, int index)
-    {
-        // Cardstack has one card remaining
-        if (CardStacks[index].GetSize() < 2)
-        {
-            // Delete cardstack slot
-            CardStacks.RemoveAt(index);
-            ReorderSlots(); // Reorder slots leftward
-        }
-        // Cardstack has more than one card remaining
-        else
-        {
-            SetText("Amount", index, "" + CardStacks[index].GetSize());
-            if (!CardStacks[index].RemoveCardFromStack(card))
-                Debug.Log("Card to be removed does not exist in CardStack");
-            else
-                // Cardstack UI object loses one
-                SetText("Amount", index, "" + selectedStack.GetSize());
-        }
+        if(Slots[index] != null)
+            Slots[index].transform.Find(textObject).GetComponent<TextMeshProUGUI>().text = newText;
     }
 
     // Setups a inventory slot and sets the text values to an empty string
@@ -171,17 +89,26 @@ public class InventoryManager : MonoBehaviour
 
     // Reorders the inventory slot objects based on the list array once a item has been deleted
     public void ReorderSlots() {
-        for (int i = 0; i < CardStacks.Count(); i++) {
-            SetText("CardName", i, "" + CardStacks[i].GetCardinStack().getName());
-            SetText("Amount", i, "" + CardStacks[i].GetSize());
+        if (currentPlayerInventory != null){
+            List<CardStack> stacks = currentPlayerInventory.GetStacks();
+            for (int i = 0; i < stacks.Count(); i++) {
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName());
+                SetText("Amount", i, "" + stacks[i].GetSize());
+            }
+        SetText("CardName", stacks.Count(), "");
+        SetText("Amount", stacks.Count(), "");
         }
-        SetText("CardName", CardStacks.Count(), "");
-        SetText("Amount", CardStacks.Count(), "");
     }
 
     public void comeIntoFrame()
     {
         this.transform.position = new Vector3(200,35,0);
+    }
+
+      //function for unit tests to reset slots
+    public static void ClearSlots()
+    {
+        Slots.Clear();
     }
 
 }

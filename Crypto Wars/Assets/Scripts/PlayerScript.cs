@@ -13,8 +13,37 @@ public class Player
 
     private Inventory inventory;
 
+    private Phase currentPhase; // Tracks current phase
+
+     // Enum to represent the different phases each player can be in
+    public enum Phase
+    {
+        Defense,
+        Attack,
+        Build
+    }
+
+    // Advance to the next phase and loop back to the first phase after the last one
+    public void NextPhase()
+    {
+        currentPhase = (Phase)(((int)currentPhase + 1) % 3);
+    }
+
+    // Resets the phase to the start (useful at the start of a new turn)
+    public void ResetPhase()
+    {
+        currentPhase = Phase.Defense; // Defense Phase is now first
+    }
+
+    // Method to check the current phase
+    public Phase GetCurrentPhase()
+    {
+        return currentPhase;
+    }
+
     // Constructs the player, used a reference when hotswapping 
-    public Player(string name, Material color) { 
+    public Player(string name, Material color)
+    {
         isDone = false;
         playerName = name;
         playerColor = color;
@@ -22,29 +51,39 @@ public class Player
         inventory = new Inventory();
     }
 
+    // Return the inventory from this player
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
+
     // Returns whether the player is done with there turn
     // Turn master will refer to this when calculating whether a full turn will elapse
-    public bool IsPlayerTurnFinished() {
+    public bool IsPlayerTurnFinished()
+    {
         return isDone;
     }
 
     // Sets the player's turn to finished
     // Not finalized, may have further functionality 
-    public void PlayerFinishTurn() {
+    public void PlayerFinishTurn()
+    {
         isDone = true;
     }
 
     // Sets the player's turn to a new turn
     // Not finalized, may have further functionality 
-    public void PlayerStartTurn(){
+    public void PlayerStartTurn()
+    {
         isDone = false;
     }
 
     // Add one tile to a player's ownership
     // Simple reference for calculating victory, etc
-    public void AddTiles(Tile.TileReference tile) {
+    public void AddTiles(Tile.TileReference tile)
+    {
         tilesControlled += 1;
-        if(!tilesOwned.Contains(tile))
+        if (!tilesOwned.Contains(tile))
         {
             tilesOwned.Add(tile);
             Debug.Log("Tile added to player's ownership");
@@ -62,7 +101,7 @@ public class Player
             {
                 tilesOwned.Add(tile);
                 Debug.Log("Tile added to player's ownership");
-            }         
+            }
         }
     }
 
@@ -72,7 +111,7 @@ public class Player
     {
         tilesControlled -= 1;
         bool isRemoved = tilesOwned.Remove(tile);
-        if(!isRemoved)
+        if (!isRemoved)
             Debug.Log("A tile cannot be removed without prior ownership");
     }
 
@@ -90,8 +129,8 @@ public class Player
     }
 
     // Simple Getters and Setters
-    public Material GetColor() 
-    { 
+    public Material GetColor()
+    {
         return playerColor;
     }
 
@@ -122,7 +161,8 @@ public class Player
 
     // This will be called after tiles are added or removed from player's control
     // And if a turn has elapsed, to make all win conditions checked after the turn is over
-    public double CalculatePercentage() { 
+    public double CalculatePercentage()
+    {
         return 0;
     }
 }

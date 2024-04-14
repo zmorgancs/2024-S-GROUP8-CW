@@ -8,6 +8,7 @@ public class TurnMaster : MonoBehaviour
     private float turnTimer;
     private float maxTurnTime = 30f;
     Player[] Players = new Player[2];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,17 +16,20 @@ public class TurnMaster : MonoBehaviour
         turnTimer = 0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Every frame, check if every player's turn is done or if the max Timer is finished 
-        if(allAreDone(Players) || turnTimer >= maxTurnTime)
+        // Every frame, check if every player has finished all phases or if the max turn time has elapsed
+        if (AllPhasesDone(Players) || turnTimer >= maxTurnTime)
         {
-            currTurn += 1;
+            // Reset phase for all players for the new turn
             newTurn(Players);
+            currTurn += 1;
             turnTimer = 0f;
         }
-        turnTimer += Time.deltaTime;
+        else
+        {
+            turnTimer += Time.deltaTime;
+        }
     }
 
     // Simply iterates through the Players array.
@@ -35,7 +39,7 @@ public class TurnMaster : MonoBehaviour
     {
         for (int i = 0; i < Players.Length; i++)
         {
-            if(!Players[i].IsPlayerTurnFinished())
+            if (!Players[i].IsPlayerTurnFinished())
             {
                 return false;
             }
@@ -43,17 +47,42 @@ public class TurnMaster : MonoBehaviour
         return true;
     }
 
-    // Iterats through the Players array and sets all of the isDone booleans to false.
     public void newTurn(Player[] Players)
     {
         for (int i = 0; i < Players.Length; i++)
         {
-            Players[i].PlayerStartTurn();
+            Players[i].PlayerStartTurn(); // Resets the isDone flag for the player's turn
+            Players[i].ResetPhase(); // Resets the player's current phase to the start
         }
     }
 
     public int getCurrTurn()
     {
         return currTurn;
+    }
+
+    // Check if all players have completed all phases
+    public bool AllPhasesDone(Player[] players)
+    {
+        foreach (Player player in players)
+        {
+            // Check if the player is in the last phase (Build) and has finished their turn
+            if (!(player.GetCurrentPhase() == Player.Phase.Build && player.IsPlayerTurnFinished())) // Uses Player.Phase to reference the Phase enum from the Player class
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void AdvancePlayerPhase(Player player)
+    {
+        player.NextPhase(); // Advances the player to the next phase
+
+        // If the player has completed the Build phase, mark their turn as finished
+        if (player.GetCurrentPhase() == Player.Phase.Defense) // This means the player has looped back to the start
+        {
+            player.PlayerFinishTurn();
+        }
     }
 }

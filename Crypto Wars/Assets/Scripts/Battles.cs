@@ -33,10 +33,22 @@ public class Battles : MonoBehaviour
     }
 
 
+    // used to access battles arrays from CreateDefenseSystem
+    public List<AttackObject> getAttackArray(){
+        return atackArray;
+    }
 
+    public List<DefendObject> getDefenseArray(){
+        return defenseArray;
+    }
 
+    public void addDefense(DefendObject def){
+        defenseArray.Add(def);
+    }
 
-
+    public void clearDefense(){
+        defenseArray.Clear();
+    }
 
     
     bool promptForDefCards;
@@ -213,5 +225,8 @@ public class Battles : MonoBehaviour
         }
     }
 
+    public void AddAttackObject(AttackObject attack){
+        atackArray.Add(attack);
+    }
 
 }

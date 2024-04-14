@@ -9,19 +9,27 @@ public class PlayerController : MonoBehaviour
 {
     // Temp players
     public static List<Player> players { get; set; }
-    private int CurrentPlayerIndex;
+    private static int CurrentPlayerIndex;
 
     // Tracks the player who is currently playing
-    public Player CurrentPlayer { get; set; }
+    public static Player CurrentPlayer { get; set; }
+    public static bool Switching = false;
+    // Store the most recently selected tile
+    private static Tile selectedTile;
+
+    // Get number of players in game
+    public int GetNumberOfPlayers(){
+        return players.Count;
+    }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        players = new List<Player>();
-
-
-        players.Add(new Player("One", Resources.Load<Material>("Materials/PlayerTileColor")));
-        players.Add(new Player("Two", Resources.Load<Material>("Materials/EnemyTileColor")));
+        players = new List<Player>
+        {
+            new Player("One", Resources.Load<Material>("Materials/PlayerTileColor")),
+            new Player("Two", Resources.Load<Material>("Materials/EnemyTileColor"))
+        };
 
         
         CurrentPlayer = players[0];
@@ -45,12 +53,12 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100f)) {
                 if (hit.transform != null) {
                     Tile tile = hit.transform.GetComponent<Tile>();
-
                     if (tile != null) {
                         GameObject destroyButton = GameObject.Find("Destroy Button");
                         GameObject attackButton = GameObject.Find("Attack Button");
                         GameObject buildButton = GameObject.Find("Build Button");
                         GameObject cancelButton = GameObject.Find("Cancel Button");
+                        selectedTile = tile;
                         if(tile.GetPlayer() > -1)
                         {
                             // If the tile clicked on is not controlled by the current player
@@ -87,7 +95,8 @@ public class PlayerController : MonoBehaviour
             }
         }
         // Temp player switching until TurnMaster additions can be made
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.K)) {
+            Switching = true;
             NextPlayer();
             Debug.Log("Next: Player Index is now: " + CurrentPlayerIndex);
         }
@@ -180,5 +189,19 @@ public class PlayerController : MonoBehaviour
         destroyButton.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z+1f);
         destroyButton.transform.localScale = new Vector3(0.005f,0.005f,0.005f);
         destroyButton.transform.eulerAngles = new Vector3(90,0,0);
+    }
+    public int GetCurrentPlayerIndex()
+    {
+        return CurrentPlayerIndex;
+    }
+
+    public List<Player> GetPlayerList()
+    {
+        return players;
+    }
+
+    public Tile GetSelectedTile()
+    {
+        return selectedTile;
     }
 }
