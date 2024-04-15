@@ -20,7 +20,7 @@ public class InventoryTests
          //inventory.manager = managerMock;
 
         for (int i = 0; i < 5; i++){
-            Inventory.manager.SetupSlot(i);
+            manager.SetupSlot(i);
         }
 
     }

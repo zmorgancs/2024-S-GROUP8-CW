@@ -28,6 +28,7 @@ public class CreateDefenseSystem : MonoBehaviour
     {
         updateDefense = true;
         defendObjects = new List<GameObject>();
+        needDefensePositions = new List<Vector2>();
         //TEMP
         PlayerController.CurrentPlayer.SetPhase(Player.Phase.Attack);
     }
@@ -51,7 +52,7 @@ public class CreateDefenseSystem : MonoBehaviour
                 Vector2 battlePos = battle.attack.destinationTilePos;
                 if (checkPlayerTiles(battlePos, ownedTiles)){
                     GameObject defendButton = Instantiate(defendIcon, new Vector3(battlePos.x, 2.5f, battlePos.y), Quaternion.identity) as GameObject;
-                    defendButton.transform.localScale = new Vector3(0.055f, 0.055f, 0.055f);
+                    defendButton.transform.localScale = new Vector3(0.032f, 0.032f, 0.032f);
                     defendButton.transform.eulerAngles = new Vector3(90, 0, 0);
                     defendButton.transform.SetParent(Canvas.transform);
                     defendObjects.Add(defendButton);

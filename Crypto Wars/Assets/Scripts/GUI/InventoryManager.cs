@@ -15,6 +15,7 @@ using static Card;
 // Need some way of switching the InventoryManager system for each player
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager manager;
     private static List<GameObject> Slots = new List<GameObject>();
     private static Inventory currentPlayerInventory = null;
     private Card Temp;
@@ -33,6 +34,7 @@ public class InventoryManager : MonoBehaviour
         Temp1 = new Card(null, "Steve");
 
         currentPlayerInventory = PlayerController.CurrentPlayer.GetInventory();
+        manager = this;
 
     }
 
@@ -67,7 +69,7 @@ public class InventoryManager : MonoBehaviour
             }
             List<CardStack> stacks = currentPlayerInventory.GetStacks();
             for (int i = 0; i < currentPlayerInventory.GetStacksListSize(); i++){
-                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName());
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName(), "CardName Bar");
                 SetText("Amount", i, "" + stacks[i].GetSize());
             }
             PlayerController.Switching = false;
@@ -75,15 +77,19 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Easy reference to alter text inside the slot UI object
-    public void SetText(string textObject, int index, string newText) {
-        if(Slots[index] != null)
-            Slots[index].transform.Find(textObject).GetComponent<TextMeshProUGUI>().text = newText;
+    public void SetText(string textObject, int index, string newText, string bar = "") {
+        if (Slots[index] != null) { 
+            if(bar.Equals(""))
+                Slots[index].transform.Find(textObject).GetComponent<TextMeshProUGUI>().text = newText;
+            else
+                Slots[index].transform.Find(bar).Find(textObject).GetComponent<TextMeshProUGUI>().text = newText;
+        }
     }
 
     // Setups a inventory slot and sets the text values to an empty string
     public void SetupSlot(int index) {
         Slots.Add(gameObject.transform.Find("Grid").Find("Slot_" + (index + 1)).gameObject);
-        SetText("CardName", index, "");
+        SetText("CardName", index, "", "CardName Bar");
         SetText("Amount", index, "");
     }
 
@@ -92,10 +98,10 @@ public class InventoryManager : MonoBehaviour
         if (currentPlayerInventory != null){
             List<CardStack> stacks = currentPlayerInventory.GetStacks();
             for (int i = 0; i < stacks.Count(); i++) {
-                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName());
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName(), "CardName Bar");
                 SetText("Amount", i, "" + stacks[i].GetSize());
             }
-        SetText("CardName", stacks.Count(), "");
+        SetText("CardName", stacks.Count(), "", "CardName Bar");
         SetText("Amount", stacks.Count(), "");
         }
     }

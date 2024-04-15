@@ -72,11 +72,12 @@ public class GameManager : MonoBehaviour
                     battle.defenderHasCards = true; 
                 }
                 FinalBattles.Add(battle);
-                Debug.Log("Battle - D Player: " + For.GetName() + "A Player: " + battle.attacker.GetName() + " Position: " + defend.originTilePos.ToString());
+                Debug.Log("Battle - Def Player: " + For.GetName() + " Att Player: " + battle.attacker.GetName() + " Position: " + defend.originTilePos.ToString());
                 foreach (Card card in defend.cardList)
                 {
                     Debug.Log("BattleCard: " + card.getName());
                 }
+                break;
             }
         }
         
