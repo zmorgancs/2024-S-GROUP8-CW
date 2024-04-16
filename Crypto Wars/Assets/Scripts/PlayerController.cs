@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
                 if (hit.transform != null) {
                     Tile tile = hit.transform.GetComponent<Tile>();
                     if (tile != null) {
-                        selectedTile = tile;
+                        SetSelectedTile(tile);
                         if(tile.GetPlayer() > -1)
                         {
                             // If the tile clicked on is not controlled by the current player
@@ -144,6 +144,11 @@ public class PlayerController : MonoBehaviour
     public static Tile GetSelectedTile()
     {
         return selectedTile;
+    }
+
+    public static void SetSelectedTile(Tile tile)
+    {
+        selectedTile = tile;
     }
 
     public void SetupAttackButton(Tile tile) {

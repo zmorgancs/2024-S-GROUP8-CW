@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
             defenderHasCards = false;
         }
     }
-    public static List<Battle> PlannedBattles;
-    public static List<Battle> FinalBattles;
+    public static List<Battle> PlannedBattles = new List<Battle>();
+    public static List<Battle> FinalBattles = new List<Battle>();
 
     public static List<Battle> OnlyDefenderBattles(Player player) {
         List<Battle> Battles = new List<Battle>();

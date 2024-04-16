@@ -41,11 +41,11 @@ public class CreateDefenseSystem : MonoBehaviour
         // clears previous defense array
         defendingPlayer = PlayerController.CurrentPlayer;
         if (checkDefensePhase(defendingPlayer) && updateDefense){
-            Debug.Log("Beginning Defence");
+            //Debug.Log("Beginning Defence");
             List<GameManager.Battle> battles = GameManager.OnlyDefenderBattles(PlayerController.CurrentPlayer);
-            Debug.Log("Battle: " + battles[0].attack.destinationTilePos);
+            //Debug.Log("Battle: " + battles[0].attack.destinationTilePos);
             List<Tile.TileReference> ownedTiles = defendingPlayer.getTiles();
-            Debug.Log("OwnedTile: " + ownedTiles[0].tilePosition);
+            //Debug.Log("OwnedTile: " + ownedTiles[0].tilePosition);
 
             GameObject Canvas = GameObject.Find("Button Canvas");
             foreach (GameManager.Battle battle in battles){

@@ -25,7 +25,6 @@ public class Tile : MonoBehaviour
     void Start()
     {
         rendererReference = GetComponent<MeshRenderer>();
-        reference = new TileReference();
         SetMaterial(PlayerController.players[playerIndex].GetColor());
         currBuilding = new Building("Nothing",0,0);
         if (gameObject != null) {
@@ -73,6 +72,9 @@ public class Tile : MonoBehaviour
 
     public void SetTilePosition(int x, int y)
     {
+        if (reference.Equals(null)) {
+            reference = new TileReference();
+        }
         reference.tilePosition.x = x;
         reference.tilePosition.y = y;
     }

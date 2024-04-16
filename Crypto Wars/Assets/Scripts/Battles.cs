@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Battles : MonoBehaviour
+public class Battles
 {
 
     private List<AttackObject> atackArray = new List<AttackObject>();

@@ -14,13 +14,15 @@ using static Card;
 
 // Need some way of switching the InventoryManager system for each player
 public class InventoryManager : MonoBehaviour
-{
-    public static InventoryManager manager;
+{ 
     private static List<GameObject> Slots = new List<GameObject>();
     private static Inventory currentPlayerInventory = null;
     private Card Temp;
     private Card Temp1;
 
+    public static InventoryManager GetManager() { 
+        return FindObjectOfType<InventoryManager>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,6 @@ public class InventoryManager : MonoBehaviour
         Temp1 = new Card(null, "Steve");
 
         currentPlayerInventory = PlayerController.CurrentPlayer.GetInventory();
-        manager = this;
 
     }
 

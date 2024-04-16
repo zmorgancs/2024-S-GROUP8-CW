@@ -11,6 +11,7 @@ public class Stash : MonoBehaviour
     private Battles.AttackObject makeAttack;
     private Battles.DefendObject makeDefend;
     private Tile tileSelect;
+    private static Stash self;
 
     // Start is called before the first frame update
     void Start()
@@ -74,9 +75,9 @@ public class Stash : MonoBehaviour
             // Clear the stash since we have our attackObject storing it now
             Clear();
             // DEBUG
-            PlayerController.NextPlayer();
-            Debug.Log(PlayerController.CurrentPlayer.GetCurrentPhase().ToString());
-            PlayerController.CurrentPlayer.SetPhase(Player.Phase.Defense);
+            // PlayerController.NextPlayer();
+            // Debug.Log(PlayerController.CurrentPlayer.GetCurrentPhase().ToString());
+            // PlayerController.CurrentPlayer.SetPhase(Player.Phase.Defense);
         }
         else if ((PlayerController.CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense) && GetStashSize() > 0){
             Activate(false);
@@ -89,7 +90,10 @@ public class Stash : MonoBehaviour
             Clear();
         }
         else {
-            Debug.Log("No cards in stash");
+            if(stashedCards.Count < 1)
+                Debug.Log("No cards in stash");
+            else
+                Debug.Log("Wrong Phase");
         }
     }
 

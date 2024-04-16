@@ -14,7 +14,7 @@ public class Inventory
     public void AddToCardToStack(Card card)
     {
         // Get Manager
-        InventoryManager manager = InventoryManager.manager;
+        InventoryManager manager = InventoryManager.GetManager();
 
         // No stacks currently exist
         if (CardStacks.Count < 1)
@@ -88,7 +88,7 @@ public class Inventory
     public void RemoveCardFromStack(Card card, int index)
     {
         // Get Manager
-        InventoryManager manager = InventoryManager.manager;
+        InventoryManager manager = InventoryManager.GetManager();
         // Cardstack has one card remaining
         if (CardStacks[index].GetSize() < 2)
         {
