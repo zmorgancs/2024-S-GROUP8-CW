@@ -64,7 +64,6 @@ public class EndTurn : MonoBehaviour
 
 
         // test prototype for now to make sure the text output and button are working properly
-        // GetCurrentPhase
         turnNum++;
         turnOutput.text = "Turn " + turnNum.ToString();
     }
