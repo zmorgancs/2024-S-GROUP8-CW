@@ -26,7 +26,7 @@ public class EndTurn : MonoBehaviour
         phaseObject = GameObject.Find("PhaseDisplay");
         if (phaseObject == null)
         {
-            phaseObject = new GameObject("PhaseD");
+            phaseObject = new GameObject("PhaseDisplay");
             phaseObject.AddComponent<TextMeshProUGUI>();
             phaseObject.SetActive(true);
         }
@@ -37,7 +37,7 @@ public class EndTurn : MonoBehaviour
         turnObject = GameObject.Find("TurnCounter");
         if (turnObject == null)
         {
-            turnObject = new GameObject("TurnC");
+            turnObject = new GameObject("TurnCounter");
             turnObject.AddComponent<TextMeshProUGUI>();
             turnObject.SetActive(true);
         }
