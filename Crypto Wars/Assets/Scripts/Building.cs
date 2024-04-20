@@ -34,6 +34,7 @@ public class Building : MonoBehaviour
         amount = amt;
         turnsToProduce = ttProduce;
         turnsSinceLastProdction = 0;
+        //Get the correct material for the type of building that is being created
         if(name == "Python Factory")
         {
             rendererReference.material = YellowMaterial;

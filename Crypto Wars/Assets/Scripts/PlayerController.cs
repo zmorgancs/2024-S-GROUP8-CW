@@ -72,10 +72,13 @@ public class PlayerController : MonoBehaviour
                               moveCancel(tile);
                               Debug.Log("Creating an Attack Button");
                             }
+                            // If the tile is owned by the current player
                             if(tile.GetPlayer() == CurrentPlayerIndex)
                             { 
+                                //If there is no building yet on that tile
                                 if(tile.getBuilding().getName() == "Nothing" && !buildBarOver)
                                 {
+                                    //Move the build and cancel buttons into place, and put the building bar into place as well
                                     moveBuild(tile);   
                                     moveCancel(tile);
                                     Button bldButton = buildButton.GetComponent<Button>();
@@ -87,6 +90,7 @@ public class PlayerController : MonoBehaviour
                                     }
                                     Debug.Log("Creating a Build Button");
                                 }
+                                //If there is a building on that tile 
                                 else
                                 {
                                     moveDestroy(tile);
