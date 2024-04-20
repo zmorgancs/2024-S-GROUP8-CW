@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     // Store the most recently selected tile
     private static Tile selectedTile;
     private bool buildBarOver;
+    private static Stash stash;
+    private static GameObject cancelButton;
 
     // Get number of players in game
     public int GetNumberOfPlayers(){
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour
         //GameObject TilePrefab = GameObject.Find("Tile");
         //Instantiate(TilePrefab,new Vector3(1.6f, 2.5f, 2.4f),Quaternion.identity);
         //Instantiate(TilePrefab,new Vector3(1.4f, 2.5f, 2.4f),Quaternion.identity);
+        stash = FindObjectOfType<Stash>();
+        cancelButton = GameObject.Find("Cancel Button");
     }
 
     // Update is called once per frame
@@ -58,7 +62,7 @@ public class PlayerController : MonoBehaviour
                         GameObject destroyButton = GameObject.Find("Destroy Button");
                         GameObject attackButton = GameObject.Find("Attack Button");
                         GameObject buildButton = GameObject.Find("Build Button");
-                        GameObject cancelButton = GameObject.Find("Cancel Button");
+                        //GameObject cancelButton = GameObject.Find("Cancel Button");
                         selectedTile = tile;
                         if(tile.GetPlayer() > -1)
                         {
@@ -79,7 +83,6 @@ public class PlayerController : MonoBehaviour
                                     {
                                         bldButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().outOfFrame());
                                         bldButton.onClick.AddListener(() => moveBuildBar(tile));
-                                        //tile.getBuilding().setName("Test");
                                         Debug.Log(tile.getBuilding().getName());
                                     }
                                     Debug.Log("Creating a Build Button");
@@ -91,6 +94,26 @@ public class PlayerController : MonoBehaviour
                                     Button desButton = destroyButton.GetComponent<Button>();
                                     desButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().deleteObject(tile));
                                     Debug.Log("Creating a Destroy Button");
+                                }
+                            }
+                        SetSelectedTile(tile);
+                        if(tile.GetPlayer() > -1)
+                        {
+                            // If the tile clicked on is not controlled by the current player
+                            if(tile.GetPlayer() != CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack){
+                                SetupAttackButton(tile);
+                            }
+                            if(tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Build){
+                                SetupBuildButton(tile);
+                            }
+                            if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense)
+                            {
+                                if (CreateDefenseSystem.IsDefendable(tile.GetTilePosition())){
+                                    stash.Activate(true);
+                                }
+                                else {
+                                    stash.Activate(true);
+                                }
                                 }
                             }
                         } 
@@ -105,7 +128,6 @@ public class PlayerController : MonoBehaviour
         }
         // Temp player switching until TurnMaster additions can be made
         if (Input.GetKeyDown(KeyCode.K)) {
-            Switching = true;
             NextPlayer();
             Debug.Log("Next: Player Index is now: " + CurrentPlayerIndex);
         }
@@ -130,7 +152,8 @@ public class PlayerController : MonoBehaviour
     }
 
     // Moves to the next player in line
-    public void NextPlayer() {
+    public static void NextPlayer() {
+        Switching = true;
         if (players.Count > (CurrentPlayerIndex + 1))
         {
             CurrentPlayerIndex++; 
@@ -144,6 +167,7 @@ public class PlayerController : MonoBehaviour
     // Grabs a player based on position in players array
     public void NextPlayer(int index)
     {
+        Switching = true;
         if (players.Count >= (index + 1))
         {
             CurrentPlayerIndex = index;
@@ -166,6 +190,7 @@ public class PlayerController : MonoBehaviour
     public void moveCancel(Tile tile)
     {
         GameObject cancelButton = GameObject.Find("Cancel Button");
+        
         cancelButton.transform.position = new Vector3(tile.transform.position.x-0.05f, tile.transform.position.y+1f, tile.transform.position.z-.1f);
         cancelButton.transform.localScale = new Vector3(0.005f,0.005f,0.005f);
         cancelButton.transform.eulerAngles = new Vector3(90,0,0);
@@ -221,8 +246,65 @@ public class PlayerController : MonoBehaviour
         return players;
     }
 
-    public Tile GetSelectedTile()
+    public static Tile GetSelectedTile()
     {
         return selectedTile;
+    }
+
+    public static void SetSelectedTile(Tile tile)
+    {
+        selectedTile = tile;
+    }
+
+    public void SetupAttackButton(Tile tile) {
+        //Get the attack button and cancel button
+        GameObject attackButton = GameObject.Find("Attack Button");
+        GameObject cancelButton = GameObject.Find("Cancel Button");
+        
+        
+        attackButton.transform.position = new Vector3(tile.GetTilePosition().x, 2.5f, tile.GetTilePosition().y);
+        attackButton.transform.localScale = new Vector3(0.055f, 0.055f, 0.055f);
+        attackButton.transform.eulerAngles = new Vector3(90, 0, 0);
+        //cancelButton.SetActive(true);
+        //Debug.Log("Creating an Attack Button");
+    }
+
+    public void SetupBuildButton(Tile tile) {
+        GameObject buildButton = GameObject.Find("Build Button");
+        GameObject destroyButton = GameObject.Find("Destroy Button");
+        GameObject cancelButton = GameObject.Find("Cancel Button");
+        if (buildButton.GetComponent<Image>().enabled)
+        {
+            if (tile.getBuilding().getName() == "Nothing")
+            {
+                buildButton.GetComponent<Image>().enabled = true;
+                buildButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+
+                //cancelButton.GetComponent<Image>().enabled = true;
+                //cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+
+                buildButton.transform.position = new Vector3(tile.GetTilePosition().x, 2.5f, tile.GetTilePosition().y + 0.45f);
+                buildButton.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+                buildButton.transform.eulerAngles = new Vector3(90, 0, 0);
+
+                //cancelButton.SetActive(true);
+                //Debug.Log("Creating a Build Button");
+            }
+            else
+            {
+                destroyButton.GetComponent<Image>().enabled = true;
+                destroyButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+
+                cancelButton.GetComponent<Image>().enabled = true;
+                cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+
+                destroyButton.transform.position = new Vector3(tile.GetTilePosition().x, 2.5f, tile.GetTilePosition().y + 0.45f);
+                destroyButton.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+                destroyButton.transform.eulerAngles = new Vector3(90, 0, 0);
+
+                //cancelButton.SetActive(true);
+                Debug.Log("Creating a Destroy Button");
+            }
+        }
     }
 }

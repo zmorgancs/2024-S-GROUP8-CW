@@ -7,6 +7,7 @@ public class EndTurnTest
 {
     public GameObject go;
     int startNum;
+    string phaseText;
 
     [SetUp]
     public void SetUp()
@@ -15,6 +16,7 @@ public class EndTurnTest
         go.AddComponent<EndTurn>();
         go.AddComponent<TMPro.TextMeshProUGUI>();
         go.GetComponent<EndTurn>().turnOutput = go.GetComponent<TMPro.TextMeshProUGUI>();
+        go.GetComponent<EndTurn>().phaseOutput = go.GetComponent<TMPro.TextMeshProUGUI>();
     }
 
     [Test]
@@ -22,6 +24,14 @@ public class EndTurnTest
     {
         go.GetComponent<EndTurn>().endPlayerTurn();
         Assert.AreNotEqual(startNum, go.GetComponent<EndTurn>().turnNum);
+    }
+
+    [Test]
+    public void TestPhaseIncrement()
+    {
+        phaseText = "Phase: " + "Defense";
+        go.GetComponent<EndTurn>().endPlayerPhase();
+        Assert.AreNotEqual(phaseText, go.GetComponent<EndTurn>().phaseOutput.text);
     }
 
     [TearDown]
