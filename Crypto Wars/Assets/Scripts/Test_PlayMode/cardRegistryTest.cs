@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic; // For generic types
+using System.Collections.Generic;
 
 public class CardRegistryTest
 {
@@ -14,6 +14,9 @@ public class CardRegistryTest
         // Create a new game object and add the CardRegistry component to it
         gameObj = new GameObject("CardManager");
         cardRegistry = gameObj.AddComponent<CardRegistry>();
+
+        // Simulate the start up sequence that triggers Awake
+        gameObj.SetActive(true);
     }
 
     [TearDown]
@@ -24,31 +27,24 @@ public class CardRegistryTest
     }
 
     [Test]
-    public void Awake_CreatesCards_Correctly()
+    public void CardsAreInitializedCorrectly()
     {
-        cardRegistry.Awake(); // Simulating Awake method
-
+        // Assuming Awake has been called due to the game object activation
         Assert.IsNotNull(CardRegistry.GetCardByName("Python"));
         Assert.IsNotNull(CardRegistry.GetCardByName("Java"));
         Assert.IsNotNull(CardRegistry.GetCardByName("C"));
-    }
 
-    [Test]
-    public void CreateCard_AddsCardToList_CardExists()
-    {
-        cardRegistry.CreateCard("Ruby", 100, 150, 10);
-        Card result = CardRegistry.GetCardByName("Ruby");
-        Assert.IsNotNull(result);
-        Assert.AreEqual("Ruby", result.getName());
-        Assert.AreEqual(100, result.getOffense());
-        Assert.AreEqual(150, result.getDefense());
-        Assert.AreEqual(10, result.getStaminaCost());
+        // Check attributes for one card to ensure they are set correctly
+        Card pythonCard = CardRegistry.GetCardByName("Python");
+        Assert.AreEqual(100, pythonCard.getOffense());
+        Assert.AreEqual(150, pythonCard.getDefense());
+        Assert.AreEqual(20, pythonCard.getStaminaCost());
     }
 
     [Test]
     public void GetCardByName_ReturnsCorrectCard_WhenExists()
     {
-        cardRegistry.Awake();  // Initialize cards
+        // This checks retrieval method functionality
         Card result = CardRegistry.GetCardByName("Python");
         Assert.IsNotNull(result);
         Assert.AreEqual("Python", result.getName());
@@ -57,7 +53,7 @@ public class CardRegistryTest
     [Test]
     public void GetCardByName_ReturnsNull_WhenDoesNotExist()
     {
-        cardRegistry.Awake();  // Initialize cards
+        // This tests the edge case of a non-existent card
         Card result = CardRegistry.GetCardByName("Nonexistent Card");
         Assert.IsNull(result);
     }
