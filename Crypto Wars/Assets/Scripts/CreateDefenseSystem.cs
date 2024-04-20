@@ -84,11 +84,11 @@ public class CreateDefenseSystem : MonoBehaviour
     // pull attack objects and check which tiles they're on
     public List<Vector2> getAttackTiles(Battles bat){
         List<Vector2> attTiles = new List<Vector2>();        
-        List<Battles.AttackObject> attackArray = bat.getAttackArray();
+        //List<Battles.AttackObject> attackArray = bat.getAttackArray();
 
-        foreach(Battles.AttackObject attObj in attackArray){
-            attTiles.Add(attObj.destinationTilePos);
-        }
+        // foreach(Battles.AttackObject attObj in attackArray){
+        //     attTiles.Add(attObj.destinationTilePos);
+        // }
 
         return attTiles;
     }
