@@ -8,12 +8,14 @@ using UnityEngine.UI;
 public class Stash : MonoBehaviour
 {
     private List<Card> stashedCards = new List<Card>();
-    private Player currentPlayer;
+    private Battles.AttackObject makeAttack;
+    private Battles.DefendObject makeDefend;
+    private Tile tileSelect;
+    private static Stash self;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentPlayer = PlayerController.CurrentPlayer; 
         // Listener for the Button that interacts with the Stash
         gameObject.GetComponent<Button>().onClick.AddListener(HandtoStash);
         // Accept and Cancel button listeners
@@ -26,7 +28,8 @@ public class Stash : MonoBehaviour
     /// Checking to make sure the hand actually has stuff to transfer
     /// </summary>
     public void HandtoStash() {
-        Hand hand = currentPlayer.GetInventory().GetHand();
+        Debug.Log("Getting hand's cards");
+        Hand hand = PlayerController.CurrentPlayer.GetInventory().GetHand();
         if (hand != null && !hand.IsEmpty()){
             stashedCards.AddRange(hand.GetHandCards());
         }
@@ -37,7 +40,8 @@ public class Stash : MonoBehaviour
     /// Useful if you want to clear the stash if a player wishes to change
     /// </summary>
     public void StashtoInventory(){
-        Inventory inv = currentPlayer.GetInventory();
+        Debug.Log("Returning cards to inventory");
+        Inventory inv = PlayerController.CurrentPlayer.GetInventory();
         foreach (Card card in stashedCards) { 
             inv.AddToCardToStack(card);
         }
@@ -60,6 +64,37 @@ public class Stash : MonoBehaviour
     /// </summary>
     public void Accept() {
         // This is where battle stuff goes
+        Debug.Log(PlayerController.CurrentPlayer.GetCurrentPhase().ToString());
+        if ((PlayerController.CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack) && GetStashSize() > 0){
+            Activate(false);
+            Debug.Log("Collecting attacker data");
+            tileSelect = PlayerController.GetSelectedTile();
+            makeAttack = new Battles.AttackObject(stashedCards, new Vector2(0, 0) /* Null for now */, tileSelect.GetTilePosition());
+            // Create a new incomplete battle with our attacker object
+            GameManager.AddAttackerToBattle(PlayerController.CurrentPlayer, PlayerController.players[tileSelect.GetPlayer()], makeAttack);
+            // Clear the stash since we have our attackObject storing it now
+            Clear();
+            // DEBUG
+            // PlayerController.NextPlayer();
+            // Debug.Log(PlayerController.CurrentPlayer.GetCurrentPhase().ToString());
+            // PlayerController.CurrentPlayer.SetPhase(Player.Phase.Defense);
+        }
+        else if ((PlayerController.CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense) && GetStashSize() > 0){
+            Activate(false);
+            Debug.Log("Collecting defender data");
+            tileSelect = PlayerController.GetSelectedTile();
+            makeDefend = new Battles.DefendObject(stashedCards, tileSelect.GetTilePosition());
+            // Finish the incomplete battle with our attacker object
+            GameManager.AddDefenderToBattle(PlayerController.CurrentPlayer, makeDefend);
+            // Clear the stash since we have our defendObject storing it now
+            Clear();
+        }
+        else {
+            if(stashedCards.Count < 1)
+                Debug.Log("No cards in stash");
+            else
+                Debug.Log("Wrong Phase");
+        }
     }
 
     /// <summary>
