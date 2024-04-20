@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         CurrentPlayer = players[0];
         CurrentPlayerIndex = 0;
         stash = FindObjectOfType<Stash>();
-        cancelButton = GameObject.Find("Cancel Button");
+        cancelButton = GameObject.Find("Misc Bar").transform.Find("Cancel Button").gameObject;
         CurrentPlayer.SetPhase(Player.Phase.Build);
     }
 
