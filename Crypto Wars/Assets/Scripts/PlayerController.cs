@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         CurrentPlayerIndex = 0;
         stash = FindObjectOfType<Stash>();
         cancelButton = GameObject.Find("Cancel Button");
+        CurrentPlayer.SetPhase(Player.Phase.Build);
     }
 
     // Update is called once per frame

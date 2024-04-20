@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CardRegistry.Load();
         PlannedBattles = new List<Battle>();
         FinalBattles = new List<Battle>();
     }

@@ -60,7 +60,7 @@ public class Stash : MonoBehaviour
     }
 
     /// <summary>
-    /// Accepts the cards in the stash to...
+    /// Accepts the cards in the stash to create an Attack on a clicked tile or a defence on that tile
     /// </summary>
     public void Accept() {
         // This is where battle stuff goes

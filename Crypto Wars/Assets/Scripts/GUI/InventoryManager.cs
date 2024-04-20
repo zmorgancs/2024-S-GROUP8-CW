@@ -32,8 +32,8 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("" + Slots.Count);
         }
         
-        Temp = new Card(null, "John");
-        Temp1 = new Card(null, "Steve");
+        Temp = CardRegistry.GetCardByName("Python");
+        Temp1 = CardRegistry.GetCardByName("Java");
 
         currentPlayerInventory = PlayerController.CurrentPlayer.GetInventory();
 

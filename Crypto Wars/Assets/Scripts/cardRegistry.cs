@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardRegistry : MonoBehaviour
+public class CardRegistry
 {
     // A list to hold all the cards
     private static List<Card> cardList = new List<Card>();
 
     // Initialized before buildingRegistry
-    void Awake()
+    public static void Load()
     {
         // Create the cards
         CreateCard("Python", 100, 150, 20);
@@ -22,7 +22,7 @@ public class CardRegistry : MonoBehaviour
     }
 
     // Method to create a card and add it to the list
-    void CreateCard(string name, int offense, int defense, int staminaCost)
+    private static void CreateCard(string name, int offense, int defense, int staminaCost)
     {
         
         Sprite cardSprite = null; // Card sprite placeholder 

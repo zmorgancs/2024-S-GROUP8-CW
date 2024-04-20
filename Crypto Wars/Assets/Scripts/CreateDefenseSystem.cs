@@ -30,7 +30,7 @@ public class CreateDefenseSystem : MonoBehaviour
         defendObjects = new List<GameObject>();
         needDefensePositions = new List<Vector2>();
         //TEMP
-        PlayerController.CurrentPlayer.SetPhase(Player.Phase.Attack);
+        //PlayerController.CurrentPlayer.SetPhase(Player.Phase.Attack);
     }
 
     // Update is called once per frame
