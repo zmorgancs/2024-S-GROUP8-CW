@@ -53,6 +53,12 @@ public class TurnMaster : MonoBehaviour
         {
             Players[i].PlayerStartTurn(); // Resets the isDone flag for the player's turn
             Players[i].ResetPhase(); // Resets the player's current phase to the start
+            List<Tile.TileReference> tiles = Players[i].getTiles();
+            for (int j = 0; j < tiles.Count; j++)
+            {
+                //Building currBuild = tiles[j].getBuilding();
+                //currBuild.addCardsToInventory(Players[i].GetInventory());
+            }
         }
     }
 

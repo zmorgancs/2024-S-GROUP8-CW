@@ -13,21 +13,39 @@ public class Building : MonoBehaviour
     private Tile currentTile;
     private string name;
 
+    private MeshRenderer rendererReference;
+    private Material PurpleMaterial;
+    private Material YellowMaterial;
+    private Material GreenMaterial;
+
+    
+    void Start()
+    {
+        rendererReference = GetComponent<MeshRenderer>();
+        // Materials are loaded with the generic typecast
+        GreenMaterial = Resources.Load<Material>("Materials/JavaBuildingColor");
+        YellowMaterial = Resources.Load<Material>("Materials/PythonBuildingColor");
+        PurpleMaterial = Resources.Load<Material>("Materials/CBuildingColor");
+    }
+    
     public Building(string nme, int amt, int ttProduce)
     {
         name = nme;
         amount = amt;
         turnsToProduce = ttProduce;
         turnsSinceLastProdction = 0;
-    }
-
-   public Building(string nme, int amt, int ttProduce, Tile crrTile)
-    {
-        name = nme;
-        amount = amt;
-        turnsToProduce = ttProduce;
-        currentTile = crrTile;
-        turnsSinceLastProdction = 0;
+        if(name == "Python Factory")
+        {
+            rendererReference.material = YellowMaterial;
+        }
+        else if(name == "Java Junction")
+        {
+            rendererReference.material = GreenMaterial;
+        }
+        else if(name == "C Workshop")
+        {
+            rendererReference.material = Resources.Load<Material>("Materials/CBuildingColor");;
+        }
     }
 
     public Player getOwner()
@@ -80,13 +98,18 @@ public class Building : MonoBehaviour
         return name;
     }
 
-    public void addCardsToInventory()
+    public void setName(string newName)
+    {
+        name = newName;
+    }
+
+    public void addCardsToInventory(Inventory inv)
     {
         if(turnsSinceLastProdction >= turnsToProduce)
         {
             for (int i = 0; i < amount; i++)
             {
-                //inv.addCard(producedCard);
+                inv.AddToCardToStack(producedCard);
             }
             turnsSinceLastProdction = 0;
         }

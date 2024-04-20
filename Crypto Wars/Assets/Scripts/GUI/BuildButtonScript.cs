@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;                        //
+using TMPro;                        
 using UnityEngine;
 using UnityEngine.UI;
 // using UnityEngine.EventSystems;
@@ -8,23 +8,21 @@ using UnityEngine.UI;
 public class BuildButtonScript : MonoBehaviour
 {
     // public GameObject buildOptionsMenu;
-
     public GameObject destroyButton;
     public GameObject buildButton;
     public GameObject cancelButton;
+    public GameObject buildBar;
     public GameObject BuildingPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         outOfFrame();
-        //CreateBuildButton();
-        //CreateDestroyButton();
-        //CreateCancelButton();
         buildButton = GameObject.Find("BuildButton");
         destroyButton = GameObject.Find("DestroyButton");
         cancelButton = GameObject.Find("CancelButton");
         BuildingPrefab = GameObject.Find("Building");
+        buildBar = GameObject.Find("Buidling Bar");
     }
 
 
@@ -33,18 +31,24 @@ public class BuildButtonScript : MonoBehaviour
         this.transform.position = new Vector3(0,-375,0);
     }
 
-    public void instantiatePrefab(Tile tile)
+    public Tile instantiatePrefab(Tile tile)
     {
-        
-        GameObject newBuilding = Instantiate(BuildingPrefab,new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z+.6f),Quaternion.identity);
+        GameObject newBuilding = Instantiate(BuildingPrefab,new Vector3(tile.transform.position.x-0.2f, tile.transform.position.y+.5f, tile.transform.position.z+.1f),Quaternion.identity);
         newBuilding.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
-        newBuilding.transform.eulerAngles = new Vector3(90,0,0);
         tile.setBuilding(newBuilding.GetComponent<Building>());
         Debug.Log("Creating a Building");
+        return tile;
     }
 
+    public void deleteObject(Tile tile)
+    {
+        Building toDelete = tile.getBuilding();
+        Destroy(toDelete);
+        tile.setBuilding(new Building("Nothing",0,0));
+    }
 
-     /*
+    
+    /*
     //This is the code for the old implementation, but I decided to keep it in just in case we end up needing it in the future
     // Update is called once per frame
     void Update()

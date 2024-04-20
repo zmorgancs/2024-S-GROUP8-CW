@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public static bool Switching = false;
     // Store the most recently selected tile
     private static Tile selectedTile;
+    private bool buildBarOver;
 
     // Get number of players in game
     public int GetNumberOfPlayers(){
@@ -34,10 +35,10 @@ public class PlayerController : MonoBehaviour
         
         CurrentPlayer = players[0];
         CurrentPlayerIndex = 0;
-
-        GameObject TilePrefab = GameObject.Find("Tile");
-        Instantiate(TilePrefab,new Vector3(1.6f, 2.5f, 2.4f),Quaternion.identity);
-        Instantiate(TilePrefab,new Vector3(1.4f, 2.5f, 2.4f),Quaternion.identity);
+        buildBarOver = false;
+        //GameObject TilePrefab = GameObject.Find("Tile");
+        //Instantiate(TilePrefab,new Vector3(1.6f, 2.5f, 2.4f),Quaternion.identity);
+        //Instantiate(TilePrefab,new Vector3(1.4f, 2.5f, 2.4f),Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -69,18 +70,26 @@ public class PlayerController : MonoBehaviour
                             }
                             if(tile.GetPlayer() == CurrentPlayerIndex)
                             { 
-                                if(tile.getBuilding().getName() == "Nothing")
+                                if(tile.getBuilding().getName() == "Nothing" && !buildBarOver)
                                 {
                                     moveBuild(tile);   
                                     moveCancel(tile);
                                     Button bldButton = buildButton.GetComponent<Button>();
-                                    bldButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().instantiatePrefab(tile));
+                                    if(tile.getBuilding().getName() == "Nothing")
+                                    {
+                                        bldButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().outOfFrame());
+                                        bldButton.onClick.AddListener(() => moveBuildBar(tile));
+                                        //tile.getBuilding().setName("Test");
+                                        Debug.Log(tile.getBuilding().getName());
+                                    }
                                     Debug.Log("Creating a Build Button");
                                 }
                                 else
                                 {
                                     moveDestroy(tile);
                                     moveCancel(tile);
+                                    Button desButton = destroyButton.GetComponent<Button>();
+                                    desButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().deleteObject(tile));
                                     Debug.Log("Creating a Destroy Button");
                                 }
                             }
@@ -142,10 +151,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+    public void moveBuildBar(Tile tile)
+    {
+        GameObject buildBar = GameObject.Find("Building Bar");
+        buildBarOver = true;
+
+        buildBar.transform.position = new Vector3(tile.transform.position.x+0.25f, tile.transform.position.y+1f, tile.transform.position.z+.2f);
+        buildBar.transform.localScale = new Vector3(0.005f,0.005f,0.005f);
+        buildBar.transform.eulerAngles = new Vector3(90,0,0);
+    }
+
     public void moveCancel(Tile tile)
     {
         GameObject cancelButton = GameObject.Find("Cancel Button");
-        cancelButton.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z+.7f);
+        cancelButton.transform.position = new Vector3(tile.transform.position.x-0.05f, tile.transform.position.y+1f, tile.transform.position.z-.1f);
         cancelButton.transform.localScale = new Vector3(0.005f,0.005f,0.005f);
         cancelButton.transform.eulerAngles = new Vector3(90,0,0);
     }
@@ -159,7 +180,7 @@ public class PlayerController : MonoBehaviour
         attackButton.GetComponent<AttackButtonScript>().outOfFrame();
         //destroyButton.GetComponent<BuildButtonScript>().outOfFrame();
 
-        buildButton.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z+1f);
+        buildButton.transform.position = new Vector3(tile.transform.position.x-0.05f, tile.transform.position.y+1f, tile.transform.position.z+.2f);
         buildButton.transform.localScale = new Vector3(0.005f,0.005f,0.005f);
         buildButton.transform.eulerAngles = new Vector3(90,0,0);
     }
@@ -172,7 +193,7 @@ public class PlayerController : MonoBehaviour
         buildButton.GetComponent<BuildButtonScript>().outOfFrame();
         //destroyButton.GetComponent<BuildButtonScript>().outOfFrame();
 
-        attackButton.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z+1f);
+        attackButton.transform.position = new Vector3(tile.transform.position.x-0.05f, tile.transform.position.y+1f, tile.transform.position.z+.2f);
         attackButton.transform.localScale = new Vector3(0.005f,0.015f,0.005f);
         attackButton.transform.eulerAngles = new Vector3(90,0,0);
     }
@@ -186,7 +207,7 @@ public class PlayerController : MonoBehaviour
         attackButton.GetComponent<AttackButtonScript>().outOfFrame();
         buildButton.GetComponent<BuildButtonScript>().outOfFrame();
 
-        destroyButton.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z+1f);
+        destroyButton.transform.position = new Vector3(tile.transform.position.x-0.05f, tile.transform.position.y+1f, tile.transform.position.z+.2f);
         destroyButton.transform.localScale = new Vector3(0.005f,0.005f,0.005f);
         destroyButton.transform.eulerAngles = new Vector3(90,0,0);
     }
