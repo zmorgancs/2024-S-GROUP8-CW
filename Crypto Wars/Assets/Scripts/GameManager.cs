@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CardRegistry.Load();
+        BuildingRegistry.Load();
         PlannedBattles = new List<Battle>();
         FinalBattles = new List<Battle>();
     }
