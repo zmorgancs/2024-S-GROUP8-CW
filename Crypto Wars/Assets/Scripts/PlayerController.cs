@@ -35,7 +35,8 @@ public class PlayerController : MonoBehaviour
 
         CurrentPlayer = players[0];
         CurrentPlayerIndex = 0;
-        stash = FindObjectOfType<Stash>();
+        stash = GameObject.Find("Stash Bar").transform.Find("Stash").GetComponent<Stash>();
+        Debug.Log(stash != null);
         cancelButton = GameObject.Find("Misc Bar").transform.Find("Cancel Button").gameObject;
         CurrentPlayer.SetPhase(Player.Phase.Defense);
     }
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
                                     stash.Activate(true);
                                 }
                                 else {
-                                    stash.Activate(true);
+                                    stash.Activate(false);
                                 }
                             }
                         } 
@@ -132,7 +133,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public int GetCurrentPlayerIndex()
+    public static int GetCurrentPlayerIndex()
     {
         return CurrentPlayerIndex;
     }

@@ -11,10 +11,13 @@ public class CreateDefenseSystem : MonoBehaviour
     private Player defendingPlayer;
     private bool activeStash;
     private bool updateDefense;
+    private bool updateAttack;
     private static List<GameObject> defendObjects; // Only works with Hotseating, otherwise needs player indicator 
     private static List<Vector2> needDefensePositions;
 
     public static bool IsDefendable(Vector2 pos) {
+        if (needDefensePositions.Count < 1)
+            return false;
         foreach (Vector2 needDefence in needDefensePositions) {
             if (needDefence == pos) { 
                 return true;
@@ -24,6 +27,8 @@ public class CreateDefenseSystem : MonoBehaviour
     }
 
     public static void RemoveDefenceObject(Vector2 vec) {
+        if (defendObjects.Count < 1)
+            return;
         foreach (GameObject def in defendObjects) {
             if (def.transform.position.x == vec.x && def.transform.position.z == vec.y) { 
                 Destroy(def);
@@ -33,8 +38,9 @@ public class CreateDefenseSystem : MonoBehaviour
     }
 
     public static void ResetDefenceObjects() {
-        foreach (GameObject def in defendObjects)
-        {
+        if (defendObjects.Count < 1)
+            return;
+        foreach (GameObject def in defendObjects){
             Destroy(def);
         }
     }
@@ -56,12 +62,16 @@ public class CreateDefenseSystem : MonoBehaviour
         // needs to check if the tile is owned by the player to instantiate the defend button
         // clears previous defense array
         defendingPlayer = PlayerController.CurrentPlayer;
-        if (checkDefensePhase(defendingPlayer) && updateDefense){
-            //Debug.Log("Beginning Defence");
+        if (CheckAttackPhase(defendingPlayer) && updateAttack) {
+            ResetDefenceObjects();
+            updateAttack = false;
+        }
+        if (CheckDefensePhase(defendingPlayer) && updateDefense){
+            Debug.Log("Beginning Defence");
             List<GameManager.Battle> battles = GameManager.OnlyDefenderBattles(PlayerController.CurrentPlayer);
             //Debug.Log("Battle: " + battles[0].attack.destinationTilePos);
             List<Tile.TileReference> ownedTiles = defendingPlayer.getTiles();
-            //Debug.Log("OwnedTile: " + ownedTiles[0].tilePosition);
+            //Debug.Log("OwnedTile: " + defendingPlayer.getTiles()[0]);
 
             GameObject Canvas = GameObject.Find("Button Canvas");
             foreach (GameManager.Battle battle in battles){
@@ -76,19 +86,33 @@ public class CreateDefenseSystem : MonoBehaviour
                     Debug.Log("Creating a Defend Button");
                 }
             }
-            // wont constantly run during defense phase
+            // wont constantly run during other phases
             updateDefense = false;
         }
 
         // will start to check for defense phase once the next phase begins
-        if(!checkDefensePhase(defendingPlayer)){
+        if(!CheckDefensePhase(defendingPlayer) ){
             updateDefense = true;
+        }
+
+        // will start to check for attack phase once the next phase begins
+        if (!CheckAttackPhase(defendingPlayer)){
+            updateAttack = true;
         }
     }
 
     // check for defense phase
-    public bool checkDefensePhase(Player pl){
+    public bool CheckDefensePhase(Player pl){
         if(pl.GetCurrentPhase() == Player.Phase.Defense)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // check for Build phase
+    public bool CheckAttackPhase(Player pl){
+        if (pl.GetCurrentPhase() == Player.Phase.Attack)
         {
             return true;
         }

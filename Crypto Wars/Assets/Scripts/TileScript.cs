@@ -33,7 +33,7 @@ public class Tile : MonoBehaviour
             // Temp name system
             reference.tileName = " " + reference.tilePosition.x + " " + reference.tilePosition.y;
         }
-        SetPlayer(playerIndex);
+        SetPlayer(GetPlayer());
     }
 
     public int GetPlayer() 
@@ -43,9 +43,8 @@ public class Tile : MonoBehaviour
 
     public void SetPlayer(int index)
     {
-        playerIndex = index;
         // -1 represents non-ownership
-        if (playerIndex != -1) {
+        if (index > -1) {
             PlayerController.players[index].AddTiles(reference);
         }
     }

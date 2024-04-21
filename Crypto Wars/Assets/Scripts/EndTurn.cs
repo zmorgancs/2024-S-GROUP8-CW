@@ -45,8 +45,8 @@ public class EndTurn : MonoBehaviour
         turnOutput = turnObject.GetComponent<TextMeshProUGUI>();
         turnOutput.text = "Turn " + turnNum.ToString();
 
-        GameObject playerCtrlGameObject = new GameObject("PlayerCtrller");
-        playerList = playerCtrlGameObject.AddComponent<PlayerController>();
+        //GameObject playerCtrlGameObject = new GameObject("PlayerCtrller");
+        //playerList = playerCtrlGameObject.AddComponent<PlayerController>();
 
         turnPhaseName = GameObject.Find("Misc Bar").transform.Find("EndTurn").transform.Find("TurnName Bar").transform.Find("EndTurnName").gameObject.GetComponent<TextMeshProUGUI>();
         turnPhaseName.text = "End Phase";
