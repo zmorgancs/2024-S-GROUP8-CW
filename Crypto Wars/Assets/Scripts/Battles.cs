@@ -164,7 +164,7 @@ public class Battles
 
         // swap who is attacker and defender until someone runs out of cards
         while (Attacker.Count != 0 && Defender.Count != 0){
-            swap(ref Attacker, ref Defender, ref playerAttacking, ref playerDefending);
+            Swap(ref Attacker, ref Defender, ref playerAttacking, ref playerDefending);
             Attack(Attacker, Defender);
         }
 
@@ -241,7 +241,7 @@ public class Battles
 
 
     // Fuction that swaps roles of attacker and defender in a battle 
-    public void swap(ref List<Card> list1, ref List<Card> list2, ref Player atk, ref Player def){
+    public void Swap(ref List<Card> list1, ref List<Card> list2, ref Player atk, ref Player def){
         List<Card> temp = list1;
         list1 = list2; //new Attacker
         list2 = temp; //new Defender

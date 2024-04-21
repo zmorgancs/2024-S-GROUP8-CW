@@ -9,7 +9,7 @@ public class Player
     private Material playerColor;
     private double percentControlled;
     private int tilesControlled;
-    private List<Tile.TileReference> tilesOwned = new List<Tile.TileReference>();
+    private List<Tile.TileReference> tilesOwned;
 
     private Inventory inventory;
     private Hand hand;
@@ -56,6 +56,7 @@ public class Player
         playerColor = color;
         percentControlled = 0;
         inventory = new Inventory();
+        tilesOwned = new List<Tile.TileReference>();
     }
 
     // Return the inventory from this player
@@ -100,6 +101,7 @@ public class Player
         {
             tilesOwned.Add(tile);
             Debug.Log("Tile added to player's ownership");
+            Debug.Log(tilesOwned.GetHashCode());
         }
     }
 
@@ -113,6 +115,7 @@ public class Player
             if (!tilesOwned.Contains(tile))
             {
                 tilesOwned.Add(tile);
+                
                 Debug.Log("Tile added to player's ownership");
             }
         }
@@ -162,14 +165,14 @@ public class Player
         playerName = name;
     }
 
-    public List<Tile.TileReference> getTiles()
+    public List<Tile.TileReference> GetTiles()
     {
-        return tilesOwned;
+        return this.tilesOwned;
     }
 
     public int getTilesControlledCount()
     {
-        return this.tilesControlled;
+        return tilesOwned.Count;
     }
 
     // This will be called after tiles are added or removed from player's control
