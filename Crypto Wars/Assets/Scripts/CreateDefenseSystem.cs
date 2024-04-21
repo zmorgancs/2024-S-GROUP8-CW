@@ -11,7 +11,7 @@ public class CreateDefenseSystem : MonoBehaviour
     private Player defendingPlayer;
     private bool activeStash;
     private bool updateDefense;
-    private static List<GameObject> defendObjects;
+    private static List<GameObject> defendObjects; // Only works with Hotseating, otherwise needs player indicator 
     private static List<Vector2> needDefensePositions;
 
     public static bool IsDefendable(Vector2 pos) {
@@ -21,6 +21,22 @@ public class CreateDefenseSystem : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public static void RemoveDefenceObject(Vector2 vec) {
+        foreach (GameObject def in defendObjects) {
+            if (def.transform.position.x == vec.x && def.transform.position.z == vec.y) { 
+                Destroy(def);
+            }
+        }
+    
+    }
+
+    public static void ResetDefenceObjects() {
+        foreach (GameObject def in defendObjects)
+        {
+            Destroy(def);
+        }
     }
 
     // Start is called before the first frame update
@@ -51,7 +67,7 @@ public class CreateDefenseSystem : MonoBehaviour
             foreach (GameManager.Battle battle in battles){
                 Vector2 battlePos = battle.attack.destinationTilePos;
                 if (checkPlayerTiles(battlePos, ownedTiles)){
-                    GameObject defendButton = Instantiate(defendIcon, new Vector3(battlePos.x, 2.5f, battlePos.y), Quaternion.identity) as GameObject;
+                    GameObject defendButton = Instantiate(defendIcon, new Vector3(battlePos.x, 2.5f, battlePos.y), Quaternion.identity);
                     defendButton.transform.localScale = new Vector3(0.032f, 0.032f, 0.032f);
                     defendButton.transform.eulerAngles = new Vector3(90, 0, 0);
                     defendButton.transform.SetParent(Canvas.transform);

@@ -63,7 +63,7 @@ public class Stash : MonoBehaviour
     /// Accepts the cards in the stash to create an Attack on a clicked tile or a defence on that tile
     /// </summary>
     public void Accept() {
-        // This is where battle stuff goes
+        // Controls the actions the player can take on tiles
         Debug.Log(PlayerController.CurrentPlayer.GetCurrentPhase().ToString());
         if ((PlayerController.CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack) && GetStashSize() > 0){
             Activate(false);
@@ -87,6 +87,7 @@ public class Stash : MonoBehaviour
             // Finish the incomplete battle with our attacker object
             GameManager.AddDefenderToBattle(PlayerController.CurrentPlayer, makeDefend);
             // Clear the stash since we have our defendObject storing it now
+            CreateDefenseSystem.RemoveDefenceObject(tileSelect.GetTilePosition());
             Clear();
         }
         else {
