@@ -8,7 +8,7 @@ public class CancelButton : MonoBehaviour
     void Start()
     {
         //outOfFrame();   
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
