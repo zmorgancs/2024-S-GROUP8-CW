@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class CreateDefenseSystem : MonoBehaviour
 {
-    public GameObject defendIcon;
+    [SerializeField]
+    private GameObject defendIcon;
 
     private Battles battle;
     private Player defendingPlayer;
@@ -15,6 +16,8 @@ public class CreateDefenseSystem : MonoBehaviour
     private static List<GameObject> defendObjects; // Only works with Hotseating, otherwise needs player indicator 
     private static List<Vector2> needDefensePositions;
 
+
+    // Grabs a position and based on the players that were attack returns true/false
     public static bool IsDefendable(Vector2 pos) {
         if (needDefensePositions.Count < 1)
             return false;
@@ -26,6 +29,7 @@ public class CreateDefenseSystem : MonoBehaviour
         return false;
     }
 
+    // Removes a specifc defense object from the game world
     public static void RemoveDefenceObject(Vector2 vec) {
         if (defendObjects.Count < 1)
             return;
@@ -37,6 +41,7 @@ public class CreateDefenseSystem : MonoBehaviour
     
     }
 
+    // Removes all defense objects from the game world
     public static void ResetDefenceObjects() {
         if (defendObjects.Count < 1)
             return;

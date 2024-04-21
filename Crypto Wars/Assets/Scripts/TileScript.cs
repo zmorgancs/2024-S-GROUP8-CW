@@ -93,15 +93,6 @@ public class Tile : MonoBehaviour
         currBuilding = newBuilding;
     }
 
-    public static bool IsAdjacent(List<Player> players, Tile friendlyTile)
-    {
-        foreach(Player player in players) {
-            if(IsAdjacent(player, friendlyTile))
-               return true;
-        }
-        return false;
-    }
-
     public static bool IsAdjacent(Player player, Tile friendlyTile) {
         List<TileReference> tiles = player.GetTiles();
         foreach (TileReference enemyTile in tiles) {
@@ -124,6 +115,7 @@ public class Tile : MonoBehaviour
             }
 
         }
+        Debug.Log("AAA");
         return false;
     }
 

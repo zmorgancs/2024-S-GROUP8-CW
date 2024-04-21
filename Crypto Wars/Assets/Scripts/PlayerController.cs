@@ -56,39 +56,36 @@ public class PlayerController : MonoBehaviour
                 if (hit.transform != null) {
                     Tile tile = hit.transform.GetComponent<Tile>();
                     if (tile != null) {
+                        // Grabs a new tile to check and makes sure it's not being checked multiple times
                         if (selectedTile == null || !selectedTile.GetTilePosition().Equals(tile.GetTilePosition())) {
-                            SetSelectedTile(tile);
-                            if (Tile.IsAdjacent(players, tile)) {
+                            SetSelectedTile(tile); // Sets the controller's tile that was last clicked
+                            if (Tile.IsAdjacent(CurrentPlayer, tile)) {
                                 notAdj = false;
                             }
-                            else { 
+                            else {
                                 notAdj = true;
                             }
                         }
-                        if (tile.GetPlayer() > -1)
+                        // If the tile clicked on is not controlled by the current player
+                        if(tile.GetPlayer() != CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack){
+                            if(!notAdj)
+                                SetupAttackButton(tile);
+                        }
+                        // If the tile clicked on and the player owns it to build
+                        if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Build){
+                            SetupBuildButton(tile);
+                        }
+                        // If the tile clicked on and the player wants to defend it from an attack
+                        // (If an attack exists)
+                        if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense)
                         {
-                            // If the tile clicked on is not controlled by the current player
-                            if(tile.GetPlayer() != CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack){
-                                if(!notAdj)
-                                    SetupAttackButton(tile);
+                            // Grabs the tile to check if it can be defended
+                            if (CreateDefenseSystem.IsDefendable(tile.GetTilePosition())){
+                                stash.Activate(true);
                             }
-                            if(tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Build){
-                                SetupBuildButton(tile);
+                            else {
+                                stash.Activate(false);
                             }
-                            if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense)
-                            {
-                                if (CreateDefenseSystem.IsDefendable(tile.GetTilePosition())){
-                                    stash.Activate(true);
-                                }
-                                else {
-                                    stash.Activate(false);
-                                }
-                            }
-                        } 
-                        else
-                        {
-                            tile.SetPlayer(CurrentPlayerIndex);
-                            tile.SetMaterial(players[CurrentPlayerIndex].GetColor());
                         }
                     }
                 }

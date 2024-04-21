@@ -1,15 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using TMPro;
-// using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.XR;
-using static Card;
 
 
 // Need some way of switching the InventoryManager system for each player
@@ -112,7 +104,7 @@ public class InventoryManager : MonoBehaviour
         this.transform.position = new Vector3(200,35,0);
     }
 
-      //function for unit tests to reset slots
+    // Function for unit tests to reset slots
     public static void ClearSlots()
     {
         Slots.Clear();
