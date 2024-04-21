@@ -249,6 +249,12 @@ public class PlayerController : MonoBehaviour
     {
         return players;
     }
+    
+    public Player GetCurrentPlayer()
+    {
+        int index = this.GetCurrentPlayerIndex();
+        return players[index];
+    }
 
     public static Tile GetSelectedTile()
     {
