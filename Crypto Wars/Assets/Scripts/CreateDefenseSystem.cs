@@ -70,7 +70,7 @@ public class CreateDefenseSystem : MonoBehaviour
             Debug.Log("Beginning Defence");
             List<GameManager.Battle> battles = GameManager.OnlyDefenderBattles(PlayerController.CurrentPlayer);
             //Debug.Log("Battle: " + battles[0].attack.destinationTilePos);
-            List<Tile.TileReference> ownedTiles = defendingPlayer.getTiles();
+            List<Tile.TileReference> ownedTiles = defendingPlayer.GetTiles();
             //Debug.Log("OwnedTile: " + defendingPlayer.getTiles()[0]);
 
             GameObject Canvas = GameObject.Find("Button Canvas");

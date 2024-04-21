@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private static Tile selectedTile;
     private static Stash stash;
     private static GameObject cancelButton;
+    private bool notAdj = false;    
 
     // Get number of players in game
     public int GetNumberOfPlayers(){
@@ -55,12 +56,21 @@ public class PlayerController : MonoBehaviour
                 if (hit.transform != null) {
                     Tile tile = hit.transform.GetComponent<Tile>();
                     if (tile != null) {
-                        SetSelectedTile(tile);
-                        if(tile.GetPlayer() > -1)
+                        if (selectedTile == null || !selectedTile.GetTilePosition().Equals(tile.GetTilePosition())) {
+                            SetSelectedTile(tile);
+                            if (Tile.IsAdjacent(players, tile)) {
+                                notAdj = false;
+                            }
+                            else { 
+                                notAdj = true;
+                            }
+                        }
+                        if (tile.GetPlayer() > -1)
                         {
                             // If the tile clicked on is not controlled by the current player
                             if(tile.GetPlayer() != CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack){
-                                SetupAttackButton(tile);
+                                if(!notAdj)
+                                    SetupAttackButton(tile);
                             }
                             if(tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Build){
                                 SetupBuildButton(tile);
@@ -169,7 +179,7 @@ public class PlayerController : MonoBehaviour
         GameObject destroyButton = GameObject.Find("Destroy Button");
         if (buildButton.GetComponent<Image>().enabled)
         {
-            if (tile.getBuilding().getName() == "Nothing")
+            if (tile.GetBuilding().getName() == "Nothing")
             {
                 buildButton.GetComponent<Image>().enabled = true;
                 buildButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;

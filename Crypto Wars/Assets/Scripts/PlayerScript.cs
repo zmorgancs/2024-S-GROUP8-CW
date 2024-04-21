@@ -158,7 +158,7 @@ public class Player
         playerName = name;
     }
 
-    public List<Tile.TileReference> getTiles()
+    public List<Tile.TileReference> GetTiles()
     {
         return this.tilesOwned;
     }
