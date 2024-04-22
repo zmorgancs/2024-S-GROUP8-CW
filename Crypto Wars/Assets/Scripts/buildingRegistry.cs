@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildingRegistry
 {
     // List of building types and grabs the card they produce from the card registry
-    private static List<Building> buildingList;
+    private static List<Building> buildingList = new List<Building>();
 
     // Initialized after cardRegistry since CreateBuilding relies on it
     public static void Load() 
@@ -21,13 +21,19 @@ public class BuildingRegistry
     {
         Building newBuild = new Building(name, numProduced, turnsToProduce);
         Card cardProduct = CardRegistry.GetCardByName(cardName);  
-        newBuild.setCard(cardProduct);
+        newBuild.SetCard(cardProduct);
         buildingList.Add(newBuild);
     }
 
     // Grabs building from the list by name
-    public Building GetBuildingByName(string buildingName)
+    public static Building GetBuildingByName(string buildingName)
     {
-        return buildingList.Find(build => build.getName() == buildingName);
+        return buildingList.Find(build => build.GetName() == buildingName);
+    }
+
+    // Grabs building from the list by index
+    public static Building GetBuildingByIndex(int index)
+    {
+        return buildingList[index];
     }
 }

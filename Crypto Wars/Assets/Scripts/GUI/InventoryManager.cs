@@ -99,11 +99,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void comeIntoFrame()
-    {
-        this.transform.position = new Vector3(200,35,0);
-    }
-
     // Function for unit tests to reset slots
     public static void ClearSlots()
     {

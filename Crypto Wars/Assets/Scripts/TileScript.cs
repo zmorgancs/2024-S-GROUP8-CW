@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,8 @@ public class Tile : MonoBehaviour
     void Start()
     {
         rendererReference = GetComponent<MeshRenderer>();
-        SetMaterial(PlayerController.players[playerIndex].GetColor());
+        if (playerIndex > -1)
+            SetMaterial(PlayerController.players[playerIndex].GetColor());
         currBuilding = new Building("Nothing",0,0);
         if (gameObject != null) {
             reference.tilePosition.x = (int)gameObject.transform.position.x;
@@ -90,7 +92,13 @@ public class Tile : MonoBehaviour
 
     public void SetBuilding(Building newBuilding)
     {
-        currBuilding = newBuilding;
+        if (newBuilding == null){
+            currBuilding = new Building("Nothing", 0, 0);
+        }
+        else {
+            currBuilding = newBuilding;
+        }
+        
     }
 
     public static bool IsAdjacent(Player player, Tile friendlyTile) {
