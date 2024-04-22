@@ -78,6 +78,8 @@ namespace Test
         [Test]
         public void Tile_IsAdjacent_ReturnsTrue()
         {
+            // Test to ensure the tile is adjacent to the player
+            // Create a player and add tiles to it
             Player player = new Player("One", Resources.Load<Material>("Materials/PlayerTileColor"));
             player.AddTiles(new Tile.TileReference { tilePosition = new Vector2(0,0), tileName = "Tile"});
             player.AddTiles(new Tile.TileReference { tilePosition = new Vector2(1,0), tileName = "Tile2"});
@@ -85,6 +87,7 @@ namespace Test
             Tile adjTile = new Tile();
             adjTile.SetTilePosition(0,1);
 
+            // Check if the tile is adjacent to the player
             bool checkTile = Tile.IsAdjacent(player, adjTile);
             Assert.IsTrue(checkTile);
 

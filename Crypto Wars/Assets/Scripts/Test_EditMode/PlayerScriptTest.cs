@@ -106,6 +106,7 @@ public class PlayerScriptTest
     [Test]
     public void PlayerScript_AddTilesOverloaded_Test()
     {
+        // Test to ensure that the AddTiles method adds the correct number of tiles
         int playerTiles = player.GetTiles().Count;
         List<Tile.TileReference> tiles = new List<Tile.TileReference>()
         {
@@ -120,6 +121,7 @@ public class PlayerScriptTest
     [Test]
     public void PlayerScript_RemoveTiles_Test()
     {
+        // Test to ensure that the RemoveTiles method removes the correct number of tiles
         List<Tile.TileReference> tiles = new List<Tile.TileReference>()
         {
             new Tile.TileReference { tilePosition = new Vector2(0,0), tileName = "Tile1" },
@@ -134,6 +136,7 @@ public class PlayerScriptTest
     [Test]
     public void PlayerScript_RemoveTilesOverloaded_Test()
     {
+        // Test to ensure that the RemoveTiles method removes the correct number of tiles
         List<Tile.TileReference> tiles = new List<Tile.TileReference>()
         {
             new Tile.TileReference { tilePosition = new Vector2(0,0), tileName = "Tile1" },
