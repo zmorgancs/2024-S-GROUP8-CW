@@ -102,4 +102,46 @@ public class PlayerScriptTest
         Assert.AreEqual(p1.GetTiles().Count, 1);
         Assert.AreEqual(p1.getTilesControlledCount(), 1);
     }
+
+    [Test]
+    public void PlayerScript_AddTilesOverloaded_Test()
+    {
+        int playerTiles = player.GetTiles().Count;
+        List<Tile.TileReference> tiles = new List<Tile.TileReference>()
+        {
+            new Tile.TileReference { tilePosition = new Vector2(0,0), tileName = "Tile1" },
+            new Tile.TileReference { tilePosition = new Vector2(1,0), tileName = "Tile2" }
+        };
+
+        player.AddTiles(tiles, 2);
+        Assert.AreEqual(player.GetTiles().Count, playerTiles + 2);
+    }
+
+    [Test]
+    public void PlayerScript_RemoveTiles_Test()
+    {
+        List<Tile.TileReference> tiles = new List<Tile.TileReference>()
+        {
+            new Tile.TileReference { tilePosition = new Vector2(0,0), tileName = "Tile1" },
+            new Tile.TileReference { tilePosition = new Vector2(1,0), tileName = "Tile2" }
+        };
+
+        player.AddTiles(tiles, 2);
+        player.RemoveTiles(tiles[0]);
+        Assert.AreEqual(player.GetTiles().Count, 1);
+    }
+
+    [Test]
+    public void PlayerScript_RemoveTilesOverloaded_Test()
+    {
+        List<Tile.TileReference> tiles = new List<Tile.TileReference>()
+        {
+            new Tile.TileReference { tilePosition = new Vector2(0,0), tileName = "Tile1" },
+            new Tile.TileReference { tilePosition = new Vector2(1,0), tileName = "Tile2" }
+        };
+
+        player.AddTiles(tiles, 2);
+        player.RemoveTiles(tiles, 2);
+        Assert.AreEqual(player.GetTiles().Count, 0);
+    }
 }
