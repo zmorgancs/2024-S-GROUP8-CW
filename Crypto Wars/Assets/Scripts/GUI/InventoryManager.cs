@@ -62,7 +62,7 @@ public class InventoryManager : MonoBehaviour
             }
             List<CardStack> stacks = currentPlayerInventory.GetStacks();
             for (int i = 0; i < currentPlayerInventory.GetStacksListSize(); i++){
-                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName(), "CardName Bar");
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().GetName(), "CardName Bar");
                 SetText("Amount", i, "" + stacks[i].GetSize());
             }
             PlayerController.Switching = false;
@@ -91,7 +91,7 @@ public class InventoryManager : MonoBehaviour
         if (currentPlayerInventory != null){
             List<CardStack> stacks = currentPlayerInventory.GetStacks();
             for (int i = 0; i < stacks.Count(); i++) {
-                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName(), "CardName Bar");
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().GetName(), "CardName Bar");
                 SetText("Amount", i, "" + stacks[i].GetSize());
             }
         SetText("CardName", stacks.Count(), "", "CardName Bar");

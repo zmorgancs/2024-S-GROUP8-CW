@@ -28,9 +28,9 @@ public class Building {
         return owner;
     }
 
-    public void SetOwner(Player newOwner)
+    public void SetOwner(Player owner)
     {
-        owner = newOwner;
+        this.owner = owner;
     }
 
     public Tile GetTile()
@@ -46,6 +46,16 @@ public class Building {
     public int GetTurnsSinceLast()
     {
         return turnsSinceLastProdction;
+    }
+
+    public float GetPercentageFilled()
+    {
+        return (float)turnsSinceLastProdction / turnsToProduce;
+    }
+
+    public int GetTimeToProduce()
+    {
+        return turnsToProduce;
     }
 
     public int GetAmount()
@@ -99,6 +109,7 @@ public class Building {
             }
             turnsSinceLastProdction = 0;
         }
+        DidNotProduce();
     }
 
     public void DidNotProduce()

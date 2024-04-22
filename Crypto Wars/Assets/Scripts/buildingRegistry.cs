@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildingRegistry
@@ -28,12 +29,17 @@ public class BuildingRegistry
     // Grabs building from the list by name
     public static Building GetBuildingByName(string buildingName)
     {
-        return buildingList.Find(build => build.GetName() == buildingName);
+        Building building = buildingList.Find(build => build.GetName() == buildingName);
+        Building newBuilding = new Building(building.GetName(), building.GetAmount(), building.GetTimeToProduce());
+        newBuilding.SetCard(building.GetCard());
+        return newBuilding;
     }
 
     // Grabs building from the list by index
     public static Building GetBuildingByIndex(int index)
     {
-        return buildingList[index];
+        Building newBuilding = new Building(buildingList[index].GetName(), buildingList[index].GetAmount(), buildingList[index].GetTimeToProduce());
+        newBuilding.SetCard(buildingList[index].GetCard());
+        return newBuilding;
     }
 }

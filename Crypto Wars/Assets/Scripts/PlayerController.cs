@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject buildButton;
     [SerializeField]
-    GameObject buildBar;
+    GameObject progressBar;
     public static List<Player> players { get; set; }
     private static int CurrentPlayerIndex;
 
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public static bool Switching = false;
     // Store the most recently selected tile
     private static Tile selectedTile;
-    private bool buildBarOver;
+    private static GameObject selectedGameObject;
     private static Stash stash;
     private static GameObject cancelButton;
     private bool notAdj = false;    
@@ -49,12 +49,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log(stash != null);
         cancelButton = GameObject.Find("Misc Bar").transform.Find("Cancel Button").gameObject;
         CurrentPlayer.SetPhase(Player.Phase.Defense);
-        buildBarOver = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Switching)
+            DisableButtonCanvas();
         // Detects input of the player inside the camera
         // Right now it just does some basic stuff
         // Will have more functionality in future
@@ -64,41 +65,82 @@ public class PlayerController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100f)) {
                 if (hit.transform != null) {
-                    Tile tile = hit.transform.GetComponent<Tile>();
-                    if (tile != null) {
-                        // Grabs a new tile to check and makes sure it's not being checked multiple times
-                        if (selectedTile == null || !selectedTile.GetTilePosition().Equals(tile.GetTilePosition())){
-                            SetSelectedTile(tile); // Sets the controller's tile that was last clicked
-                            attackButton.GetComponent<AttackButtonScript>().ResetClicks();
-                            if (Tile.IsAdjacent(CurrentPlayer, tile)){
-                                notAdj = false;
-                            }
-                            else{
-                                notAdj = true;
-                            }
-                        }
-                        //GameObject cancelButton = GameObject.Find("Cancel Button");
-                        // If the tile clicked on is not controlled by the current player
-                        if(tile.GetPlayer() != CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack){
-                            SetupAttackButton(tile);
-                        }
-                        // If the tile clicked on and the player owns it to build
-                        if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Build){
-                            SetupBuildButton(tile);
-                        }
-                        // If the tile clicked on and the player wants to defend it from an attack
-                        // (If an attack exists)
-                        if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense)
-                        {
-                            // Grabs the tile to check if it can be defended
-                            if (CreateDefenseSystem.IsDefendable(tile.GetTilePosition())){
-                                stash.Activate(true);
-                            }
-                            else {
-                                stash.Activate(false);
-                            }
+                    GameObject obj = hit.transform.gameObject;
+                    if (obj.GetComponent<Tile>() != null) {
+                        Tile tile = obj.GetComponent<Tile>();
+                        if (tile != null){
+                            // Grabs a new tile to check and makes sure it's not being checked multiple times
+                            if (selectedTile == null || !selectedTile.GetTilePosition().Equals(tile.GetTilePosition())){
+                                SetSelectedTile(tile); // Sets the controller's tile that was last clicked
+                                attackButton.GetComponent<AttackButtonScript>().ResetClicks();
+                                if (Tile.IsAdjacent(CurrentPlayer, tile)){
+                                    notAdj = false;
+                                }
+                                else{
+                                    notAdj = true;
+                                }
+                                //GameObject cancelButton = GameObject.Find("Cancel Button");
+                                // If the tile clicked on is not controlled by the current player
+                                if (tile.GetPlayer() != CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Attack)
+                                {
+                                    SetupAttackButton(tile);
+                                }
+                                // If the tile clicked on and the player owns it to build
+                                if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Build)
+                                {
+                                    SetupBuildButton(tile);
+                                }
+                                // If the tile clicked on and the player wants to defend it from an attack
+                                // (If an attack exists)
+                                if (tile.GetPlayer() == CurrentPlayerIndex && CurrentPlayer.GetCurrentPhase() == Player.Phase.Defense)
+                                {
+                                    // Grabs the tile to check if it can be defended
+                                    if (CreateDefenseSystem.IsDefendable(tile.GetTilePosition()))
+                                    {
+                                        stash.Activate(true);
+                                    }
+                                    else
+                                    {
+                                        stash.Activate(false);
+                                    }
 
+                                }
+                            }
                         }
+                    }
+                    else if(obj != null) {
+                        if (obj.tag.Equals("IsBuilding")){
+                            if (selectedGameObject == null || !selectedGameObject.transform.position.Equals(obj.transform.position)){
+                                selectedGameObject = obj;
+                                List<Tile.TileReference> tiles = CurrentPlayer.GetTiles();
+
+                                float percentage = 0;
+                                foreach (Tile.TileReference buildingTile in tiles)
+                                {
+                                    if (!buildingTile.currBuilding.Equals("Nothing")) {
+                                        if(buildingTile.currBuilding.GetOwner() != null) {
+                                            Debug.Log(buildingTile.currBuilding.GetOwner().GetName());
+                                            if (buildingTile.currBuilding.GetOwner().GetName().Equals(CurrentPlayer.GetName())) { 
+                                                Debug.Log(selectedGameObject.transform.position);
+                                                Debug.Log(buildingTile.currBuilding.GetPosition());
+
+
+                                                if (buildingTile.currBuilding.GetPosition().Equals(new Vector2(selectedGameObject.transform.position.x, selectedGameObject.transform.position.z))) {
+                                                    Debug.Log(buildingTile.currBuilding.GetPercentageFilled());
+                                                    percentage = buildingTile.currBuilding.GetPercentageFilled();
+                                                    MoveProgress(buildingTile);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                progressBar.transform.Find("Slider").GetComponent<Slider>().value = percentage;
+                                Debug.Log("nice");
+                            }
+                            
+                        }
+
                     }
                 }
             }
@@ -180,11 +222,24 @@ public class PlayerController : MonoBehaviour
         cancelButton.SetActive(true);
     }
 
+    public void MoveProgress(Tile.TileReference tile)
+    {
+        attackButton.SetActive(false);
+        buildButton.SetActive(false);
+        destroyButton.SetActive(false);
+        progressBar.SetActive(true);
+
+        progressBar.transform.position = new Vector3(tile.tilePosition.x, 2.5f, tile.tilePosition.y + .25f);
+        progressBar.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+        progressBar.transform.eulerAngles = new Vector3(90, 0, 0);
+    }
+
     public void MoveBuild(Tile tile)
     {
         attackButton.SetActive(false);
         buildButton.SetActive(true);
         destroyButton.SetActive(false);
+        progressBar.SetActive(false);
         buildButton.GetComponent<BuildButtonScript>().DeactivateMenu();
 
         buildButton.transform.position = new Vector3(tile.GetTilePosition().x, 2.5f, tile.GetTilePosition().y + .45f);
@@ -196,6 +251,7 @@ public class PlayerController : MonoBehaviour
         attackButton.SetActive(false);
         buildButton.SetActive(false);
         destroyButton.SetActive(true);
+        progressBar.SetActive(false);
 
         destroyButton.transform.position = new Vector3(tile.GetTilePosition().x, 2.5f, tile.GetTilePosition().y + .45f);
         destroyButton.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
@@ -211,10 +267,20 @@ public class PlayerController : MonoBehaviour
         attackButton.SetActive(true);
         buildButton.SetActive(false);
         destroyButton.SetActive(false);
+        progressBar.SetActive(false);
 
         attackButton.GetComponent<Button>().enabled = true;
     }
 
+    public void DisableButtonCanvas() {
+        selectedGameObject = null;
+        selectedTile = null;
+        attackButton.SetActive(false);
+        buildButton.SetActive(false);
+        destroyButton.SetActive(false);
+        progressBar.SetActive(false);
+        buildButton.GetComponent<BuildButtonScript>().DeactivateMenu();
+    }
     public void SetupAttackButton(Tile tile) {
         if (!notAdj) {
             MoveAttack(tile);
@@ -224,32 +290,25 @@ public class PlayerController : MonoBehaviour
     public void SetupBuildButton(Tile tile) {
         if (tile.GetBuilding().GetName() == "Nothing")
         {
-            Vector2 check = new Vector2(buildButton.transform.position.x, buildButton.transform.position.z - .45f);
-            if (!check.Equals(tile.GetTilePosition())) { 
-                MoveBuild(tile);
-                EnableCancel();
+            MoveBuild(tile);
+            EnableCancel();
 
-                Button bldButton = buildButton.GetComponent<Button>();
+            Button bldButton = buildButton.GetComponent<Button>();
    
-                bldButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().DeactivateMain());
-                Debug.Log(tile.GetBuilding().GetName());
-                Debug.Log("Creating a Build Button");
-            }
+            bldButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().DeactivateMain());
+            Debug.Log(tile.GetBuilding().GetName());
+            Debug.Log("Creating a Build Button");
         }
         else 
         {
-            Vector2 check = new Vector2(destroyButton.transform.position.x, destroyButton.transform.position.z - .45f);
-            if (!check.Equals(tile.GetTilePosition()))
-            {
-                MoveDestroy(tile);
-                EnableCancel();
+            MoveDestroy(tile);
+            EnableCancel();
 
-                Button desButton = destroyButton.GetComponent<Button>();
+            Button desButton = destroyButton.GetComponent<Button>();
 
-                desButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().DeletePrefab(tile));
-                Debug.Log(tile.GetBuilding().GetName());
-                Debug.Log("Creating a Destroy Button");
-            }
+            desButton.onClick.AddListener(() => buildButton.GetComponent<BuildButtonScript>().DeletePrefab(tile));
+            Debug.Log(tile.GetBuilding().GetName());
+            Debug.Log("Creating a Destroy Button");
         }
         
     }

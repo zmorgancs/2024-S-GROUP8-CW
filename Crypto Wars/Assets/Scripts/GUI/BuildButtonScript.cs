@@ -102,9 +102,10 @@ public class BuildButtonScript : MonoBehaviour
         }
 
         buildingPrefabs.Add(newBuilding);
-        
+
         Building building = BuildingRegistry.GetBuildingByIndex(option - 1);
-        building.SetPosition(new Vector2(tile.transform.position.x - 0.2f, tile.transform.position.z + .1f));
+        building.SetPosition(new Vector2(tile.GetTilePosition().x - 0.2f, tile.GetTilePosition().y + .1f));
+        building.SetOwner(new Player(PlayerController.CurrentPlayer.GetName(), PlayerController.CurrentPlayer.GetColor()));
         tile.SetBuilding(building);
 
         Debug.Log("Creating a Building");
