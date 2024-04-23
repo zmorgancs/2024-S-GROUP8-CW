@@ -28,6 +28,9 @@ public class InventoryManager : MonoBehaviour
         Temp1 = CardRegistry.GetCardByName("Java");
 
         currentPlayerInventory = PlayerController.CurrentPlayer.GetInventory();
+        int[] array = { 3, 2, 3 };
+        // Starting inventory of 3 2 3
+        Inventory.StartingInventory(array);
 
     }
 

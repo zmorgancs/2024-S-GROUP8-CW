@@ -46,4 +46,14 @@ public class CardRegistry
         newCard.setStaminaCost(card.getStaminaCost());
         return newCard;
     }
+
+    public static Card GetCardByIndex(int index)
+    {
+        Card card = cardList[index];
+        Card newCard = new Card(card.GetSprite(), card.GetName());
+        newCard.setOffense(card.getOffense());
+        newCard.setDefense(card.getDefense());
+        newCard.setStaminaCost(card.getStaminaCost());
+        return newCard;
+    }
 }
