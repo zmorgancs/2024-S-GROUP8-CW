@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,31 +10,31 @@ public class Tile : MonoBehaviour
     public int playerIndex;
 
     // Public properties
-    public struct TileReference
+    public class TileReference
     {
-        public Vector2 tilePosition;
-        public string tileName;
+        public Vector2 tilePosition = new Vector2();
+        public string tileName = "";
+        public Building currBuilding = new Building("Nothing", 0, 0);
     }
 
     // References to the renderer and materials for the tile
     private MeshRenderer rendererReference;
-    private Building currBuilding;
-    private TileReference reference;
+    private TileReference reference = new TileReference();
 
     // Initialization in Start method
     // Assumes that the tile materials are located within a Resources folder
     void Start()
     {
         rendererReference = GetComponent<MeshRenderer>();
-        SetMaterial(PlayerController.players[playerIndex].GetColor());
-        currBuilding = new Building("Nothing",0,0);
-        if (gameObject != null) {
+        if (playerIndex > -1)
+            SetMaterial(PlayerController.players[playerIndex].GetColor());
+        if (gameObject != null) { 
             reference.tilePosition.x = (int)gameObject.transform.position.x;
             reference.tilePosition.y = (int)gameObject.transform.position.z;
             // Temp name system
             reference.tileName = " " + reference.tilePosition.x + " " + reference.tilePosition.y;
         }
-        SetPlayer(playerIndex);
+        SetPlayer(GetPlayer());
     }
 
     public int GetPlayer() 
@@ -43,10 +44,9 @@ public class Tile : MonoBehaviour
 
     public void SetPlayer(int index)
     {
-        playerIndex = index;
         // -1 represents non-ownership
-        if (playerIndex != -1) {
-            PlayerController.players[index].AddTiles(reference);
+        if (index > -1) {
+            PlayerController.players[index].AddTiles(ref reference);
         }
     }
     
@@ -84,13 +84,48 @@ public class Tile : MonoBehaviour
         return reference.tilePosition;
     }
 
-    public Building getBuilding()
+    public Building GetBuilding()
     {
-        return currBuilding;
+        return reference.currBuilding;
     }
 
-    public void setBuilding(Building newBuilding)
+    public void SetBuilding(Building newBuilding)
     {
-        currBuilding = newBuilding;
+        if (newBuilding == null){
+            reference.currBuilding = new Building("Nothing", 0, 0);
+        }
+        else {
+            reference.currBuilding = newBuilding;
+        }
+        
     }
+
+    public static bool IsAdjacent(Player player, Tile friendlyTile) {
+        List<TileReference> tiles = player.GetTiles();
+        foreach (TileReference enemyTile in tiles) {
+            int X1 = (int)enemyTile.tilePosition.x;
+            int Y1 = (int)enemyTile.tilePosition.y;
+
+            int X2 = (int)friendlyTile.reference.tilePosition.x;
+            int Y2 = (int)friendlyTile.reference.tilePosition.y;
+
+            if (X2 == X1 && Y2 == Y1) // (0,0) Self
+                return false; 
+
+            if (X2 + 1 == X1 || X2 - 1 == X1 || X2 == X1) {
+                if (Y2 == Y1) // +(1, 0) || +(-1, 0)
+                    return true;
+                if (Y2 + 1 == Y1) // +(1, 1) || +(-1, 1) || +(0, 1) 
+                    return true;
+                if (Y2 - 1 == Y1) // +(1, -1) || +(-1, -1) || +(0, -1) 
+                    return true;
+            }
+
+        }
+        Debug.Log("AAA");
+        return false;
+    }
+
+
+
 }

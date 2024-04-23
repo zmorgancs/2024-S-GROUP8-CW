@@ -98,8 +98,8 @@ public class PlayerScriptTest
         Assert.AreEqual(p1.GetName(), "Bob");
 
         Tile.TileReference tile = new Tile.TileReference();
-        p1.AddTiles(tile);
-        Assert.AreEqual(p1.getTiles().Count, 1);
+        p1.AddTiles(ref tile);
+        Assert.AreEqual(p1.GetTiles().Count, 1);
         Assert.AreEqual(p1.getTilesControlledCount(), 1);
     }
 }
