@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     private static GameObject selectedGameObject;
     private static Stash stash;
     private static GameObject cancelButton;
-    private bool notAdj = false;    
+    private bool notAdj = false;
+    private float offSet = 0.04f;
 
     // Get number of players in game
     public int GetNumberOfPlayers(){
@@ -229,7 +230,7 @@ public class PlayerController : MonoBehaviour
         destroyButton.SetActive(false);
         progressBar.SetActive(true);
 
-        progressBar.transform.position = new Vector3(tile.tilePosition.x, 2.5f, tile.tilePosition.y + .25f);
+        progressBar.transform.position = new Vector3(tile.tilePosition.x + offSet, 2.5f, tile.tilePosition.y + .25f);
         progressBar.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
         progressBar.transform.eulerAngles = new Vector3(90, 0, 0);
     }
@@ -242,7 +243,7 @@ public class PlayerController : MonoBehaviour
         progressBar.SetActive(false);
         buildButton.GetComponent<BuildButtonScript>().DeactivateMenu();
 
-        buildButton.transform.position = new Vector3(tile.GetTilePosition().x, 2.5f, tile.GetTilePosition().y + .45f);
+        buildButton.transform.position = new Vector3(tile.GetTilePosition().x + offSet, 2.5f, tile.GetTilePosition().y + .45f);
         buildButton.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
         buildButton.transform.eulerAngles = new Vector3(90, 0, 0);
     }
@@ -253,14 +254,14 @@ public class PlayerController : MonoBehaviour
         destroyButton.SetActive(true);
         progressBar.SetActive(false);
 
-        destroyButton.transform.position = new Vector3(tile.GetTilePosition().x, 2.5f, tile.GetTilePosition().y + .45f);
+        destroyButton.transform.position = new Vector3(tile.GetTilePosition().x + offSet, 2.5f, tile.GetTilePosition().y + .45f);
         destroyButton.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
         destroyButton.transform.eulerAngles = new Vector3(90, 0, 0);
     }
     public void MoveAttack(Tile tile) {
         attackButton.GetComponent<Button>().enabled = false;
 
-        attackButton.transform.position = new Vector3(tile.GetTilePosition().x, 2.5f, tile.GetTilePosition().y);
+        attackButton.transform.position = new Vector3(tile.GetTilePosition().x + offSet, 2.5f, tile.GetTilePosition().y);
         attackButton.transform.localScale = new Vector3(0.055f, 0.055f, 0.055f);
         attackButton.transform.eulerAngles = new Vector3(90, 0, 0);
 

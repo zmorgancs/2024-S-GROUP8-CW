@@ -45,9 +45,11 @@ public class Tile : MonoBehaviour
     public void SetPlayer(int index)
     {
         // -1 represents non-ownership
-        if (index > -1) {
+        if (index > -1)
+        {
             PlayerController.players[index].AddTiles(ref reference);
         }
+        playerIndex = index;
     }
     
     public void SetMaterial(Material newMaterial)

@@ -152,5 +152,17 @@ public class Inventory
             AddToCardToStack(card);
         }
     }
+
+    // Gives each player their starting cards
+    public static void StartingInventory(int[] cardArray) {
+        for (int i = 0; i < cardArray.Length; i++) {
+            for (int j = 0; j < cardArray[i]; j++) {
+                foreach (Player player in PlayerController.players) {
+                    Inventory inventory = player.GetInventory();
+                    inventory.AddToCardToStack(CardRegistry.GetCardByIndex(i));
+                }
+            }
+        }
+    }
 }
 

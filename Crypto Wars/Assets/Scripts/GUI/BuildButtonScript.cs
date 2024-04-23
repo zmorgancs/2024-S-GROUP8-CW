@@ -64,7 +64,7 @@ public class BuildButtonScript : MonoBehaviour
         buildMenu.SetActive(true);
 
         Vector2 pos = PlayerController.GetSelectedTile().GetTilePosition();
-        buildMenu.transform.position = new Vector3(pos.x, 2.75f, pos.y);
+        buildMenu.transform.position = new Vector3(pos.x + 0.04f, 2.75f, pos.y);
         buildMenu.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
         buildMenu.transform.eulerAngles = new Vector3(90, 0, 0);
     }
