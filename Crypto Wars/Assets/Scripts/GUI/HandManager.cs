@@ -110,12 +110,14 @@ public class HandManager : MonoBehaviour
         handSlot5Text.fontSize = 14;
         handSlot5Text.text = "Slot 5 Text";
 
-        ForceHideAll();
+        
 
         for (int i = 0; i < 5; i++) {
-            SetupSlot(i); // Create each slot in the inventory
+           // SetupSlot(i); // Create each slot in the inventory
             Debug.Log("Hand Slot " + Slots.Count);
         }
+
+        ForceHideAll();
 
         visible = true;
         cardsUpdated = false;
