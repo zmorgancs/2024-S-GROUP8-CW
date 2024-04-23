@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CardRegistryTest
 {
-    // This method will run before each test to ensure the card list is freshly loaded.
     [SetUp]
     public void SetUp()
     {
