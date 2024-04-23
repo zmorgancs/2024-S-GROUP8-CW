@@ -70,8 +70,11 @@ public class PlayerController : MonoBehaviour
                     if (obj.GetComponent<Tile>() != null) {
                         Tile tile = obj.GetComponent<Tile>();
                         if (tile != null){
+                            if (selectedTile != null)
+                                Debug.Log(selectedTile.GetTilePosition());
+                            Debug.Log(tile.GetTilePosition());
                             // Grabs a new tile to check and makes sure it's not being checked multiple times
-                            if (selectedTile == null || !selectedTile.GetTilePosition().Equals(tile.GetTilePosition())){
+                            if ((selectedTile == null || !selectedTile.GetTilePosition().Equals(tile.GetTilePosition())) && !stash.gameObject.activeSelf){
                                 SetSelectedTile(tile); // Sets the controller's tile that was last clicked
                                 attackButton.GetComponent<AttackButtonScript>().ResetClicks();
                                 if (Tile.IsAdjacent(CurrentPlayer, tile)){
@@ -122,11 +125,10 @@ public class PlayerController : MonoBehaviour
                                         if(buildingTile.currBuilding.GetOwner() != null) {
                                             Debug.Log(buildingTile.currBuilding.GetOwner().GetName());
                                             if (buildingTile.currBuilding.GetOwner().GetName().Equals(CurrentPlayer.GetName())) { 
-                                                Debug.Log(selectedGameObject.transform.position);
-                                                Debug.Log(buildingTile.currBuilding.GetPosition());
+                                                Vector2 buildingPos = new Vector2(Mathf.FloorToInt(buildingTile.currBuilding.GetPosition().x), Mathf.FloorToInt(buildingTile.currBuilding.GetPosition().y));
+                                                Vector2 tilePos = new Vector2(Mathf.FloorToInt(selectedGameObject.transform.position.x), Mathf.FloorToInt(selectedGameObject.transform.position.z));
 
-
-                                                if (buildingTile.currBuilding.GetPosition().Equals(new Vector2(selectedGameObject.transform.position.x, selectedGameObject.transform.position.z))) {
+                                                if (buildingPos.Equals(tilePos)) {
                                                     Debug.Log(buildingTile.currBuilding.GetPercentageFilled());
                                                     percentage = buildingTile.currBuilding.GetPercentageFilled();
                                                     MoveProgress(buildingTile);
@@ -230,7 +232,7 @@ public class PlayerController : MonoBehaviour
         destroyButton.SetActive(false);
         progressBar.SetActive(true);
 
-        progressBar.transform.position = new Vector3(tile.tilePosition.x + offSet, 2.5f, tile.tilePosition.y + .25f);
+        progressBar.transform.position = new Vector3(tile.tilePosition.x + offSet, 2.5f, tile.tilePosition.y + .3f);
         progressBar.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
         progressBar.transform.eulerAngles = new Vector3(90, 0, 0);
     }
