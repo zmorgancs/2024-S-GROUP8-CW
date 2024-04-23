@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building
-{
-    private GameObject inv;
+public class Building { 
+
     private int amount;
     private int turnsToProduce;
     private int turnsSinceLastProdction;
@@ -12,93 +11,109 @@ public class Building
     private Player owner;
     private Tile currentTile;
     private string name;
-
+    private Vector2 pos;
+    
     public Building(string nme, int amt, int ttProduce)
     {
         name = nme;
         amount = amt;
         turnsToProduce = ttProduce;
         turnsSinceLastProdction = 0;
+        //Get the correct material for the type of building that is being created
+        
     }
 
-   public Building(string nme, int amt, int ttProduce, Tile crrTile)
-    {
-        name = nme;
-        amount = amt;
-        turnsToProduce = ttProduce;
-        currentTile = crrTile;
-        turnsSinceLastProdction = 0;
-    }
-
-    public Player getOwner()
+    public Player GetOwner()
     {
         return owner;
     }
 
-    public void setOwner(Player newOwner)
+    public void SetOwner(Player owner)
     {
-        owner = newOwner;
+        this.owner = owner;
     }
 
-    public Tile getTile()
+    public Tile GetTile()
     {
         return currentTile;
     }
 
-    public void setTile(Tile newTile)
+    public void SetTile(Tile newTile)
     {
         currentTile = newTile;
     }
 
-    public int getTurnsSinceLast()
+    public int GetTurnsSinceLast()
     {
         return turnsSinceLastProdction;
     }
 
-    public int getAmount()
+    public float GetPercentageFilled()
+    {
+        return (float)turnsSinceLastProdction / turnsToProduce;
+    }
+
+    public int GetTimeToProduce()
+    {
+        return turnsToProduce;
+    }
+
+    public int GetAmount()
     {
         return amount;
     }
 
-    public void setAmount(int inAmount)
+    public void SetAmount(int inAmount)
     {
         amount = inAmount;
     }
 
-    public void setCard(Card cardProd)
+    public void SetCard(Card cardProd)
     {
         producedCard = cardProd;
     }
 
-    public Card getCard()
+    public Card GetCard()
     {
         return producedCard;
     }
 
-    public string getName()
+    public string GetName()
     {
         return name;
     }
 
-    public void addCardsToInventory()
+    public void SetPosition(Vector2 pos)
+    {
+        this.pos = pos;
+    }
+
+    public Vector2 GetPosition()
+    {
+        return pos;
+    }
+
+
+    public void SetName(string newName)
+    {
+        name = newName;
+    }
+
+    public void AddCardsToInventory(Inventory inv)
     {
         if(turnsSinceLastProdction >= turnsToProduce)
         {
             for (int i = 0; i < amount; i++)
             {
-                //inv.addCard(producedCard);
+                inv.AddToCardToStack(producedCard);
             }
             turnsSinceLastProdction = 0;
         }
+        DidNotProduce();
     }
 
-    public void didNotProduce()
+    public void DidNotProduce()
     {
         turnsSinceLastProdction++;
-    }
-
-    public void goToTile()
-    {
-        
     }
 }

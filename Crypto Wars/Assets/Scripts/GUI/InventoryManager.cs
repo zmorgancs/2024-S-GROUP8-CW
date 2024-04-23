@@ -1,15 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using TMPro;
-// using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.XR;
-using static Card;
 
 
 // Need some way of switching the InventoryManager system for each player
@@ -32,8 +24,8 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("" + Slots.Count);
         }
         
-        Temp = new Card(null, "John");
-        Temp1 = new Card(null, "Steve");
+        Temp = CardRegistry.GetCardByName("Python");
+        Temp1 = CardRegistry.GetCardByName("Java");
 
         currentPlayerInventory = PlayerController.CurrentPlayer.GetInventory();
 
@@ -70,7 +62,7 @@ public class InventoryManager : MonoBehaviour
             }
             List<CardStack> stacks = currentPlayerInventory.GetStacks();
             for (int i = 0; i < currentPlayerInventory.GetStacksListSize(); i++){
-                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName(), "CardName Bar");
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().GetName(), "CardName Bar");
                 SetText("Amount", i, "" + stacks[i].GetSize());
             }
             PlayerController.Switching = false;
@@ -99,7 +91,7 @@ public class InventoryManager : MonoBehaviour
         if (currentPlayerInventory != null){
             List<CardStack> stacks = currentPlayerInventory.GetStacks();
             for (int i = 0; i < stacks.Count(); i++) {
-                SetText("CardName", i, "" + stacks[i].GetCardinStack().getName(), "CardName Bar");
+                SetText("CardName", i, "" + stacks[i].GetCardinStack().GetName(), "CardName Bar");
                 SetText("Amount", i, "" + stacks[i].GetSize());
             }
         SetText("CardName", stacks.Count(), "", "CardName Bar");
@@ -107,12 +99,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void comeIntoFrame()
-    {
-        this.transform.position = new Vector3(200,35,0);
-    }
-
-      //function for unit tests to reset slots
+    // Function for unit tests to reset slots
     public static void ClearSlots()
     {
         Slots.Clear();

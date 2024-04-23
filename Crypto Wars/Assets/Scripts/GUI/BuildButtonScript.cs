@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;                        //
+using TMPro;                        
 using UnityEngine;
 using UnityEngine.UI;
 // using UnityEngine.EventSystems;
@@ -8,170 +8,133 @@ using UnityEngine.UI;
 public class BuildButtonScript : MonoBehaviour
 {
     // public GameObject buildOptionsMenu;
+    [SerializeField]
+    private GameObject buildButton;
+    [SerializeField]
+    private GameObject buildingPrefab;
+    [SerializeField]
+    private Button choiceOne;
+    [SerializeField]
+    private Button choiceTwo;
+    [SerializeField]
+    private Button choiceThree;
+    [SerializeField]
+    private GameObject buildMenu;
+    [SerializeField]
+    private GameObject destroyButton;
 
-    public GameObject destroyButton;
-    public GameObject buildButton;
-    public GameObject cancelButton;
+    private static List<GameObject> buildingPrefabs;
+
+    [SerializeField]
+    private Material PurpleMaterial;
+    [SerializeField]
+    private Material YellowMaterial;
+    [SerializeField]
+    private Material GreenMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
-        outOfFrame();
-        //CreateBuildButton();
-        //CreateDestroyButton();
-        //CreateCancelButton();
-        buildButton = GameObject.Find("BuildButton");
-        destroyButton = GameObject.Find("DestroyButton");
-        cancelButton = GameObject.Find("CancelButton");
+        buildingPrefabs = new List<GameObject>();
+        DeactivateMain();
+        DeactivateMenu();
+        choiceOne.onClick.AddListener(CreateBuildingOptionOne);
+        choiceTwo.onClick.AddListener(CreateBuildingOptionTwo);
+        choiceThree.onClick.AddListener(CreateBuildingOptionThree);
+        SetText(choiceOne.transform, 0);
+        SetText(choiceTwo.transform, 1);
+        SetText(choiceThree.transform, 2);
     }
 
-    public void outOfFrame()
-    {
-        this.transform.position = new Vector3(0,-375,0);
+    public void SetText(Transform form, int build) {
+        form.Find("BuildingName").GetComponent<TextMeshProUGUI>().text = "Build " + BuildingRegistry.GetBuildingByIndex(build).GetName();
     }
-    
 
-
-     /*
-    //This is the code for the old implementation, but I decided to keep it in just in case we end up needing it in the future
-    // Update is called once per frame
-    void Update()
+    public void DeactivateMain()
     {
-        
-        if (Input.GetKeyDown(KeyCode.M)) {
-            Debug.Log("Toggling Building Menu");
-            ToggleMenu();
-        }
+        buildButton.SetActive(false);
     }
-    // function to, when the button in the canvas (see line 15) is clicked, toggle the state
-    // of the build options menu
-    public void ToggleMenu()
+
+    public void DeactivateMenu()
     {
-        if(buildButton.GetComponent<Image>().enabled)
+        buildMenu.SetActive(false);
+    }
+
+    public void ActivateMenu() {
+        buildMenu.SetActive(true);
+
+        Vector2 pos = PlayerController.GetSelectedTile().GetTilePosition();
+        buildMenu.transform.position = new Vector3(pos.x, 2.75f, pos.y);
+        buildMenu.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+        buildMenu.transform.eulerAngles = new Vector3(90, 0, 0);
+    }
+
+    public void CreateBuildingOptionOne() {
+        CreateBuildingOption(1);
+    }
+    public void CreateBuildingOptionTwo(){
+        CreateBuildingOption(2);
+    }
+    public void CreateBuildingOptionThree(){
+        CreateBuildingOption(3);
+    }
+
+    public void CreateBuildingOption(int option) {
+        DeactivateMenu();
+        Debug.Log(PlayerController.GetSelectedTile());
+        InstantiatePrefab(PlayerController.GetSelectedTile(), option);
+    }
+    public Tile InstantiatePrefab(Tile tile, int option)
+    {
+        GameObject newBuilding = Instantiate(buildingPrefab, new Vector3(tile.transform.position.x - 0.2f, tile.transform.position.y + .5f, tile.transform.position.z + .1f), Quaternion.identity);
+        newBuilding.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        if (option == 1)
         {
-            buildButton.GetComponent<Image>().enabled = false;
-            buildButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
-
-            destroyButton.GetComponent<Image>().enabled = false;
-            destroyButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
-
-            cancelButton.GetComponent<Image>().enabled = false;
-            cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+            newBuilding.GetComponent<Renderer>().material = YellowMaterial;
         }
-        else
+        else if (option == 2)
         {
-            buildButton.GetComponent<Image>().enabled = true;
-            buildButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-
-            destroyButton.GetComponent<Image>().enabled = true;
-            destroyButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-
-            cancelButton.GetComponent<Image>().enabled = true;
-            cancelButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+            newBuilding.GetComponent<Renderer>().material = GreenMaterial;
         }
+        else if (option == 3)
+        {
+            newBuilding.GetComponent<Renderer>().material = PurpleMaterial;
+        }
+
+        buildingPrefabs.Add(newBuilding);
+
+        Building building = BuildingRegistry.GetBuildingByIndex(option - 1);
+        building.SetPosition(new Vector2(tile.GetTilePosition().x - 0.2f, tile.GetTilePosition().y + .1f));
+        building.SetOwner(new Player(PlayerController.CurrentPlayer.GetName(), PlayerController.CurrentPlayer.GetColor()));
+        tile.SetBuilding(building);
+
+        Debug.Log("Creating a Building");
+        return tile;
     }
 
-    public void CreateBuildButton()
+    public void DeletePrefab(Tile tile)
     {
-        GameObject buildButton = new GameObject("BuildButton");
-        buildButton.transform.parent = GameObject.Find("Canvas").transform;
+        Building toDelete = tile.GetBuilding();
+        Vector2 pos = toDelete.GetPosition();
+        GameObject prefab = FindBuildingPrefab(pos);
 
-        buildButton.AddComponent<Image>();
-        buildButton.GetComponent<Image>().color = new Color(0, 255, 0, 255);
-        // Image destroyImage = destroyButton.GetComponent<Image>();
-        // destroyImage.type = Image.Type.Sliced;                       not needed? maybe later?
+        if(prefab != null) { 
+            Destroy(prefab);
+            buildingPrefabs.Remove(prefab);
+            tile.SetBuilding(null);
+        }
 
-        buildButton.AddComponent<Button>();
-        buildButton.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        buildButton.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0.6f); //0.6f
-        buildButton.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0.6f);
-        buildButton.GetComponent<RectTransform>().pivot = new Vector2(0, 0.6f);
-        buildButton.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 30);
-        
-        GameObject buildButtonText = new GameObject("BuildButtonText");
-        TextMeshProUGUI buildText = buildButtonText.AddComponent<TextMeshProUGUI>();
-        buildText.transform.parent = buildButton.transform;
-
-        buildText.text = "\tBuild";
-        buildText.color = new Color(0, 0, 0, 255);
-        buildText.fontSize = 15;
-
-        buildText.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        buildText.GetComponent<RectTransform>().anchorMin = new Vector2(0.1f, 1.3f);
-        buildText.GetComponent<RectTransform>().anchorMax = new Vector2(0.1f, 1.3f);
-        buildText.GetComponent<RectTransform>().pivot = new Vector2(0.1f, 1.3f);
-        
-        buildText.transform.Translate(50, 0, 0);
-        buildButton = GameObject.Find("BuildButton");
+        destroyButton.SetActive(false);
+        buildButton.SetActive(true);
     }
 
-    public void CreateDestroyButton()
-    {
-        GameObject destroyButton = new GameObject("DestroyButton");
-        destroyButton.transform.parent = GameObject.Find("Canvas").transform;
-
-        destroyButton.AddComponent<Image>();
-        destroyButton.GetComponent<Image>().color = new Color(0, 255, 255, 255);
-        // Image destroyImage = destroyButton.GetComponent<Image>();
-        // destroyImage.type = Image.Type.Sliced;                       not needed? maybe later?
-
-        destroyButton.AddComponent<Button>();
-        destroyButton.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        destroyButton.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0.54f); //0.54f
-        destroyButton.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0.54f);
-        destroyButton.GetComponent<RectTransform>().pivot = new Vector2(0, 0.54f);
-        destroyButton.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 30);
-        
-        GameObject destroyButtonText = new GameObject("DestroyButtonText");
-        TextMeshProUGUI destroyText = destroyButtonText.AddComponent<TextMeshProUGUI>();
-        destroyText.transform.parent = destroyButton.transform;
-
-        destroyText.text = "\tDestroy";
-        destroyText.color = new Color(0, 0, 0, 255);
-        destroyText.fontSize = 15;
-
-        destroyText.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        destroyText.GetComponent<RectTransform>().anchorMin = new Vector2(0.1f, 1.3f);
-        destroyText.GetComponent<RectTransform>().anchorMax = new Vector2(0.1f, 1.3f);
-        destroyText.GetComponent<RectTransform>().pivot = new Vector2(0.1f, 1.3f);
-        
-        destroyText.transform.Translate(50, 0, 0);
-        destroyButton = GameObject.Find("DestroyButton");
+    public GameObject FindBuildingPrefab(Vector2 pos) {
+        foreach (GameObject gameObject in buildingPrefabs) {
+            if (pos.Equals(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z))) {
+                return gameObject;
+            }
+        }
+        return null;
     }
-
-    public void CreateCancelButton()
-    {
-        GameObject cancelButton = new GameObject("CancelButton");
-        cancelButton.transform.parent = GameObject.Find("Canvas").transform;
-
-        cancelButton.AddComponent<Image>();
-        cancelButton.GetComponent<Image>().color = new Color(255, 0, 0, 255);
-        // Image destroyImage = destroyButton.GetComponent<Image>();
-        // destroyImage.type = Image.Type.Sliced;                       not needed? maybe later?
-
-        cancelButton.AddComponent<Button>();
-        cancelButton.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        cancelButton.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0.48f); //0.6f
-        cancelButton.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0.48f);
-        cancelButton.GetComponent<RectTransform>().pivot = new Vector2(0, 0.48f);
-        cancelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 30);
-        
-        GameObject cancelButtonText = new GameObject("CancelButtonText");
-        TextMeshProUGUI cancelText = cancelButtonText.AddComponent<TextMeshProUGUI>();
-        cancelText.transform.parent = cancelButton.transform;
-
-        cancelText.text = "\tCancel";
-        cancelText.color = new Color(0, 0, 0, 255);
-        cancelText.fontSize = 15;
-
-        cancelText.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        cancelText.GetComponent<RectTransform>().anchorMin = new Vector2(0.1f, 1.3f);
-        cancelText.GetComponent<RectTransform>().anchorMax = new Vector2(0.1f, 1.3f);
-        cancelText.GetComponent<RectTransform>().pivot = new Vector2(0.1f, 1.3f);
-        
-        cancelText.transform.Translate(50, 0, 0);
-        cancelButton.GetComponent<Button>().onClick.AddListener(ToggleMenu);
-        // cancelButton = GameObject.Find("CancelButton");
-    }*/
 
 }
