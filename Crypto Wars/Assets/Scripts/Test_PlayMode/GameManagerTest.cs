@@ -72,13 +72,13 @@ public class GameManagerTest
         // Mocking tile ownership
         Tile.TileReference tileAttacker = new Tile.TileReference();
         tileAttacker.tilePosition = new Vector2(1, 1);
-        attacker.AddTiles(ref tileAttacker); // Attacker owns a tile at position (1,1)
+        attacker.AddTiles(tileAttacker); // Attacker owns a tile at position (1,1)
         Tile.TileReference tileDefender = new Tile.TileReference();
         tileDefender.tilePosition = new Vector2(2, 2);
-        defender.AddTiles(ref tileDefender); // Attacker owns a tile at position (2,2)
+        defender.AddTiles(tileDefender); // Attacker owns a tile at position (2,2)
         // Adding a battle where attacker wins
-        GameManager.Battle battle = new GameManager.Battle(attacker, defender, new Battles.AttackObject(Attacker, tileAttacker.tilePosition, tileDefender.tilePosition));
-        battle.defence = new Battles.DefendObject(Defender, tileDefender.tilePosition);
+        GameManager.Battle battle = new GameManager.Battle(attacker, defender, new AttackObject(Attacker, tileAttacker.tilePosition, tileDefender.tilePosition), null);
+        battle.defence = new DefendObject(Defender, tileDefender.tilePosition);
         //battle.defence.cardList.Add(new Card(null, "Card1")); // Adding a dummy card for the defender
         GameManager.FinalBattles.Add(battle);
 
@@ -140,12 +140,12 @@ public class GameManagerTest
          // Mocking tile ownership
         Tile.TileReference tileAttacker = new Tile.TileReference();
         tileAttacker.tilePosition = new Vector2(1, 1);
-        attacker.AddTiles(ref tileAttacker); // Attacker owns a tile at position (1,1)
+        attacker.AddTiles(tileAttacker); // Attacker owns a tile at position (1,1)
         Tile.TileReference tileDefender = new Tile.TileReference();
         tileDefender.tilePosition = new Vector2(2, 2);
-        defender.AddTiles(ref tileDefender); // Attacker owns a tile at position (2,2)
+        defender.AddTiles(tileDefender); // Attacker owns a tile at position (2,2)
         // Adding a battle where attacker wins
-        GameManager.Battle battle = new GameManager.Battle(attacker, defender, new Battles.AttackObject(Attacker, tileAttacker.tilePosition, tileDefender.tilePosition));
+        GameManager.Battle battle = new GameManager.Battle(attacker, defender, new Battles.AttackObject(Attacker, tileAttacker.tilePosition, tileDefender.tilePosition), null);
         battle.defence = new Battles.DefendObject(Defender, tileDefender.tilePosition);
         //battle.defence.cardList.Add(new Card(null, "Card1")); // Adding a dummy card for the defender
         GameManager.FinalBattles.Add(battle);

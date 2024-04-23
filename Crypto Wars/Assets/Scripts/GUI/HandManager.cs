@@ -131,6 +131,8 @@ public class HandManager : MonoBehaviour
         Vector3 offsetVector = Vector3.zero;
         Vector3 offsetPosition = Input.mousePosition + offsetVector;
         panel.transform.position = offsetPosition;
+        if(PlayerController.Switching)
+            currentPlayerHand = PlayerController.CurrentPlayer.GetInventory().GetHand();
 
         if (currentPlayerHand.GetHandCards().Count != cardsInHandLast)
         {

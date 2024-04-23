@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
     // Public properties
     public class TileReference
     {
-        public Vector2 tilePosition = new Vector2();
+        public Vector2 tilePosition = new Vector2(-1000,-1000);
         public string tileName = "";
         public Building currBuilding = new Building("Nothing", 0, 0);
     }
@@ -28,7 +28,9 @@ public class Tile : MonoBehaviour
         rendererReference = GetComponent<MeshRenderer>();
         if (playerIndex > -1)
             SetMaterial(PlayerController.players[playerIndex].GetColor());
-        if (gameObject != null) { 
+        if (gameObject != null) {
+            Debug.Log(gameObject.transform.position.x);
+            Debug.Log(gameObject.transform.position.z);
             reference.tilePosition.x = (int)gameObject.transform.position.x;
             reference.tilePosition.y = (int)gameObject.transform.position.z;
             // Temp name system
@@ -47,11 +49,11 @@ public class Tile : MonoBehaviour
         // -1 represents non-ownership
         if (index > -1)
         {
-            PlayerController.players[index].AddTiles(ref reference);
+            PlayerController.players[index].AddTiles(reference);
         }
         playerIndex = index;
     }
-    
+
     public void SetMaterial(Material newMaterial)
     {
         rendererReference.material = newMaterial;
@@ -74,9 +76,6 @@ public class Tile : MonoBehaviour
 
     public void SetTilePosition(int x, int y)
     {
-        if (reference.Equals(null)) {
-            reference = new TileReference();
-        }
         reference.tilePosition.x = x;
         reference.tilePosition.y = y;
     }
@@ -87,13 +86,13 @@ public class Tile : MonoBehaviour
     }
 
      /* Fucntion to check if a tile located at a certain postion is in the players tilesOwned list */
-    public static TileReference GetTileAtPostion(Vector2 position, List<Tile.TileReference> tilesOwned){
+    public static TileReference GetTileAtPostion(Vector2 position, List<TileReference> tilesOwned){
         foreach (TileReference tileRef in tilesOwned){
             if (tileRef.tilePosition == position){
                 return tileRef;
             }
         }
-        return default(TileReference);
+        return default;
     }
 
     public Building GetBuilding()
